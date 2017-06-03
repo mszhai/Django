@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>各销售队长指标完成情况 BJ</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:600px;width:100%"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        var data = {{ dataY|safe }};
+        var datax = {{ dataX|safe }};
+         require(
+            [
+                'echarts',
+                'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
+                'echarts/chart/bar'
+            ],
+            
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+
+                var option = {
+                    title: {
+                        text: '各销售队长指标完成情况',
+                        subtext: 'BJ',
+                        textStyle: {
+                            fontSize: 15,
+                            fontWeight: 'bolder',
+                            color: '#333'
+                        },
+                        subtextStyle: {
+                            fontWeight: 'bolder',
+                            color: "#000001"
+                        }          
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: { show: true },
+                            dataView: { show: true, readOnly: false },
+                            magicType: { show: true, type: ['line', 'bar'] },
+                            restore: { show: true },
+                            saveAsImage: { show: true }
+                        }
+                    },
+                    calculable: true,
+                    legend: {
+                        data: ['销售收入（万元）', '指标（万元）', '完成率（%）']
+                    },
+                    grid:{
+                        y2: 160,
+                        x: 90,
+                        y:80
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: data,
+                            //设置字体倾斜  
+                            axisLabel:{  
+                                interval:0,  
+                                rotate:50,//倾斜度 -90 至 90 默认为0  
+                                interval:0,
+                                margin:2,  
+                                textStyle:{
+                                    fontWeight: "normal",  
+                                    color:"#000001",
+                                    fontSize:10  
+                                }  
+                            }   
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: '金额',
+                            axisLabel: {
+                                formatter: '{value} 万元'
+                            }
+                        },
+                        {
+                            type: 'value',
+                            name: '百分率',
+                            axisLabel: {
+                                formatter: '{value} %'
+                            }
+                        }
+                    ],
+                    series: [
+
+                        {
+                            name: '销售收入（万元）',
+                            type: 'bar',
+                            data: datax,
+                            markPoint: {
+                                effect:{
+                                    show: true,
+                                    type: 'scale',
+                                    loop: true,
+                                    period: 15,
+                                    scaleSize : 1.5,
+                                    bounceDistance: 10,
+                                    color : null,
+                                    shadowColor : null,
+                                    shadowBlur : 0
+                                }, 
+                                data: [
+                                    { type: 'max', name: '最大值' },
+                                    { type: 'min', name: '最小值' }
+                                ]
+                            },
+                            markLine: {
+                                effect: {
+                                    show: true,
+                                    scaleSize: 2,
+                                    loop: true,
+                                    period: 20,
+                                    color: '#fff',
+                                    shadowBlur: 10
+                                },
+                                data: [
+                                    { type: 'average', name: '平均值' }
+                                ]
+                            }
+                        },
+                        {
+                            name: '指标（万元）',
+                            type: 'bar',
+                            data: [3950.7, 3407.8, 2477.2, 2247.5, 799.6, 1305.3, 1305.3, 2021.8, 489.5, 253.0, 374.0, 350.5, 511.0,
+                                 304.5, 370.5, 360.5, 386.5, 279.0, 374.5, 354.5, 495.5, 401.5, 82.7, 21.5, 80.0, 5.5, 32.0, 40.5, 66.5, 56.5, 65.0],
+                            markPoint: {
+                                effect: {
+                                    show: true,
+                                    type: 'scale',
+                                    loop: true,
+                                    period: 15,
+                                    scaleSize: 1.5,
+                                    bounceDistance: 10,
+                                    color: null,
+                                    shadowColor: null,
+                                    shadowBlur: 0
+                                },
+                                data: [
+                                    { type: 'max', name: '最大值' },
+                                    { type: 'min', name: '最小值' }
+                                ]
+                            },
+                            markLine: {
+                                effect: {
+                                    show: true,
+                                    scaleSize: 2,
+                                    loop: true,
+                                    period: 20,
+                                    color: '#fff',
+                                    shadowBlur: 10
+                                },
+                                //itemStyle: {
+                                //    normal: {
+                                //        borderWidth: 2,
+                                //        lineStyle: {
+                                //            type: 'solid',
+                                //            shadowBlur: 10
+                                //        }
+                                //    }
+                                //},
+                                data: [
+                                    { type: 'average', name: '平均值' }
+                                ]
+                            }
+                        },
+                        {
+                            name: '完成率（%）',
+                            type: 'line',
+                            yAxisIndex: 1,
+                            //areaStyle: { normal: {} },
+                            smooth: true,
+                            showAllSymbol: true,
+                            symbol: 'heart',
+                            symbolRotate:40,
+                            symbolSize: 5,
+                            data: [95.84, 97.35, 111.20, 94.07, 114.70, 90.80, 104.60, 111.37, 128.26, 134.98, 175.13, 157.97, 143.55, 153.58, 154.35, 163.89, 130.52,
+                                124.28,104.09,152.07,132.10,144.80,45.98,90.08,57.94,139.22,86.84,54.92,54.53,46.20,58.61]
+                        }
+                    ]
+                    };
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>
