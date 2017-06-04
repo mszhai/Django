@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^hello$', view.hello),
     url(r'^test01$', view.test),
     url(r'^echarts/', view.echarts),
+    url(r'^pie/', view.pie),
+    url(r'^test02/', view.test02),
 ]

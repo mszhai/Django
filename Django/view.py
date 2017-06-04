@@ -21,3 +21,9 @@ def echarts(request):
             571.9, 590.8, 504.5, 346.7, 389.8, 539.1, 654.5, 581.4, 38.0, 19.4, 46.4, 7.7, 27.8, 22.2, 36.3, 26.1, 38.1]
     return render(request, 'echarts.html', {'dataY': json.dumps(data_y),
                                             'dataX': json.dumps(data_x)})
+
+def pie(request):
+    return render(request, 'pie.html')
+
+def test02(request):
+    return render(request, 'test02.html')
