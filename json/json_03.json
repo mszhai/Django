@@ -1,5 +1,5 @@
 {
-    "describe": "患者相似性分析API",
+    "describe": "查询患者预后风险结果",
     "result": {
         "risks":{
             "id": 131,
