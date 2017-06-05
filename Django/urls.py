@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^echarts/', view.echarts),
     url(r'^pie/', view.pie),
     url(r'^test02/', view.test02),
+    url(r'^doctor/', view.doctor),
 ]

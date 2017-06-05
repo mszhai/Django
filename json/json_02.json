@@ -1,0 +1,390 @@
+{
+    "describe": "患者相似性分析API",
+    "result": {
+        "adapterClass": "CuramVariableFeatureMapper", 
+        "adapterModule": "CuramVariableFeatureMapper", 
+        "clusteringAlgo": "Agglo", 
+        "clusters": [
+            {
+                "centroid": [
+                    1.8658231825899776, 
+                    9.889645979991608e-06
+                ], 
+                "id": 0, 
+                "options": [
+                    {
+                        "nCount": 25, 
+                        "name": "diabetes_sugst_weightcontrl", 
+                        "oddsRatio": 0.5555555555555556, 
+                        "pCount": 0
+                    }, 
+                    {
+                        "nCount": 29, 
+                        "name": "diabetes_sugst_exercise", 
+                        "oddsRatio": 0.7073170731707317, 
+                        "pCount": 0
+                    }, 
+                    {
+                        "nCount": 40, 
+                        "name": "diabetes_sugst_diet", 
+                        "oddsRatio": 1.3333333333333335, 
+                        "pCount": 0
+                    }, 
+                    {
+                        "nCount": 14, 
+                        "name": "diabetes_sugst_smokingcontrl", 
+                        "oddsRatio": 0.25, 
+                        "pCount": 0
+                    }, 
+                    {
+                        "nCount": 39, 
+                        "name": "soActivity", 
+                        "oddsRatio": 1.2580645161290323, 
+                        "pCount": 0
+                    }
+                ], 
+                "pCount": 0, 
+                "size": 70
+            }, 
+            {
+                "centroid": [
+                    0.30495046466081965, 
+                    1.7726812831261708e-06
+                ], 
+                "id": 1, 
+                "options": [
+                    {
+                        "nCount": 14, 
+                        "name": "diabetes_sugst_weightcontrl", 
+                        "oddsRatio": 1.3910249305561477, 
+                        "pCount": 12
+                    }, 
+                    {
+                        "nCount": 21, 
+                        "name": "diabetes_sugst_exercise", 
+                        "oddsRatio": 2.289472838346469, 
+                        "pCount": 14
+                    }, 
+                    {
+                        "nCount": 33, 
+                        "name": "diabetes_sugst_diet", 
+                        "oddsRatio": 2.525510985786893, 
+                        "pCount": 28
+                    }, 
+                    {
+                        "nCount": 9, 
+                        "name": "diabetes_sugst_smokingcontrl", 
+                        "oddsRatio": 0.9580638483877646, 
+                        "pCount": 10
+                    }, 
+                    {
+                        "nCount": 20, 
+                        "name": "soActivity", 
+                        "oddsRatio": 1.2631577562327598, 
+                        "pCount": 19
+                    }
+                ], 
+                "pCount": 43, 
+                "size": 83
+            }, 
+            {
+                "centroid": [
+                    -0.48251847598711195, 
+                    1.0802317204352135e-05
+                ], 
+                "id": 2, 
+                "options": [
+                    {
+                        "nCount": 17, 
+                        "name": "diabetes_sugst_weightcontrl", 
+                        "oddsRatio": 1.1926153938215376, 
+                        "pCount": 125
+                    }, 
+                    {
+                        "nCount": 23, 
+                        "name": "diabetes_sugst_exercise", 
+                        "oddsRatio": 1.444922658223248, 
+                        "pCount": 166
+                    }, 
+                    {
+                        "nCount": 26, 
+                        "name": "diabetes_sugst_diet", 
+                        "oddsRatio": 1.989071284750203, 
+                        "pCount": 183
+                    }, 
+                    {
+                        "nCount": 12, 
+                        "name": "diabetes_sugst_smokingcontrl", 
+                        "oddsRatio": 1.1235954542776643, 
+                        "pCount": 89
+                    }, 
+                    {
+                        "nCount": 20, 
+                        "name": "soActivity", 
+                        "oddsRatio": 1.390070965243194, 
+                        "pCount": 141
+                    }
+                ], 
+                "pCount": 239, 
+                "size": 269
+            }, 
+            {
+                "centroid": [
+                    -0.1459276050704656, 
+                    -2.0923078732140032e-05
+                ], 
+                "id": 3, 
+                "options": [
+                    {
+                        "nCount": 15, 
+                        "name": "diabetes_sugst_weightcontrl", 
+                        "oddsRatio": 0.944444380658448, 
+                        "pCount": 54
+                    }, 
+                    {
+                        "nCount": 18, 
+                        "name": "diabetes_sugst_exercise", 
+                        "oddsRatio": 0.6981818341818161, 
+                        "pCount": 75
+                    }, 
+                    {
+                        "nCount": 24, 
+                        "name": "diabetes_sugst_diet", 
+                        "oddsRatio": 0.6718750862630118, 
+                        "pCount": 96
+                    }, 
+                    {
+                        "nCount": 11, 
+                        "name": "diabetes_sugst_smokingcontrl", 
+                        "oddsRatio": 0.7191091246108864, 
+                        "pCount": 48
+                    }, 
+                    {
+                        "nCount": 24, 
+                        "name": "soActivity", 
+                        "oddsRatio": 1.2077922457412669, 
+                        "pCount": 77
+                    }
+                ], 
+                "pCount": 139, 
+                "size": 179
+            }
+        ], 
+        "decisionObjective": "BldPres", 
+        "distanceMetric": [
+            "LDA", 
+            2
+        ], 
+        "features": [
+            "hypertension_WesMed", 
+            "hypertension_None", 
+            "hypertension_test", 
+            "hypertension", 
+            "dyslipidemia", 
+            "r_healthChange3", 
+            "year_hypertension", 
+            "diseaseNum", 
+            "hypertension_trmt", 
+            "hypertension_trmtNum", 
+            "hypertension_sugstNum", 
+            "hypertension_testNum_disc", 
+            "year_hypertension_disc", 
+            "feel_yes_frustrated", 
+            "feel_yes_lonely", 
+            "feel_yes_stressed", 
+            "difficulty_extendarm", 
+            "difficulty_contrlUriDef", 
+            "hearing_status3", 
+            "memory_status3"
+        ], 
+        "members": {
+            "0": [
+                "202454104001", 
+                "162431219001", 
+                "122490323002", 
+                "294099216001", 
+                "160104125001", 
+                "160104124001", 
+                "211176326002", 
+                "58202204002", 
+                "262728115002", 
+                "54249207001", 
+                "241116118002", 
+                "297439103002", 
+                "297439206002", 
+                "56346309002", 
+                "65546201002", 
+                "262728205002", 
+                "345233305001",
+                "74981121002", 
+                "75376303002"
+            ], 
+            "1": [
+                "166006305002", 
+                "108259226001", 
+                "294028324001", 
+                "124099203001", 
+                "56043203002", 
+                "54054109002"
+            ], 
+            "2": [
+                "64604122001", 
+                "326359316001", 
+                "241116208002", 
+                "241116208001", 
+                "105381312001", 
+                "111154301001", 
+                "72428218001", 
+                "114604110001", 
+                "10446208002", 
+                "296331338001", 
+                "241116102002", 
+                "177402216002", 
+                "345233212001", 
+                "112744107002", 
+                "265576318002", 
+                "294028225002", 
+                "261676225001", 
+                "72428108002", 
+                "64033126002", 
+                "74004111002", 
+                "205304323001", 
+                "266306215001", 
+                "184037201001", 
+                "54249322002", 
+                "64604213002", 
+                "275559201001", 
+                "154044211001", 
+                "194037107002", 
+                "268606111001", 
+                "118276203002", 
+                "261676211001", 
+                "296331206002", 
+                "94004115001", 
+                "184037304001", 
+                "104004302002", 
+                "116006213001", 
+                "205304215002", 
+                "112744201001", 
+                "321131305001", 
+                "324078121001", 
+                "89676208002", 
+                "14031112001", 
+                "64028214001", 
+                "205304217002", 
+                "280154215001"
+            ], 
+            "3": [
+                "114604327002", 
+                "135559204001", 
+                "298245131002", 
+                "288251114002", 
+                "118276318001", 
+                "108259130001", 
+                "281104109001", 
+                "154631220002", 
+                "324045128001", 
+                "58659207002", 
+                "184037116001", 
+                "271806333001", 
+                "74004204001", 
+                "142403114001", 
+                "65546202001", 
+                "291676326001", 
+                "336059224001", 
+                "326359215001", 
+                "212428214001", 
+                "298245118001", 
+                "321131310001", 
+                "105102233001", 
+                "14031310001", 
+                "166006117001", 
+                "34676230001"
+            ]
+        }, 
+        "numClusters": 4, 
+        "numFeatures": 20, 
+        "numVariables": 33, 
+        "scaleParas": {
+            "mean": [
+                0.7171381031613977, 
+                0.2529118136439268, 
+                0.7687188019966722, 
+                0.8835274542429284, 
+                0.4459234608985025, 
+                0.454242928452579, 
+                9.538748752079867, 
+                3.78369384359401, 
+                0.7470881863560732, 
+                0.8252911813643927, 
+                1.6772046589018303, 
+                3.059900166389351, 
+                3.2212978369384357, 
+                0.21963394342762063, 
+                0.13976705490848584, 
+                0.12146422628951747, 
+                0.17803660565723795, 
+                0.06988352745424292, 
+                0.16971713810316139, 
+                0.33943427620632277
+            ], 
+            "std": [
+                0.45038988016547293, 
+                0.43468083482397246, 
+                0.4216517585086922, 
+                0.3207907290461151, 
+                0.49706712616990006, 
+                0.49790188833082927, 
+                9.022441636827171, 
+                1.6233939713252437, 
+                0.43468083482397246, 
+                0.5482623800181811, 
+                1.546493916570084, 
+                1.2716305476043832, 
+                1.2986409046178768, 
+                0.4139986404833395, 
+                0.3467451878118771, 
+                0.32666598846743544, 
+                0.38254355660929457, 
+                0.2549506227582018, 
+                0.3753841114608269, 
+                0.473517315779066
+            ]
+        }, 
+        "variables": [
+            "disease_4_Cancer", 
+            "htnSugst_4_SmokingControl", 
+            "feel_yes_lonely", 
+            "disease_1_Hypertension", 
+            "disease_12_MemoryRelatedDisease", 
+            "difficulty_extendarm", 
+            "healthChange", 
+            "feel_yes_frustrated", 
+            "feel_yes_stressed", 
+            "disease_8_Stroke", 
+            "htnSugst_2_Exercise", 
+            "hypertension_testNum", 
+            "hypertension_test", 
+            "htnSugst_3_Diet", 
+            "memory_status", 
+            "disease_5_ChronicLungDiseases", 
+            "disease_10_StomachDisease", 
+            "disease_11_EmotionalProblem", 
+            "disease_13_Arthritis", 
+            "htmTrmt_1_ChineseTraditionalMedicine", 
+            "disease_7_HeartAttack", 
+            "htmTrmt_3_None", 
+            "hearing_status", 
+            "disease_6_LiverDisease", 
+            "htnSugst_5_None", 
+            "disease_9_KidneyDisease", 
+            "disease_2_Dyslipidemia", 
+            "year_hypertension", 
+            "htmTrmt_2_WesternModernMedicine", 
+            "difficulty_contrlUriDef", 
+            "disease_3_Diabetes", 
+            "disease_14_Asthma", 
+            "htnSugst_1_WeightControl"
+        ]
+    }
+}
