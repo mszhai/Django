@@ -1,9 +1,77 @@
-{% extends 'base.html' %}  
-   
-{% block title %}My-SSOC{% endblock %}  
-   
-{% block content %}  
-        hello world!   
-<p class="text-warning">kkkkkkkkkkkk warning class</p>  
-<p class="text-danger">fffffffff danger class</p>  
-{% endblock %}  
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- title -->
+        <div class="row">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index">脑卒中</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            医生
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../doctor01.html">风险因子</a></li>
+                            <li><a href="../doctor02.html">患者信息</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">相似患者分析</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            患者
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">风险</a></li>
+                            <li><a href="#">历史</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- content -->
+        <div>
+            {% block content %}
+            <div class="col-md-6 col-xs-6">
+                风险评估
+            </div>
+            <div class="col-md-6 col-xs-6">
+                效果图
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

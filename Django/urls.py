@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.conf.urls import include
 from django.contrib import admin
 
 from . import view
@@ -29,4 +30,7 @@ urlpatterns = [
     url(r'^doctor/', view.doctor),
     url(r'^index/', views.index),
     url(r'^index/$', views.others),
+    url(r'^doctor01.html/', views.doctor01),
+    url(r'^doctor02.html/', views.doctor02),
+    #url(r'^static/(?P<path>.*)$', views.static.serve, {'document_root': 'static/'}),
 ]
