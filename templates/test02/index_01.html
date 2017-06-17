@@ -24,7 +24,7 @@
         <!-- title -->
         <div class="row">
             <div class="navbar-header">
-                <a class="navbar-brand" href="../index">脑卒中</a>
+                <a class="navbar-brand" href="{% url 'index' %}">脑卒中</a>
             </div>
             <div>
                 <ul class="nav navbar-nav">
@@ -34,8 +34,8 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="../doctor01.html">风险因子</a></li>
-                            <li><a href="../doctor02.html">患者信息</a></li>
+                            <li><a href="{% url 'doctor01' %}">风险因子</a></li>
+                            <li><a href="{% url 'doctor02' %}">患者信息</a></li>
                         </ul>
                     </li>
                     <li><a href="#">相似患者分析</a></li>
