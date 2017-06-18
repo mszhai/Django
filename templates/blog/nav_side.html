@@ -3,11 +3,13 @@
     <div class="sidebar-collapse">
         <ul class="nav" id="main-menu">
 
-            <li>
-                <a class="active-menu" href="index.html"><i class="fa fa-dashboard"></i> 医生</a>
+            <li>{% block doctor %}
+                <a href="{% url 'doctor' %}"><i class="fa fa-dashboard"></i> 医生</a>
+                {% endblock %}
             </li>
-            <li>
-                <a href="ui-elements.html"><i class="fa fa-desktop"></i> UI Elements</a>
+            <li>{% block model %}
+                <a href="{% url 'model' %}"><i class="fa fa-desktop"></i> 预测模型</a>
+                {% endblock %}
             </li>
 
             <li>

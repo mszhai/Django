@@ -5,6 +5,40 @@ import json
 def index(request):
     return render(request, 'blog/index.html')
 
+def doctor(request):
+    data = {'Clinical': 90, 'Non-clinical': 54, 'Treatment': 33}
+    data2 = {'血管栓塞史': 30,
+             '糖尿病患病年数': 20,
+             '高血压&心衰': 20,
+             '颅内出血': 20,
+             'BMI': 34,
+             '目前吸烟': 10,
+             '控制心室率药物': 10,
+             'PCI最近一次时间': 10,
+             '阿司匹林&\beta 阻滞剂': 15,
+             'ARB&阿司匹林': 8}
+    legend = list()
+    inner_pie = list()
+    out_pie = list()
+    for element in data.keys():
+        legend.append(element)
+        dic_tem = {}
+        dic_tem['value'] = data[element]
+        dic_tem['name'] = element
+        inner_pie.append(dic_tem)
+    for element in data2.keys():
+        legend.append(element)
+        dic_tem = {}
+        dic_tem['value'] = data2[element]
+        dic_tem['name'] = element
+        out_pie.append(dic_tem)
+    return render(request, 'blog/doctor.html', {'legend': json.dumps(legend),
+                                                'innerpie': json.dumps(inner_pie),
+                                                'outpie': json.dumps(out_pie)})
+
+def model(request):
+    return render(request, 'blog/model.html')
+
 def others(request):
     return render(request, 'blog/nav.html')
 
@@ -66,7 +100,7 @@ def pie(request):
 def test02(request):
     return render(request, 'test/test02.html')
 
-def doctor(request):
+def doctor03(request):
     data = {'Clinical': 90, 'Non-clinical': 54, 'Treatment': 33}
     data2 = {'血管栓塞史': 30,
              '糖尿病患病年数': 20,
