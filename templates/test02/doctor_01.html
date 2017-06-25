@@ -13,16 +13,33 @@
 
     </div>
     <div id="page-inner">
+
         <div class="row">
             <div class="col-sm-6 col-xs-12">
                 <div class="panel panel-default chartJs">
-                    <div class="panel-body">
-                        <div id="main" style="height:380px;width:100%;background-color: blue"></div>
+                    <div class="panel-heading">
+                        <div class="card-title">
+                            <div class="title">脑卒中风险</div>
+                        </div>
+                    </div>
+                    <div class="panel-body" id="panel-body">
+                        <div id="main" style="height:380px;width:760px"></div>
+                        <!--canvas id="line-chart" class="chart"></canvas-->
                     </div>
                 </div>
             </div>
-            
-           
+            <div class="col-sm-6 col-xs-12">
+                <div class="panel panel-default chartJs">
+                    <div class="panel-heading">
+                        <div class="card-title">
+                            <div class="title">Bar Chart</div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="bar-chart" class="chart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-6 col-xs-12">
@@ -101,13 +118,12 @@
     var dom = document.getElementById("main");
 
     var myChart = echarts.init(dom);
-
     var app = {};
     option = null;
     option = {
         title: {
             text: '风险因子',
-            x: 'left'
+            x: 'center'
         },
         tooltip: {
             trigger: 'item',
@@ -148,10 +164,9 @@
     };
 
     myChart.setOption(option, true);
-
-    //用于使chart自适应高度和宽度
-    window.onresize = function () {
+    window.addEventListener("resize", function () {
         myChart.resize();
-    };
+    });
+
 </script>
 {% endblock %}
