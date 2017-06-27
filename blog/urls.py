@@ -2,6 +2,8 @@ from django.conf.urls import url
 from blog import views
 
 urlpatterns = [
+    url(r'dbshow.html', views.dbshow, name='dbshow'),
+    url(r'^barthel.html', views.barthel, name='barthel'),
     url(r'^index.html', views.index, name='index'),
     url(r'^doctor.html', views.doctor, name='doctor'),
     url(r'^model.html', views.model, name='model'),

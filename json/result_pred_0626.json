@@ -1,0 +1,274 @@
+{
+	"inhosp_no": "B000000",
+	"total_score": {
+		"model_id": "1",
+		"model_name": "Barthel总分",
+		"admission_score": 45,
+		"predicted_score": 55
+	},
+	"total_level": {
+		"model_id": "2",
+		"model_name": "缺陷程度",
+		"admission_score": 1,
+		"predicted_score": 2,
+		"prob_distribution": [
+			{
+				"score": 0,
+				"probability": 0.0,
+				"is_visible": false
+			},
+			{
+				"score": 1,
+				"probability": 0.21,
+				"is_visible": true
+			},
+			{
+				"score": 2,
+				"probability": 0.76,
+				"is_visible": true
+			},
+			{
+				"score": 3,
+				"probability": 0.03,
+				"is_visible": true
+			},
+			{
+				"score": 4,
+				"probability": 0.00,
+				"is_visible": true
+			}
+		]
+	},
+	"subitem_scores": [
+		{
+			"model_id": "3",
+			"model_name": "大便",
+			"admission_score": 10,
+			"predicted_score": 10,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.0,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.01,
+					"is_visible": false
+				},
+				{
+					"score": 10,
+					"probability": 0.99,
+					"is_visible": false
+				}
+			]
+		},
+		{
+			"model_id": "4",
+			"model_name": "小便",
+			"admission_score": 10,
+			"predicted_score": 10,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.0,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.01,
+					"is_visible": false
+				},
+				{
+					"score": 10,
+					"probability": 0.99,
+					"is_visible": false
+				}
+			]
+		},
+		{
+			"model_id": "5",
+			"model_name": "修饰",
+			"admission_score": 0,
+			"predicted_score": 0,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.76,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.24,
+					"is_visible": true
+				}
+			]
+		},
+		{
+			"model_id": "6",
+			"model_name": "用厕",
+			"admission_score": 5,
+			"predicted_score": 5,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.0,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.85,
+					"is_visible": false
+				},
+				{
+					"score": 10,
+					"probability": 0.15,
+					"is_visible": true
+				}
+			]
+		},
+		{
+			"model_id": "7",
+			"model_name": "吃饭",
+			"admission_score": 10,
+			"predicted_score": 10,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.0,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.01,
+					"is_visible": false
+				},
+				{
+					"score": 10,
+					"probability": 0.99,
+					"is_visible": false
+				}
+			]
+		},
+		{
+			"model_id": "8",
+			"model_name": "转移",
+			"admission_score": 5,
+			"predicted_score": 10,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.0,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.32,
+					"is_visible": false
+				},
+				{
+					"score": 10,
+					"probability": 0.67,
+					"is_visible": true
+				},
+				{
+					"score": 15,
+					"probability": 0.01,
+					"is_visible": true
+				}
+			]
+		},
+		{
+			"model_id": "9",
+			"model_name": "活动",
+			"admission_score": 5,
+			"predicted_score": 10,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.0,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.41,
+					"is_visible": false
+				},
+				{
+					"score": 10,
+					"probability": 0.56,
+					"is_visible": true
+				},
+				{
+					"score": 15,
+					"probability": 0.02,
+					"is_visible": true
+				}
+			]
+		},
+		{
+			"model_id": "10",
+			"model_name": "穿衣",
+			"admission_score": 0,
+			"predicted_score": 0,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.67,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.33,
+					"is_visible": true
+				},
+				{
+					"score": 10,
+					"probability": 0.0,
+					"is_visible": true
+				}
+			]
+		},
+		{
+			"model_id": "11",
+			"model_name": "上楼",
+			"admission_score": 0,
+			"predicted_score": 0,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.92,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.08,
+					"is_visible": true
+				},
+				{
+					"score": 10,
+					"probability": 0.0,
+					"is_visible": true
+				}
+			]
+		},
+		{
+			"model_id": "12",
+			"model_name": "洗澡",
+			"admission_score": 0,
+			"predicted_score": 0,
+			"prob_distribution": [
+				{
+					"score": 0,
+					"probability": 0.98,
+					"is_visible": false
+				},
+				{
+					"score": 5,
+					"probability": 0.02,
+					"is_visible": true
+				}
+			]
+		}
+	]
+}
