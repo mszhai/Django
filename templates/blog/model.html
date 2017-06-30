@@ -10,7 +10,57 @@
             <li><a href="#">Empty</a></li>
             <li class="active">Data</li>
         </ol>
+        
+        <!-- /.row -->
         <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Kitchen Sink
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" id="barthel_table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>住院号</th>
+                                        <th>姓名</th>
+                                        <th>性别</th>
+                                        <th>出生日期</th>
+                                        <th>预测模型</th>
+                                    </tr>
+                                </thead>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B00000</td>
+                                        <td>张三</td>
+                                        <td>男</td>
+                                        <td>1971.9</td>
+                                        <td><button type="button" class="btn btn-default" onclick="predict('1')">预测</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>B000001</td>
+                                        <td>花木兰</td>
+                                        <td>女</td>
+                                        <td>1964.9</td>
+                                        <td><button type="button" class="btn btn-default" onclick="predict('2')">预测</button></td>
+                                    </tr>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row" style="display:none" id="info">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -21,33 +71,35 @@
                     <div class="panel-body">
                         <form class="form-horizontal">
                             <div class="form-group">
+                                <label for="exampleInputName2" class="col-md-1 control-label">住院号 </label>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="inhospno" placeholder="Jane Doe" style="">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleInputName2" class="col-md-1 control-label">姓名 </label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" style="">
+                                    <input type="text" class="form-control" id="name" placeholder="Jane Doe" style="">
                                 </div>
-                                <label for="exampleInputName2" class="col-md-1 control-label">性别 </label>
+                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">性别 </label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputName2" class="col-md-1 control-label">患者ID </label>
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" style="">
-                                </div>
-                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">出生日期 </label>
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+                                    <input type="text" class="form-control" id="sex" placeholder="Jane Doe">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputName2" class="col-md-1 control-label">患者ID </label>
+                                <label for="exampleInputName2" class="col-md-1 control-label">出生日期 </label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" style="">
+                                    <input type="text" class="form-control" id="bod" placeholder="Jane Doe" style="">
                                 </div>
-                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">出生日期 </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-md-1 control-label">糖尿病 </label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+                                    <input type="text" class="form-control" id="diabete" placeholder="Jane Doe" style="">
+                                </div>
+                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">吸烟史 </label>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="smoke" placeholder="Jane Doe">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-default">Send invitation</button>
@@ -56,6 +108,30 @@
                 </div>
             </div>
         </div>
+        <!-- /.row -->
     </div>
 </div>
+<script type="text/javascript">
+
+    function predict(id) {
+        $("#info").show()
+        if(id=="1"){
+            $("#inhospno").val("B00000")
+            $("#name").val("张三")
+            $("#sex").val("男")
+            $("#bod").val("1973.1")
+            $("#diabete").val("是")
+            $("#smoke").val("否")
+        }
+        else if(id=="2"){
+            $("#inhospno").val("B000001")
+            $("#name").val("花木兰")
+            $("#sex").val("女")
+            $("#bod").val("1963.1")
+            $("#diabete").val("否")
+            $("#smoke").val("否")
+        }
+    }
+
+</script>
 {% endblock %}
