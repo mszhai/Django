@@ -157,7 +157,7 @@ def barthel(request):
         tem_dic['pre'] = item['predicted_score']
         b_data.append(tem_dic)
     barthel['data'] = b_data
-    return render(request, 'blog/barthel.html', {'batthel_json': json.dumps(barthel)})
+    return render(request, 'blog/barthel.html', {'batthel_json': json.dumps(barthel), 'ori_data': data})
 
 def dbshow(request):
     return render(request, 'blog/dbshow.html')

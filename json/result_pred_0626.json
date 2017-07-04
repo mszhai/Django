@@ -15,27 +15,27 @@
 			{
 				"score": 0,
 				"probability": 0.0,
-				"is_visible": false
+				"is_visible": 0
 			},
 			{
 				"score": 1,
 				"probability": 0.21,
-				"is_visible": true
+				"is_visible": 1
 			},
 			{
 				"score": 2,
 				"probability": 0.76,
-				"is_visible": true
+				"is_visible": 1
 			},
 			{
 				"score": 3,
 				"probability": 0.03,
-				"is_visible": true
+				"is_visible": 1
 			},
 			{
 				"score": 4,
 				"probability": 0.00,
-				"is_visible": true
+				"is_visible": 1
 			}
 		]
 	},
@@ -47,19 +47,19 @@
 			"predicted_score": 10,
 			"prob_distribution": [
 				{
-					"score": 0,
+					"score": "0=失禁或昏迷",
 					"probability": 0.0,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.01,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 10,
 					"probability": 0.99,
-					"is_visible": false
+					"is_visible": 0
 				}
 			]
 		},
@@ -72,17 +72,17 @@
 				{
 					"score": 0,
 					"probability": 0.0,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.01,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 10,
 					"probability": 0.99,
-					"is_visible": false
+					"is_visible": 0
 				}
 			]
 		},
@@ -95,12 +95,12 @@
 				{
 					"score": 0,
 					"probability": 0.76,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.24,
-					"is_visible": true
+					"is_visible": 1
 				}
 			]
 		},
@@ -113,17 +113,17 @@
 				{
 					"score": 0,
 					"probability": 0.0,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.85,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 10,
 					"probability": 0.15,
-					"is_visible": true
+					"is_visible": 1
 				}
 			]
 		},
@@ -136,17 +136,17 @@
 				{
 					"score": 0,
 					"probability": 0.0,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.01,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 10,
 					"probability": 0.99,
-					"is_visible": false
+					"is_visible": 0
 				}
 			]
 		},
@@ -159,22 +159,22 @@
 				{
 					"score": 0,
 					"probability": 0.0,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.32,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 10,
 					"probability": 0.67,
-					"is_visible": true
+					"is_visible": 1
 				},
 				{
 					"score": 15,
 					"probability": 0.01,
-					"is_visible": true
+					"is_visible": 1
 				}
 			]
 		},
@@ -187,22 +187,22 @@
 				{
 					"score": 0,
 					"probability": 0.0,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.41,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 10,
 					"probability": 0.56,
-					"is_visible": true
+					"is_visible": 1
 				},
 				{
 					"score": 15,
 					"probability": 0.02,
-					"is_visible": true
+					"is_visible": 1
 				}
 			]
 		},
@@ -215,17 +215,17 @@
 				{
 					"score": 0,
 					"probability": 0.67,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.33,
-					"is_visible": true
+					"is_visible": 1
 				},
 				{
 					"score": 10,
 					"probability": 0.0,
-					"is_visible": true
+					"is_visible": 1
 				}
 			]
 		},
@@ -238,17 +238,17 @@
 				{
 					"score": 0,
 					"probability": 0.92,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.08,
-					"is_visible": true
+					"is_visible": 1
 				},
 				{
 					"score": 10,
 					"probability": 0.0,
-					"is_visible": true
+					"is_visible": 1
 				}
 			]
 		},
@@ -261,12 +261,12 @@
 				{
 					"score": 0,
 					"probability": 0.98,
-					"is_visible": false
+					"is_visible": 0
 				},
 				{
 					"score": 5,
 					"probability": 0.02,
-					"is_visible": true
+					"is_visible": 1
 				}
 			]
 		}

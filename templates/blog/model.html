@@ -16,9 +16,9 @@
                 <div class="panel panel-default">
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <div class="col-lg-12">
+                        <!--div class="col-lg-12">
                             <button type="button" class="btn btn-default pull-right" onclick=""> 新增患者</button>
-                        </div>
+                        </div-->
                         <div class="col-lg-12">
                             <button type="button" class="btn btn-default pull-right" onclick=""> 搜索</button> 
                             <input type="text" class="form-control pull-right" id="exampleInputName2" placeholder="例如: 住院号 " style="width:300px"> 
@@ -46,7 +46,8 @@
                                         <th>姓名</th>
                                         <th>性别</th>
                                         <th>出生日期</th>
-                                        <th>预测模型</th>
+                                        <th>其他信息</th>
+                                        <th>结果</th>
                                     </tr>
                                 </thead>
                                     <tr>
@@ -55,7 +56,8 @@
                                         <td>张三</td>
                                         <td>男</td>
                                         <td>1971.9</td>
-                                        <td><button type="button" class="btn btn-default" onclick="predict('1')">预测</button></td>
+                                        <td><button type="button" class="btn btn-default" onclick="predict('1')">查看</button></td>
+                                        <td><button type="button" class="btn btn-default" onclick="result('1')">查看</button></td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
@@ -63,7 +65,8 @@
                                         <td>花木兰</td>
                                         <td>女</td>
                                         <td>1964.9</td>
-                                        <td><button type="button" class="btn btn-default" onclick="predict('2')">预测</button></td>
+                                        <td><button type="button" class="btn btn-default" onclick="predict('2')">查看</button></td>
+                                        <td><button type="button" class="btn btn-default" onclick="result('2')">查看</button></td>
                                     </tr>
                                 <tbody>
                                 </tbody>
@@ -82,7 +85,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="card-title">
-                            <div class="title">Inline form</div>
+                            <div class="title">病人信息</div>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -98,13 +101,13 @@
                                 <div class="col-md-5">
                                     <input type="text" class="form-control" id="name" placeholder="Jane Doe" style="">
                                 </div>
-                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">性别 </label>
+                                <label for="exampleInputName2" class="col-md-1 control-label">性别 </label>
                                 <div class="col-md-5">
                                     <input type="text" class="form-control" id="sex" placeholder="Jane Doe">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputName2" class="col-md-1 control-label">出生日期 </label>
+                                <label for="exampleInputName2" class="col-md-1 control-label"  style="padding-right:0px">出生日期</label>
                                 <div class="col-md-5">
                                     <input type="text" class="form-control" id="bod" placeholder="Jane Doe" style="">
                                 </div>
@@ -119,7 +122,131 @@
                                     <input type="text" class="form-control" id="smoke" placeholder="Jane Doe">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-default">Send invitation</button>
+                            <!--center><button type="button" class="btn btn-default" onclick="pre()">出院barthel指数预测</button></center-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- /.row -->
+        <div class="row" style="display:none" id="info2">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="card-title">
+                            <div class="title">barthel指数录入</div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-md-1 control-label">总分 </label>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="inhospno" placeholder="Jane Doe" style="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-md-1 control-label">大便 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 失禁或昏迷</option>
+                                        <option value="5">5: 偶尔失禁(每星期<1次)</option>
+                                        <option value="10">10: 能控制</option>
+                                    </select>
+                                </div>
+                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">小便 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 失禁或昏迷或需由他人导尿</option>
+                                        <option value="5">5: 偶尔失禁(每24h<1次, 每星期>1次)</option>
+                                        <option value="10">10: 能控制</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-md-1 control-label">修饰 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 需帮助</option>
+                                        <option value="5">5: 独立洗脸、梳头、刷牙、剃须</option>
+                                    </select>
+                                </div>
+                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">用厕 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 依赖别人</option>
+                                        <option value="5">5: 需部分帮助</option>
+                                        <option value="10">10: 自理</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-md-1 control-label">吃饭 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 依赖</option>
+                                        <option value="5">5: 需部分帮助(切面包、抹黄油、夹菜、盛饭)</option>
+                                        <option value="10">10: 全面自理</option>
+                                    </select>
+                                </div>
+                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">转移 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 完全依赖别人，不能坐</option>
+                                        <option value="5">5: 需大量帮助（2人），能坐</option>
+                                        <option value="10">10: 需少量帮助（1人）或指导</option>
+                                        <option value="15">15: 自理</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-md-1 control-label">活动 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 不能动</option>
+                                        <option value="5">5: 在轮椅上独立行动</option>
+                                        <option value="10">10: 需1人帮助步行（体力或语言指导）</option>
+                                        <option value="15">15: 独立步行（可用辅助器）</option>
+                                    </select>
+                                </div>
+                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">穿衣 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 依赖</option>
+                                        <option value="5">5: 需一半帮助</option>
+                                        <option value="10">10: 自理（系开纽扣、开关拉链和穿鞋等）</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-md-1 control-label">上楼 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 不能</option>
+                                        <option value="5">5: 需帮助（体力或语言指导）</option>
+                                        <option value="10">10: 自理</option>
+                                    </select>
+                                </div>
+                                <label for="exampleInputName2" class="col-md-1 control-label" style="padding-right:0px">洗澡 </label>
+                                <div class="col-md-5">
+                                    <select class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="0">0: 依赖</option>
+                                        <option value="5">5: 自理</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <center><button type="button" class="btn btn-default" onclick="pre()">出院barthel指数预测</button></center>
                         </form>
                     </div>
                 </div>
@@ -132,6 +259,7 @@
 
     function predict(id) {
         $("#info").show()
+        $("#info2").show()
         if(id=="1"){
             $("#inhospno").val("B00000")
             $("#name").val("张三")
@@ -148,6 +276,11 @@
             $("#diabete").val("否")
             $("#smoke").val("否")
         }
+    }
+
+    //跳转到页面barthel
+    function pre(){
+        location.href = "barthel.html";
     }
 
 </script>
