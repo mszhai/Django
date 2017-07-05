@@ -8,13 +8,13 @@
 	},
 	"total_level": {
 		"model_id": "2",
-		"model_name": "缺陷程度",
-		"admission_score": 1,
-		"predicted_score": 2,
+		"model_name": "ADL缺陷程度*",
+		"admission_score": "严重",
+		"predicted_score": "中度",
 		"prob_distribution": [
 			{
 				"score": 0,
-				"probability": 0.0,
+				"probability": "",
 				"is_visible": 0
 			},
 			{
@@ -34,7 +34,7 @@
 			},
 			{
 				"score": 4,
-				"probability": 0.00,
+				"probability": "",
 				"is_visible": 1
 			}
 		]
@@ -48,7 +48,7 @@
 			"prob_distribution": [
 				{
 					"score": "0=失禁或昏迷",
-					"probability": 0.0,
+					"probability": "",
 					"is_visible": 0
 				},
 				{
@@ -59,6 +59,11 @@
 				{
 					"score": 10,
 					"probability": 0.99,
+					"is_visible": 0
+				},
+				{
+					"score": 15,
+					"probability": "",
 					"is_visible": 0
 				}
 			]
@@ -71,7 +76,7 @@
 			"prob_distribution": [
 				{
 					"score": 0,
-					"probability": 0.0,
+					"probability": "",
 					"is_visible": 0
 				},
 				{
@@ -82,6 +87,11 @@
 				{
 					"score": 10,
 					"probability": 0.99,
+					"is_visible": 0
+				},
+				{
+					"score": 15,
+					"probability": "",
 					"is_visible": 0
 				}
 			]
@@ -101,6 +111,16 @@
 					"score": 5,
 					"probability": 0.24,
 					"is_visible": 1
+				},
+				{
+					"score": 10,
+					"probability": "",
+					"is_visible": 0
+				},
+				{
+					"score": 15,
+					"probability": "",
+					"is_visible": 0
 				}
 			]
 		},
@@ -112,7 +132,7 @@
 			"prob_distribution": [
 				{
 					"score": 0,
-					"probability": 0.0,
+					"probability": "",
 					"is_visible": 0
 				},
 				{
@@ -124,6 +144,11 @@
 					"score": 10,
 					"probability": 0.15,
 					"is_visible": 1
+				},
+				{
+					"score": 15,
+					"probability": "",
+					"is_visible": 0
 				}
 			]
 		},
@@ -135,7 +160,7 @@
 			"prob_distribution": [
 				{
 					"score": 0,
-					"probability": 0.0,
+					"probability": "",
 					"is_visible": 0
 				},
 				{
@@ -146,6 +171,11 @@
 				{
 					"score": 10,
 					"probability": 0.99,
+					"is_visible": 0
+				},
+				{
+					"score": 15,
+					"probability": "",
 					"is_visible": 0
 				}
 			]
@@ -158,7 +188,7 @@
 			"prob_distribution": [
 				{
 					"score": 0,
-					"probability": 0.0,
+					"probability": "",
 					"is_visible": 0
 				},
 				{
@@ -186,7 +216,7 @@
 			"prob_distribution": [
 				{
 					"score": 0,
-					"probability": 0.0,
+					"probability": "",
 					"is_visible": 0
 				},
 				{
@@ -224,8 +254,13 @@
 				},
 				{
 					"score": 10,
-					"probability": 0.0,
+					"probability": "",
 					"is_visible": 1
+				},
+				{
+					"score": 15,
+					"probability": "",
+					"is_visible": 0
 				}
 			]
 		},
@@ -247,8 +282,13 @@
 				},
 				{
 					"score": 10,
-					"probability": 0.0,
+					"probability": "",
 					"is_visible": 1
+				},
+				{
+					"score": 15,
+					"probability": "",
+					"is_visible": 0
 				}
 			]
 		},
@@ -267,6 +307,16 @@
 					"score": 5,
 					"probability": 0.02,
 					"is_visible": 1
+				},
+				{
+					"score": 10,
+					"probability": "",
+					"is_visible": 0
+				},
+				{
+					"score": 15,
+					"probability": "",
+					"is_visible": 0
 				}
 			]
 		}

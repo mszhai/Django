@@ -16,24 +16,58 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Barthel指数评分量表
+                        <center>Barthel指数评分量表</center>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="exampleInputName2" class="">姓&nbsp&nbsp&nbsp&nbsp名 </label>
+                                    <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                    <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp性别 </label>
+                                    <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;" value="男">
+                                    <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp年龄 </label>
+                                    <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;" value="58岁">
+                                    <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp疾病 </label>
+                                    <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                    <label for="exampleInputName2" class="">病程 </label>
+                                    <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="exampleInputName2" class="">住院号 </label>
+                                    <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;" value="B000000">
+                                    <label for="exampleInputName2" class="">入院时间 </label>
+                                    <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                    <label for="exampleInputName2" class="">出院时间 </label>
+                                    <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                    <label for="exampleInputName2" class="">随访时间 </label>
+                                    <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                </div>
+                            </div>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover" id="barthel_table">
                                 <thead>
+                                    <tr style="background-color:#337ab7">
+                                        <th rowspan="2" style="vertical-align:middle">#</th>
+                                        <th rowspan="2" style="vertical-align:middle">项目</th>
+                                        <th rowspan="2" style="vertical-align:middle">入院评分<br/>（2017.6.2）</th>
+                                        <th rowspan="2" style="vertical-align:middle">出院预测评分<br/>（2017.6.14）</th>
+                                        <th colspan="4">预测</th>
+                                        <th rowspan="2" style="vertical-align:middle">出院实际评分<br/>（）</th>
+                                    </tr>
                                     <tr>
-                                        <th>#</th>
-                                        <th>项目</th>
-                                        <th>入院评分（2017.6.2）</th>
-                                        <th colspan="2">出院预测评分（2017.6.14）</th>
-                                        <th>出院实际评分（）</th>
+                                        <th>0</th>
+                                        <th>5</th>
+                                        <th>10</th>
+                                        <th>15</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                             </table>
+                            <p>*ADL 能力缺陷程度：0~20=极严重功能缺陷；25~45=严重功能缺陷；50~75=中度功能缺陷；</br>75~95=轻度功能缺陷；100=ADL 自理</p>
                         </div>
                         <!-- /.table-responsive -->
                     </div>
@@ -114,8 +148,67 @@
             });
         });
     }
+    function oridata2() {
+        //alert(batthel_json.inhosp_no);
+        //$("#exampleInputName2").val(batthel_json.inhosp_no);
+        $.each(ori_data.subitem_scores, function (index, item) {
+            rowspan = item.prob_distribution.length;
+            arrow = "";
+            color = "";
+            if(item.admission_score < item.predicted_score){
+                arrow = "&#8593";
+                color = "style='color:green;font-weight:bold'";
+            } else if(item.admission_score > item.predicted_score){
+                arrow = "&#8595";
+            }
+            $("#barthel_table tbody").append($('<tr ' + color + '/>')
+                .append($('<td/>').html(index + 1))
+                .append($('<td/>').html(item.model_name + arrow))
+                .append($('<td/>').html(item.admission_score))
+                .append($('<td/>').html(item.predicted_score))
+                .append($('<td/>').html(item.prob_distribution[0].probability))
+                .append($('<td/>').html(item.prob_distribution[1].probability))
+                .append($('<td/>').html(item.prob_distribution[2].probability))
+                .append($('<td/>').html(item.prob_distribution[3].probability))
+                .append($('<td/>').html("<input type='text' placeholder=''>"))
+            );
+        });
+        $("#barthel_table tbody").append($('<tr style="background-color:#337ab7"/>')
+            .append($('<td/>'))
+            .append($('<td/>'))
+            .append($('<td/>'))
+            .append($('<td/>'))
+            .append($('<td/>').html("极重"))
+            .append($('<td/>').html("严重"))
+            .append($('<td/>').html("中度"))
+            .append($('<td/>').html("轻度"))
+            .append($('<td/>'))
+        );
+        $("#barthel_table tbody").append($('<tr/>')
+            .append($('<td/>').html(11))
+            .append($('<td/>').html(ori_data.total_level.model_name))
+            .append($('<td/>').html(ori_data.total_level.admission_score))
+            .append($('<td/>').html(ori_data.total_level.predicted_score))
+            .append($('<td/>').html(ori_data.total_level.prob_distribution[1].probability))
+            .append($('<td/>').html(ori_data.total_level.prob_distribution[2].probability))
+            .append($('<td/>').html(ori_data.total_level.prob_distribution[3].probability))
+            .append($('<td/>').html(ori_data.total_level.prob_distribution[4].probability))
+            .append($('<td/>'))
+        );
+        $("#barthel_table tbody").append($('<tr/>')
+            .append($('<td/>').html('12'))
+            .append($('<td/>').html(ori_data.total_score.model_name))
+            .append($('<td/>').html(ori_data.total_score.admission_score))
+            .append($('<td/>').html(ori_data.total_score.predicted_score))
+            .append($('<td/>'))
+            .append($('<td/>'))
+            .append($('<td/>'))
+            .append($('<td/>'))
+            .append($('<td/>'))
+        );
+    }
 
-    window.onload=function(){oridata();}
+    window.onload=function(){oridata2();}
 
 </script>
 {% endblock %}
