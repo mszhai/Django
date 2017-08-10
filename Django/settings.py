@@ -73,11 +73,21 @@ WSGI_APPLICATION = 'Django.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'CETCDATABASE',
+        'USER': 'hsby',
+        'PASSWORD': 'hsby_admin',
+        'HOST': '10.111.10.63',
+        'PORT': '1521',
     }
 }
 

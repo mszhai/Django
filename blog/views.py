@@ -2,6 +2,14 @@ from django.shortcuts import render
 from django.conf import settings
 import json
 import os
+from django.contrib import auth
+from django.http import HttpResponse
+#from django.contrib.auth.decorators import login_required
+#from django.shortcuts import render_to_response
+from blog.models import API_UserInfo
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as login0
+
 
 # Create your views here.
 def index(request):
@@ -161,3 +169,47 @@ def barthel(request):
 
 def dbshow(request):
     return render(request, 'blog/dbshow.html')
+
+def login(request):
+    """
+    if request.method=='POST':
+        username=request.POST.get('name','')
+        password=request.POST.get('password','')
+        #models.API_UserInfo.objects.create(username=username,password=password)
+        user = authenticate(username=username,password=password)
+        if user is not None:
+            login0(request, user)
+        else:
+            return HttpResponse('用户名或密码错误')
+    """
+    return render(request, 'blog/login.html')
+
+def login_verify(request): #登陆信息提交验证
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        users = API_UserInfo.objects.all()
+        for user in users:
+            if user.username == username and user.password == password:
+                #user_list = API_UserInfo.objects.all()
+                #context = {'user_list': user_list}
+                request.session['username'] = username  
+                request.session.set_expiry(600)  
+                return HttpResponse('1')
+        return HttpResponse('-1')
+    else:
+        return HttpResponse('0')
+
+def login_success(request):#登陆成功之后跳转的页面
+    username = request.session['username']
+    if username == '11':
+        return render(request, 'blog/index.html')
+    else:
+        views.doctor
+
+"""
+@login_required
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect("/blog/login")
+"""

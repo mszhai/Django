@@ -2,6 +2,10 @@ from django.conf.urls import url
 from blog import views
 
 urlpatterns = [
+    #url(r'', views.logout, name='logout'),
+    url(r'^login_verify/$',views.login_verify, name='login_verify'),
+    url(r'^login_success/$', views.login_success, name='login_success'),
+    url(r'login.html', views.login, name='login'),
     url(r'dbshow.html', views.dbshow, name='dbshow'),
     url(r'^barthel.html', views.barthel, name='barthel'),
     url(r'^index.html', views.index, name='index'),
