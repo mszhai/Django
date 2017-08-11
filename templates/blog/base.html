@@ -113,7 +113,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
+                        <li><a href="{% url 'login' %}"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -127,19 +127,21 @@
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
-
-                    <li>{% block doctor %}
+                    
+                    <!--li>{% block doctor %}
                         <a href="{% url 'doctor' %}"><i class="fa fa-dashboard"></i> 医生</a> {% endblock %}
-                    </li>
+                    </li-->
                     <li>{% block model %}
                         <a href="{% url 'model' %}"><i class="fa fa-desktop"></i> 预测模型</a> {% endblock %}
                     </li>
+                    {% if has_verify %}
                     <li>{% block barthel %}
-                        <a href="{% url 'barthel' %}"><i class="fa fa-desktop"></i> barthel指数</a> {% endblock %}
+                        <a href="{% url 'barthel' %}"><i class="fa fa-desktop"></i> Barthel指数</a> {% endblock %}
                     </li>
-                    <li>{% block dbshow %}
+                    {% endif %}
+                    <!--li>{% block dbshow %}
                         <a href="{% url 'dbshow' %}"><i class="fa fa-desktop"></i> 数据产品</a> {% endblock %}
-                    </li>
+                    </li-->
                 </ul>
 
             </div>

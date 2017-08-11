@@ -3,13 +3,13 @@
 <div id="page-wrapper">
     <div class="header">
         <h1 class="page-header">
-            个人脑卒中风险预测 <small>Create new page.</small>
+            患者信息 <small>认知健康服务平台</small>
         </h1>
-        <ol class="breadcrumb">
+        <!--ol class="breadcrumb">
             <li><a href="#">Home</a></li>
             <li><a href="#">Empty</a></li>
             <li class="active">Data</li>
-        </ol>
+        </ol-->
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-12">
@@ -161,7 +161,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="card-title">
-                            <div class="title">barthel指数录入</div>
+                            <div class="title">Barthel指数录入</div>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -304,9 +304,44 @@
         }
     }
 
+    function result(id){
+        $.ajax({
+            url: '/verify/',
+            cache: false,
+            success: function (data) {
+                //alert(data);
+                if (data == 1) {
+                    location.href = "barthel.html";
+                }
+                if (data == -1) {
+                    alert('您暂时没有权限查看!');
+                }
+            },
+            error: function () {
+                alert('出错啦！');
+            }
+        });
+    }
+
     //跳转到页面barthel
     function pre(){
-        location.href = "barthel.html";
+        $.ajax({
+            url: '/verify/',
+            cache: false,
+            success: function (data) {
+                //alert(data);
+                if (data == 1) {
+                    location.href = "barthel.html";
+                }
+                if (data == -1) {
+                    alert('预测成果，请等病人最后一次barthel评分后查看结果!');
+                }
+            },
+            error: function () {
+                alert('预测失败！');
+            }
+        });
+        //location.href = "barthel.html";
     }
 
 </script>

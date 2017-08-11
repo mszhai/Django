@@ -4,6 +4,7 @@ import json
 import os
 from django.contrib import auth
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 #from django.contrib.auth.decorators import login_required
 #from django.shortcuts import render_to_response
 from blog.models import API_UserInfo
@@ -11,9 +12,50 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as login0
 
 
+
 # Create your views here.
+def user_verify(request):
+    username = request.session['username']
+    if username == '11':
+        return True
+    elif username == 'aa':
+        return False
+
+def admin(request):
+    return render(request, 'blog/admin.html')
+
 def index(request):
-    return render(request, 'blog/index.html')
+    has_verify = user_verify(request)
+    data = {'Clinical': 90, 'Non-clinical': 54, 'Treatment': 33}
+    data2 = {'血管栓塞史': 30,
+             '糖尿病患病年数': 20,
+             '高血压&心衰': 20,
+             '颅内出血': 20,
+             'BMI': 34,
+             '目前吸烟': 10,
+             '控制心室率药物': 10,
+             'PCI最近一次时间': 10,
+             '阿司匹林&\beta 阻滞剂': 15,
+             'ARB&阿司匹林': 8}
+    legend = list()
+    inner_pie = list()
+    out_pie = list()
+    for element in data.keys():
+        legend.append(element)
+        dic_tem = {}
+        dic_tem['value'] = data[element]
+        dic_tem['name'] = element
+        inner_pie.append(dic_tem)
+    for element in data2.keys():
+        legend.append(element)
+        dic_tem = {}
+        dic_tem['value'] = data2[element]
+        dic_tem['name'] = element
+        out_pie.append(dic_tem)
+    return render(request, 'blog/index.html', {'legend': json.dumps(legend),
+                                                'innerpie': json.dumps(inner_pie),
+                                                'outpie': json.dumps(out_pie),
+                                                'has_verify': has_verify})
 
 def doctor(request):
     data = {'Clinical': 90, 'Non-clinical': 54, 'Treatment': 33}
@@ -47,7 +89,8 @@ def doctor(request):
                                                 'outpie': json.dumps(out_pie)})
 
 def model(request):
-    return render(request, 'blog/model.html')
+    has_verify = user_verify(request)
+    return render(request, 'blog/model.html', {'has_verify': has_verify})
 
 def others(request):
     return render(request, 'blog/nav.html')
@@ -142,6 +185,7 @@ def doctor03(request):
                                                 'outpie': json.dumps(out_pie)})
 
 def barthel(request):
+    has_verify = user_verify(request)
     batthel_json = os.path.join(settings.BASE_DIR, 'json/result_pred_0626.json')
     with open(batthel_json, 'rt', encoding='utf8') as f:
         data = json.load(f)
@@ -165,7 +209,8 @@ def barthel(request):
         tem_dic['pre'] = item['predicted_score']
         b_data.append(tem_dic)
     barthel['data'] = b_data
-    return render(request, 'blog/barthel.html', {'batthel_json': json.dumps(barthel), 'ori_data': data})
+    return render(request, 'blog/barthel.html', {'batthel_json': json.dumps(barthel), 'ori_data': data, 
+                                                 'has_verify': has_verify})
 
 def dbshow(request):
     return render(request, 'blog/dbshow.html')
@@ -194,18 +239,28 @@ def login_verify(request): #登陆信息提交验证
                 #user_list = API_UserInfo.objects.all()
                 #context = {'user_list': user_list}
                 request.session['username'] = username  
-                request.session.set_expiry(600)  
+                #request.session.set_expiry(600) #session的
                 return HttpResponse('1')
         return HttpResponse('-1')
     else:
         return HttpResponse('0')
 
 def login_success(request):#登陆成功之后跳转的页面
+    return index(request)
+    """
     username = request.session['username']
     if username == '11':
-        return render(request, 'blog/index.html')
+        return index(request)
     else:
-        views.doctor
+        return doctor(request)
+    """
+
+def verify(request):#权限判断
+    username = request.session['username']
+    if username == '11':
+        return HttpResponse('1')
+    else:
+        return HttpResponse('-1')
 
 """
 @login_required
