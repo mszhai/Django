@@ -135,8 +135,14 @@
                         <a href="{% url 'model' %}"><i class="fa fa-desktop"></i> 预测模型</a> {% endblock %}
                     </li>
                     {% if has_verify %}
+                    <li>{% block predict %}
+                        <a href="{% url 'predict' %}"><i class="fa fa-desktop"></i> 患者康复预测报告</a> {% endblock %}
+                    </li>
                     <li>{% block barthel %}
                         <a href="{% url 'barthel' %}"><i class="fa fa-desktop"></i> Barthel指数</a> {% endblock %}
+                    </li>
+                    <li>{% block similarity %}
+                        <a href="{% url 'similarity' %}"><i class="fa fa-desktop"></i> 相似患者分群</a> {% endblock %}
                     </li>
                     {% endif %}
                     <!--li>{% block dbshow %}

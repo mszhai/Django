@@ -47,7 +47,7 @@
                                         <th>性别</th>
                                         <th>出生日期</th>
                                         <th>其他信息</th>
-                                        <th>结果</th>
+                                        <th>康复预测结果</th>
                                     </tr>
                                 </thead>
                                     <tr>
@@ -272,7 +272,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <center><button type="button" class="btn btn-default" onclick="pre()">出院barthel指数预测</button></center>
+                            <center><button type="button" class="btn btn-default" onclick="pre()"> 患者分析</button></center>
                         </form>
                     </div>
                 </div>
@@ -311,7 +311,7 @@
             success: function (data) {
                 //alert(data);
                 if (data == 1) {
-                    location.href = "barthel.html";
+                    location.href = "predict.html";
                 }
                 if (data == -1) {
                     alert('您暂时没有权限查看!');
@@ -331,7 +331,7 @@
             success: function (data) {
                 //alert(data);
                 if (data == 1) {
-                    location.href = "barthel.html";
+                    location.href = "predict.html";
                 }
                 if (data == -1) {
                     alert('预测成果，请等病人最后一次barthel评分后查看结果!');

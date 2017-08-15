@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %} {% block barthel %}
-<a class="active-menu" href="{% url 'barthel' %}"><i class="fa fa-desktop"></i> barthel指数</a> {% endblock %} 
+<a class="active-menu" href="{% url 'barthel' %}"><i class="fa fa-desktop"></i> Barthel指数</a> {% endblock %} 
 {% block main %}
 <div id="page-wrapper">
     <div class="header">
@@ -52,18 +52,11 @@
                             <table class="table table-striped table-bordered table-hover" id="barthel_table">
                                 <thead>
                                     <tr style="background-color:#337ab7">
-                                        <th rowspan="2" style="vertical-align:middle">#</th>
-                                        <th rowspan="2" style="vertical-align:middle">项目</th>
-                                        <th rowspan="2" style="vertical-align:middle">入院评分<br/>（2017.6.2）</th>
-                                        <th rowspan="2" style="vertical-align:middle">出院预测评分<br/>（2017.6.14）</th>
-                                        <th colspan="4">预测</th>
-                                        <th rowspan="2" style="vertical-align:middle">出院实际评分<br/>（）</th>
-                                    </tr>
-                                    <tr>
-                                        <th>0</th>
-                                        <th>5</th>
-                                        <th>10</th>
-                                        <th>15</th>
+                                        <th style="vertical-align:middle">#</th>
+                                        <th style="vertical-align:middle">项目</th>
+                                        <th style="vertical-align:middle">入院评分<br/>（2017.6.2）</th>
+                                        <th style="vertical-align:middle">入院评分提高概率<br/>（2017.6.14）</th>
+                                        <th style="vertical-align:middle">出院实际评分<br/>（）</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,9 +76,9 @@
 </div>
 
 <script type="text/javascript">
-    var batthel_json = {{ batthel_json|safe }};
+    //var batthel_json = {{ batthel_json|safe }};
     var ori_data = {{ ori_data|safe }};
-
+/*
     function jsondata() {
         //alert(batthel_json.inhosp_no);
         //$("#exampleInputName2").val(batthel_json.inhosp_no);
@@ -209,8 +202,45 @@
             .append($('<td/>'))
         );
     }
+*/
+    function oridata3() {
+        //alert(ori_data.inhosp_no)
+        $.each(ori_data.subitem_scores, function (index, item) {
+            //rowspan = item.prob_distribution.length;
+            arrow = "";
+            color = "";
+            $("#barthel_table tbody").append($('<tr/>')
+                .append($('<td/>').html(index + 1))
+                .append($('<td/>').html(item.model_name + arrow))
+                .append($('<td/>').html(item.admission_score))
+                .append($('<td/>').html(item.probability_of_improvement))
+                .append($('<td/>').html("<input type='text' placeholder=''>"))
+            );
+        });
+        $("#barthel_table tbody").append($('<tr style="background-color:#337ab7"/>')
+            .append($('<td/>'))
+            .append($('<td/>'))
+            .append($('<td/>'))
+            .append($('<td/>'))
+            .append($('<td/>'))
+        );
+        $("#barthel_table tbody").append($('<tr/>')
+            .append($('<td/>').html(11))
+            .append($('<td/>').html(ori_data.total_level.model_name))
+            .append($('<td/>').html(ori_data.total_level.admission_score))
+            .append($('<td title=" 男性0.45 \n首次康复治疗 0.98"/>').html(ori_data.total_level.probability_of_improvement))
+            .append($('<td/>'))
+        );
+        $("#barthel_table tbody").append($('<tr/>')
+            .append($('<td/>').html('12'))
+            .append($('<td/>').html(ori_data.total_score.model_name))
+            .append($('<td/>').html(ori_data.total_score.admission_score))
+            .append($('<td/>').html(ori_data.total_score.predicted_score))
+            .append($('<td/>'))
+        );
+    }
 
-    window.onload=function(){oridata2();}
+    window.onload=function(){oridata3();}
 
 </script>
 {% endblock %}

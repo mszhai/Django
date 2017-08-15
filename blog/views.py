@@ -14,6 +14,14 @@ from django.contrib.auth import login as login0
 
 
 # Create your views here.
+def similarity(request):
+    has_verify = user_verify(request)
+    return render(request, 'blog/similarity.html', {'has_verify': has_verify})
+
+def predict(request):
+    has_verify = user_verify(request)
+    return render(request, 'blog/predict.html', {'has_verify': has_verify})
+
 def user_verify(request):
     username = request.session['username']
     if username == '11':
@@ -189,6 +197,14 @@ def barthel(request):
     batthel_json = os.path.join(settings.BASE_DIR, 'json/result_pred_0626.json')
     with open(batthel_json, 'rt', encoding='utf8') as f:
         data = json.load(f)
+    return render(request, 'blog/barthel.html', {'ori_data': data, 
+                                                 'has_verify': has_verify})
+"""
+def barthel(request):
+    has_verify = user_verify(request)
+    batthel_json = os.path.join(settings.BASE_DIR, 'json/result_pred_0626.json')
+    with open(batthel_json, 'rt', encoding='utf8') as f:
+        data = json.load(f)
     barthel = dict()
     b_data = list()
     barthel['inhosp_no'] = data['inhosp_no']
@@ -211,7 +227,7 @@ def barthel(request):
     barthel['data'] = b_data
     return render(request, 'blog/barthel.html', {'batthel_json': json.dumps(barthel), 'ori_data': data, 
                                                  'has_verify': has_verify})
-
+"""
 def dbshow(request):
     return render(request, 'blog/dbshow.html')
 
