@@ -37,6 +37,35 @@
 	},
 	"subitem_scores": [
 		{
+			"model_id": "2",
+			"model_name": "缺陷程度",
+			"admission_score": 1,
+			"probability_of_improvement": 0.79,
+			"influencing_factors": [
+				{
+					"factor_name": "男性",
+					"is_positive": 0,
+					"odds_ratio": 0.52,
+					"ci_low": 0.33,
+					"ci_high": 0.82
+				},
+				{
+					"factor_name": "首次康复治疗",
+					"is_positive": 1,
+					"odds_ratio": 1.85,
+					"ci_low": 1.20,
+					"ci_high": 2.85
+				},
+				{
+					"factor_name": "入院评分",
+					"is_positive": 0,
+					"odds_ratio": 0.98,
+					"ci_low": 0.97,
+					"ci_high": 0.99
+				}
+			]
+		},
+		{
 			"model_id": "3",
 			"model_name": "大便",
 			"admission_score": 10,

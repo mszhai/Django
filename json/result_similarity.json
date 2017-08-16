@@ -1,0 +1,95 @@
+{
+	"inhosp_no": "B000000",
+	"similar_group": {
+		"group_id": "2",
+		"patient_no": 156,
+		"characteristic": "首次康复治疗 and 入院评分 <= 70",
+		"description": [
+			{
+				"title": "基本信息",
+				"features": [
+					{
+						"feature_name": "平均Barthel评分",
+						"group_value": 36,
+						"overall_value": 53
+					},
+					{
+						"feature_name": "糖尿病",
+						"group_value": 36,
+						"overall_value": 32
+					}
+				]
+			},
+			{
+				"title": "康复治疗使用率",
+				"features": [
+					{
+						"feature_name": "运动训练",
+						"group_value": 97,
+						"overall_value": 97
+					},
+					{
+						"feature_name": "气压治疗",
+						"group_value": 91,
+						"overall_value": 92
+					}
+				]
+			},
+			{
+				"title": "出院康复项提高人群比例",
+				"features": [
+					{
+						"feature_name": "出院总分",
+						"group_value": 30.8,
+						"overall_value": 27.1
+					},
+					{
+						"feature_name": "出院洗澡",
+						"group_value": 0.8,
+						"overall_value": 2.5
+					}
+				]
+			}
+		]
+	},
+	"treatment_effectiveness": [
+		{
+			"target": "总体缺陷程度",
+			"treatment": [
+				{
+					"treatment_name": "吞咽训练",
+					"is_effective": true,
+					"odds_ratio": 1.22,
+					"ci_low": 0.57,
+					"ci_high": 2.60
+				},
+				{
+					"treatment_name": "气压治疗",
+					"is_effective": false,
+					"odds_ratio": 0.88,
+					"ci_low": 0.25,
+					"ci_high": 3.10
+				}
+			]
+		},
+		{
+			"target": "活动",
+			"treatment": [
+				{
+					"treatment_name": "电子生物反馈",
+					"is_effective": true,
+					"odds_ratio": 1.58,
+					"ci_low": 0.87,
+					"ci_high": 3.23
+				},
+				{
+					"treatment_name": "理疗",
+					"is_effective": false,
+					"odds_ratio": 0.58,
+					"ci_low": 0.27,
+					"ci_high": 1.23
+				}
+			]
+		}
+	]
+}

@@ -16,7 +16,10 @@ from django.contrib.auth import login as login0
 # Create your views here.
 def similarity(request):
     has_verify = user_verify(request)
-    return render(request, 'blog/similarity.html', {'has_verify': has_verify})
+    batthel_json = os.path.join(settings.BASE_DIR, 'json/result_pred_0626.json')
+    with open(batthel_json, 'rt', encoding='utf8') as f:
+        data = json.load(f)
+    return render(request, 'blog/similarity.html', {'model_data': data, 'has_verify': has_verify})
 
 def predict(request):
     has_verify = user_verify(request)
