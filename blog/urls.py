@@ -3,6 +3,8 @@ from blog import views
 
 urlpatterns = [
     #url(r'', views.logout, name='logout'),
+    url(r'barthelInput.html', views.barthel_input, name='barthel_input'),
+    url(r'patinfo.html', views.patinfo, name='patinfo'),
     url(r'similarity.html', views.similarity, name='similarity'),
     url(r'predict.html', views.predict, name='predict'),
     url(r'admin.html', views.admin, name='admin'),

@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}"""
+}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
@@ -88,6 +88,16 @@ DATABASES = {
         'PASSWORD': 'hsby_admin',
         'HOST': '10.111.10.63',
         'PORT': '1521',
+    }
+}"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'dbadmin',
+        'PASSWORD': 'dbadmin_admin',
+        'HOST': 'localhost',#'10.111.10.48',
+        'PORT': '3306',
     }
 }
 

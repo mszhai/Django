@@ -11,7 +11,11 @@ from blog.models import API_UserInfo
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login0
 
+def barthel_input(request):
+    return render(request, 'blog/barthelInput.html')
 
+def patinfo(request):
+    return render(request, 'blog/patinfo.html')
 
 # Create your views here.
 def similarity(request):
