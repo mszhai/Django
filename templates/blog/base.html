@@ -115,7 +115,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="{% url 'login' %}"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
+                        <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -136,7 +136,6 @@
                     <li>{% block model %}
                         <a href="{% url 'model' %}"><i class="fa fa-desktop"></i> 预测模型</a> {% endblock %}
                     </li>
-                    {% if has_verify %}
                     <li>{% block predict %}
                         <a href="{% url 'predict' %}"><i class="fa fa-desktop"></i> 患者康复预测报告</a> {% endblock %}
                     </li>
@@ -146,7 +145,6 @@
                     <li>{% block similarity %}
                         <a href="{% url 'similarity' %}"><i class="fa fa-desktop"></i> 相似患者分群</a> {% endblock %}
                     </li>
-                    {% endif %}
                     <!--li>{% block dbshow %}
                         <a href="{% url 'dbshow' %}"><i class="fa fa-desktop"></i> 数据产品</a> {% endblock %}
                     </li-->

@@ -8,8 +8,24 @@ from django.http import HttpResponseRedirect
 #from django.contrib.auth.decorators import login_required
 #from django.shortcuts import render_to_response
 from blog.models import API_UserInfo
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login0
+from django.contrib.auth.decorators import login_required
+from django.utils.safestring import mark_safe
+import blog.models as models
+
+@login_required
+def pat_panel(request):
+    user = User.objects.get(username=request.user)
+    role = models.Profile.objects.get(user_id=user.id)
+    #if role.group == 'doctor':
+    page_html = mark_safe("<a href='{%url equip:listEquipmentCategory 1 %}'>首页</a>")
+    ret = {"page_html": user.id}
+    return render(request, 'blog/patpanel.html', ret)
+
+def register(request):
+    return render(request, 'blog/register.html')
 
 def barthel_input(request):
     return render(request, 'blog/barthelInput.html')
@@ -19,28 +35,20 @@ def patinfo(request):
 
 # Create your views here.
 def similarity(request):
-    has_verify = user_verify(request)
     batthel_json = os.path.join(settings.BASE_DIR, 'json/result_pred_0626.json')
     with open(batthel_json, 'rt', encoding='utf8') as f:
         data = json.load(f)
-    return render(request, 'blog/similarity.html', {'model_data': data, 'has_verify': has_verify})
+    return render(request, 'blog/similarity.html', {'model_data': data})
 
 def predict(request):
-    has_verify = user_verify(request)
-    return render(request, 'blog/predict.html', {'has_verify': has_verify})
+    return render(request, 'blog/predict.html')
 
-def user_verify(request):
-    username = request.session['username']
-    if username == '11':
-        return True
-    elif username == 'aa':
-        return False
 
 def admin(request):
     return render(request, 'blog/admin.html')
 
+@login_required
 def index(request):
-    has_verify = user_verify(request)
     data = {'Clinical': 90, 'Non-clinical': 54, 'Treatment': 33}
     data2 = {'血管栓塞史': 30,
              '糖尿病患病年数': 20,
@@ -69,8 +77,7 @@ def index(request):
         out_pie.append(dic_tem)
     return render(request, 'blog/index.html', {'legend': json.dumps(legend),
                                                 'innerpie': json.dumps(inner_pie),
-                                                'outpie': json.dumps(out_pie),
-                                                'has_verify': has_verify})
+                                                'outpie': json.dumps(out_pie)})
 
 def doctor(request):
     data = {'Clinical': 90, 'Non-clinical': 54, 'Treatment': 33}
@@ -104,8 +111,7 @@ def doctor(request):
                                                 'outpie': json.dumps(out_pie)})
 
 def model(request):
-    has_verify = user_verify(request)
-    return render(request, 'blog/model.html', {'has_verify': has_verify})
+    return render(request, 'blog/model.html')
 
 def others(request):
     return render(request, 'blog/nav.html')
@@ -200,15 +206,12 @@ def doctor03(request):
                                                 'outpie': json.dumps(out_pie)})
 
 def barthel(request):
-    has_verify = user_verify(request)
     batthel_json = os.path.join(settings.BASE_DIR, 'json/result_pred_0626.json')
     with open(batthel_json, 'rt', encoding='utf8') as f:
         data = json.load(f)
-    return render(request, 'blog/barthel.html', {'ori_data': data, 
-                                                 'has_verify': has_verify})
+    return render(request, 'blog/barthel.html', {'ori_data': data})
 """
 def barthel(request):
-    has_verify = user_verify(request)
     batthel_json = os.path.join(settings.BASE_DIR, 'json/result_pred_0626.json')
     with open(batthel_json, 'rt', encoding='utf8') as f:
         data = json.load(f)
@@ -232,8 +235,7 @@ def barthel(request):
         tem_dic['pre'] = item['predicted_score']
         b_data.append(tem_dic)
     barthel['data'] = b_data
-    return render(request, 'blog/barthel.html', {'batthel_json': json.dumps(barthel), 'ori_data': data, 
-                                                 'has_verify': has_verify})
+    return render(request, 'blog/barthel.html', {'batthel_json': json.dumps(barthel), 'ori_data': data})
 """
 def dbshow(request):
     return render(request, 'blog/dbshow.html')
@@ -252,6 +254,46 @@ def login(request):
     """
     return render(request, 'blog/login.html')
 
+def regist(request):
+    #if request.user.is_authenticated():
+        #return HttpResponseRedirect("/index.html")
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('name', '')
+            password = request.POST.get('password', '')
+            email = request.POST.get('email', '')
+            errors = []
+
+            user = User()
+            user.username = username
+            user.set_password(password)
+            user.email = email
+            user.save()
+
+            #登录前需要先验证
+            new_user = auth.authenticate(username=username, password=password)
+            if new_user is not None:
+                auth.login(request, new_user)
+                return HttpResponse('regist tt!!!')
+    except Exception as e:
+        return HttpResponse('some error.')
+    return render(request, 'blog/register.html')
+
+def login_verify(request): #登陆信息提交验证
+    if request.method == 'POST':
+        username = request.POST['name']
+        password = request.POST['password']
+        user = auth.authenticate(username=username, password=password)
+        if user and user.is_active:
+            auth.login(request, user)
+            return HttpResponseRedirect('/index.html')
+    return HttpResponse('some error.')
+
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/login.html')
+
+"""
 def login_verify(request): #登陆信息提交验证
     if request.method == 'POST':
         username = request.POST['username']
@@ -267,6 +309,7 @@ def login_verify(request): #登陆信息提交验证
         return HttpResponse('-1')
     else:
         return HttpResponse('0')
+"""
 
 def login_success(request):#登陆成功之后跳转的页面
     return index(request)

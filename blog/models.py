@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class API_UserInfo(models.Model):
@@ -6,6 +7,16 @@ class API_UserInfo(models.Model):
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=200)
     create_time = models.DateTimeField(auto_now_add=True)
+
+    #class Meta:
+        #permissions = 
+
+class Profile(models.Model):
+    user = models.OneToOneField(User)
+
+    group = models.CharField(max_length=200, default='doctor')
+    phone = models.CharField(max_length=200, blank=True)
+    
 """
 class Tag(models.Model):
     tag_name = models.CharField(max_length=20)

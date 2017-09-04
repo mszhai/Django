@@ -25,11 +25,11 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="well panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">账号登录</h3>
+                        <h3 class="panel-title">账号注册</h3>
                     </div>
                     <div class="panel-body">
                         <!--form role="form" method="post" action="{% url 'login' %}"-->
-                        <form  role="form" action="/login_verify/" method="post" id="loginform">
+                        <form  role="form" action="/regist/" method="post" id="regform">
                             {% csrf_token %}
                             <fieldset>
                                 <p class="error loginError" align="center"></p>
@@ -39,15 +39,11 @@
                                 <div class="form-group">
                                     <input class="form-control" placeholder="密码" name="password" id="password" type="password" value="">
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">自动登录
-                                    </label>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="邮箱" name="email" id="email" type="email" value="">
                                 </div>
-                                <div class="form-actions"><a href="#" tabindex="5" class="btn pull-left btn-link text-muted">忘记密码？</a>
-                                    <a
-                                        href="#" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
-                                        <input type="submit" tabindex="5" class="btn btn-success" value="登录">
+                                <div class="form-actions">
+                                        <input type="submit" id="register" tabindex="5" class="btn btn-success" value="注册">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                             </fieldset>
@@ -62,40 +58,28 @@
     <script src="{% static 'jquery/jquery.min.js' %}"></script>
     <!-- Bootstrap Js -->
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript">
-    /*
-        $('#loginform').submit(
-            function () {
-                var username = $('#name').val();
-                var password = $('#password').val();
-                //alert(username);
-                if (!username) {
-                    $('.loginError').html('用户名不符合规范').show();
-                    return false;
-                }
-                if (!password) {
-                    $('.loginError').html('密码不符合规范').show();
-                    return false;
-                }
-                $.ajaxSetup({
-                    data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
-                });
+    <script>
+        /*//jQuery提交  
+        $("#register").click(function () {
+            $("#regform").submit();
+        })
+        $(function () {
+            //ajax提交  
+            $("#register").click(function () {
+                var params = $("#regform").serialize();
                 $.ajax({
                     type: "POST",
-                    url: '/login_verify/',
-                    data: { username: username, password: password },
-                    dataType: 'json',
-                    cache: false,
-                    success: function (data) {
-                        alert(data);
-                    },
-                    error: function () {
-                        $('.loginError').html('请求失败，请刷新页面后重试').show();
+                    url: "/regist/",
+                    data: params,
+                    success: function (msg) {
+                        alert("success: " + msg);
                     }
                 });
-                return false;
-            });*/
+            })
+        });*/
+        
     </script>
 </body>
+
 
 </html>
