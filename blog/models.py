@@ -16,7 +16,25 @@ class Profile(models.Model):
 
     group = models.CharField(max_length=200, default='doctor')
     phone = models.CharField(max_length=200, blank=True)
-    
+
+class PatientInfo(models.Model):
+    patid_fk = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=50)
+    birthday = models.DateTimeField(null=True)
+    sex = models.CharField(max_length=2, null=True)
+    update_time = models.DateTimeField(auto_now=True)
+
+class HospitalizationInfo(models.Model):
+    hospitno_fk = models.CharField(max_length=50, null=True)
+    evaluate_status = models.IntegerField(default=1)
+    patid = models.ForeignKey(PatientInfo, null=True)
+    patid_fk = models.CharField(max_length=50, null=True)
+    doctor = models.ForeignKey(Profile, default=999999)
+    entdate = models.DateTimeField(null=True)
+    outdate = models.DateTimeField(null=True)
+    dignose = models.CharField(max_length=50, null=True)
+    update_time = models.DateTimeField(auto_now=True)
+
 """
 class Tag(models.Model):
     tag_name = models.CharField(max_length=20)

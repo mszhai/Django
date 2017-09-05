@@ -26,6 +26,7 @@ urlpatterns += [
 urlpatterns += [
     # 新页面设计
     url(r'^patpanel.html', views.pat_panel, name='patpanel'),
+    url(r'^evaluate.html', views.evaluate, name='evaluate'),
 ]
 urlpatterns += [
     url(r'^hello$', views.hello, name='hello'),

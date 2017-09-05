@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="" name="description" />
     <meta content="webthemez" name="author" />
-    <title>BRILLIANT Free Bootstrap Admin Template</title>
+    <title>认知康复服务平台</title>
     <!-- Bootstrap Styles-->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
     <!-- FontAwesome Styles-->
@@ -27,17 +27,22 @@
 <body style="padding-top:70px; background:#EDEDED; padding-left:20px; padding-right:20px">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="">
             <div class="navbar-header">
-                    <a class="navbar-brand" href="{% url 'index' %}"><strong><i class="icon fa fa-user-md"></i> 认知康复服务平台</strong></a>
+                    <a class="navbar-brand" href=""><strong>
+                        <i class="fa fa-user-md fa-fw" style="color:#F36A5A"></i>
+                        <font color="#F36A5A">认知康复服务平台</font></strong>
+                    </a>
             </div>
             <div>
-                <form class="navbar-form navbar-left">
+                <!--form class="navbar-form navbar-left">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="住院号">
                     </div>
                     <button type="submit" class="btn btn-default">搜索</button>
-                </form>
+                </form-->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- /.dropdown -->
+                    <li><a href="#"><i class="fa fa-plus-circle fa-fw"></i>添加病人</a></li>
+                    <li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>统计信息</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -93,12 +98,6 @@
     <script src="{% static 'js/jquery.chart.js' %}"></script>
 
     <!-- Custom Js -->
-    <!--script src="{% static 'js/custom-scripts.js' %}"></script-->
-    <script src="{% static 'js/main.js' %}"></script>
-
-    <!-- Chart Js -->
-    <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/chartjs.js' %}"></script>
 
 </body>
 

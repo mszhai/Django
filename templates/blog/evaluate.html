@@ -1,0 +1,188 @@
+{% extends 'blog/base1.html' %} 
+{% block main %}
+<div>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <center>Barthel指数评分量表</center>
+                    <div class="col-lg-1 pull-right"><input type="button" class="btn btn-default" value="打印" /></div>
+                </div>
+
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="exampleInputName2" class="">姓&nbsp&nbsp&nbsp&nbsp名 </label>
+                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp性别 </label>
+                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
+                                    value="男">
+                                <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp年龄 </label>
+                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
+                                    value="58岁">
+                                <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp疾病 </label>
+                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <label for="exampleInputName2" class="">病程 </label>
+                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="exampleInputName2" class="">住院号 </label>
+                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;"
+                                    value="B000000">
+                                <label for="exampleInputName2" class="">入院时间 </label>
+                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <label for="exampleInputName2" class="">出院时间 </label>
+                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <label for="exampleInputName2" class="">随访时间 </label>
+                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="barthel_table">
+                            <thead style="vertical-align:middle">
+                                <tr>
+                                    <th rowspan="3" style="vertical-align:middle; text-align:center">项目</th>
+                                    <th rowspan="3" style="vertical-align:middle; text-align:center">评分标准</th>
+                                    <th colspan="3" style="vertical-align:middle; text-align:center">评定日期（年/月/日）</th>
+                                </tr>
+                                <tr>
+                                    <th>初期</th>
+                                    <th>中期</th>
+                                    <th>后期</th>
+                                </tr>
+                                <tr>
+                                    <th>初期</th>
+                                    <th>中期</th>
+                                    <th>后期</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1. 大便</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2. 小便</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷或需由他人导尿</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每24h<1次，每星期>1次)</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=控制</button>
+                                    </td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>3. 修饰</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=需帮助</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=独立洗脸、梳头、刷牙、剃须</button>
+                                    </td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>4. 用厕</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=依赖别人</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需部分帮助</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=自理</button>
+                                    </td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>5. 吃饭</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=依赖</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需部分帮助(切面包、抹黄油、夹菜、盛饭)</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=全面自理</button>
+                                    </td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>6. 转移(床-椅)</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=完全依赖别人，不能坐</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需大量帮助(2人)，能坐</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=需少量帮助(1人)或指导</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">15=自理</button>
+                                    </td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>7. 活动(步行)<br/>(在病房及其周围，<br/>不包括走远路)</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=不能动</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=在轮椅上独立行动</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=需1人帮助步行(体力或言语指导)</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">15=独立步行(可用辅助器)</button>
+                                    </td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>8. 穿衣</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
+                                    </td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>9. 上楼梯(上下一段<br/>楼梯，用手杖也算独立)</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
+                                    </td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>10. 洗澡</td>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
+                                    </td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>总分</td>
+                                    <td></td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>10</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>*ADL 能力缺陷程度：0~20=极严重功能缺陷；25~45=严重功能缺陷；50~75=中度功能缺陷；</br>75~95=轻度功能缺陷；100=ADL 自理</p>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+                <p class="text-center">
+                    <button type="button" class="btn btn-outline btn-default">提交</button>
+                    <button type="button" class="btn btn-outline btn-default">预测结果</button>
+                </p>
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+{% endblock %}

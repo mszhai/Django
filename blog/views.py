@@ -14,14 +14,60 @@ from django.contrib.auth import login as login0
 from django.contrib.auth.decorators import login_required
 from django.utils.safestring import mark_safe
 import blog.models as models
+import datetime
+
+
+@login_required
+def evaluate(request):
+    return render(request, 'blog/evaluate.html')
 
 @login_required
 def pat_panel(request):
     user = User.objects.get(username=request.user)
     role = models.Profile.objects.get(user_id=user.id)
-    #if role.group == 'doctor':
-    page_html = mark_safe("<a href='{%url equip:listEquipmentCategory 1 %}'>首页</a>")
-    ret = {"page_html": user.id}
+    page_html = ''
+    pat_panel = '''
+    <div class="col-lg-3 col-sm-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <i class="fa fa-male"></i> {name}
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed" frame="void">
+                    <tr>
+                        <td>住院号 </td>
+                        <td>{hospno}</td>
+                    </tr>
+                    <tr>
+                        <td>性别 </td>
+                        <td>{sex} </td>
+                    </tr>
+                    <tr>
+                        <td>年龄 </td>
+                        <td>{age} </td>
+                    </tr>
+                    <tr>
+                        <td>卒中类型 </td>
+                        <td>{dignose} </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <a onclick="evaluate1('{patid1}')"><i class="fa fa-link"></i> 评定</a>
+                <a onclick="check1({patid2})"><i class="fa fa-link"></i> 查看</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-3 -->
+    '''
+    if role.group == 'doctor':#in=[role.id]
+        patients = models.HospitalizationInfo.objects.filter(doctor__in=[role.id, 999999])
+        for pat in patients:
+            a_patient = models.PatientInfo.objects.get(id=pat.patid_id)
+            age = int((pat.entdate - a_patient.birthday).days / 365 + 1)
+            page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, patid1=pat.id, patid2=pat.id)
+    page_html = mark_safe(page_html)
+    ret = {"page_html": page_html}
     return render(request, 'blog/patpanel.html', ret)
 
 def register(request):
@@ -286,7 +332,7 @@ def login_verify(request): #登陆信息提交验证
         user = auth.authenticate(username=username, password=password)
         if user and user.is_active:
             auth.login(request, user)
-            return HttpResponseRedirect('/index.html')
+            return HttpResponseRedirect('/patpanel.html')
     return HttpResponse('some error.')
 
 def logout(request):
@@ -323,6 +369,7 @@ def login_success(request):#登陆成功之后跳转的页面
 
 def verify(request):#权限判断
     username = request.session['username']
+    return HttpResponse('1')
     if username == '11':
         return HttpResponse('1')
     else:

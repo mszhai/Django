@@ -15,3 +15,4 @@ python manage.py runserver 0.0.0.0:8000
 * [所需图标列表](https://github.com/ecomfe/echarts/blob/master/index.js)
 
 style="background:#F36A5A
+ style="white-space:nowrap"
