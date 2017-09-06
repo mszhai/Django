@@ -22,6 +22,14 @@ def evaluate(request):
     return render(request, 'blog/evaluate.html')
 
 @login_required
+def add_patient(request):
+    return render(request, 'blog/addpatient.html')
+
+@login_required
+def model_result(request):
+    return render(request, 'blog/modelresult.html')
+
+@login_required
 def pat_panel(request):
     user = User.objects.get(username=request.user)
     role = models.Profile.objects.get(user_id=user.id)

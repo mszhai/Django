@@ -1,0 +1,49 @@
+{% extends 'blog/base1.html' %} 
+{% block main %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="well panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">新住院病人</h3>
+            </div>
+            <div class="panel-body">
+                <!--form role="form" method="post" action="{% url 'login' %}"-->
+                <form role="form" action="" method="post" id="addpatform" class="form-horizontal">
+                    {% csrf_token %}
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="exampleInputName2" class="col-md-1 control-label" >姓名 </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="name" placeholder="Jane Doe" style="">
+                            </div>
+                            <label for="exampleInputName2" class="col-md-1 control-label">性别 </label>
+                            <div class="col-md-5">
+                                <select class="form-control">
+                                    <option value="-1">请选择</option>
+                                    <option value="0">0: 依赖</option>
+                                    <option value="5">5: 自理</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName2" class="col-md-1 control-label">姓名 </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="name" placeholder="Jane Doe" style="">
+                            </div>
+                            <label for="exampleInputName2" class="col-md-1 control-label">性别 </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="sex" placeholder="Jane Doe">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <input type="submit" id="register" tabindex="5" class="btn btn-success" value="注册">
+                        </div>
+                        <!-- Change this to a button or input when using this as a form -->
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

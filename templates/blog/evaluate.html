@@ -62,19 +62,19 @@
                             <tbody>
                                 <tr>
                                     <td>1. 大便</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
+                                    <td><button type="button" id="barthel10" onclick="barthel()" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
+                                        <button type="button" id="barthel11" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
+                                        <button type="button" id="barthel12" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
                                     </td>
-                                    <td></td>
+                                    <td id="b10td"></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>2. 小便</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷或需由他人导尿</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每24h<1次，每星期>1次)</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=控制</button>
+                                    <td><button type="button" id="barthel20" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷或需由他人导尿</button>
+                                        <button type="button" id="barthel21" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每24h<1次，每星期>1次)</button>
+                                        <button type="button" id="barthel22" class="btn btn-default btn-block" style="text-align:left">10=控制</button>
                                     </td>
                                     <td>10</td>
                                     <td>0</td>
@@ -82,8 +82,8 @@
                                 </tr>
                                 <tr>
                                     <td>3. 修饰</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=需帮助</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=独立洗脸、梳头、刷牙、剃须</button>
+                                    <td><button type="button" id="barthel10" class="btn btn-default btn-block" style="text-align:left">0=需帮助</button>
+                                        <button type="button" id="barthel10" class="btn btn-default btn-block" style="text-align:left">5=独立洗脸、梳头、刷牙、剃须</button>
                                     </td>
                                     <td>10</td>
                                     <td>0</td>
@@ -133,9 +133,9 @@
                                 </tr>
                                 <tr>
                                     <td>8. 穿衣</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=依赖</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需一半帮助</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=自理(系开纽扣、关开拉锁和穿鞋等)</button>
                                     </td>
                                     <td>10</td>
                                     <td>0</td>
@@ -143,9 +143,9 @@
                                 </tr>
                                 <tr>
                                     <td>9. 上楼梯(上下一段<br/>楼梯，用手杖也算独立)</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=不能</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需帮助(体力或语言指导)</button>
+                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=自理</button>
                                     </td>
                                     <td>10</td>
                                     <td>0</td>
@@ -153,9 +153,8 @@
                                 </tr>
                                 <tr>
                                     <td>10. 洗澡</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
+                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=依赖</button>
+                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=自理</button>
                                     </td>
                                     <td>10</td>
                                     <td>0</td>
@@ -176,8 +175,8 @@
                 </div>
                 <!-- /.panel-body -->
                 <p class="text-center">
-                    <button type="button" class="btn btn-outline btn-default">提交</button>
-                    <button type="button" class="btn btn-outline btn-default">预测结果</button>
+                    <button type="button" class="btn btn-outline btn-default" onclick="submit()">提交</button>
+                    <button type="button" class="btn btn-outline btn-default" onclick="check1(111)">预测结果</button>
                 </p>
             </div>
             <!-- /.panel -->
@@ -185,4 +184,15 @@
     </div>
     <!-- /.row -->
 </div>
+<script type="text/javascript">
+    
+    function check1(hospid){
+        location.href = "evaluate.html?hospid=" + hospid;
+    }
+
+    function submit(){
+        location.href = "modelresult.html";
+    }
+    
+</script>
 {% endblock %}

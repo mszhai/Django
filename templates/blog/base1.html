@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="{% static 'css/cssCharts.css' %}">
     <!-- jQuery Js -->
     <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <!-- echarts Js -->
+    <!--script src="{% static 'js/echarts/echartsall3.js' %}"></script-->
+    <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
 </head>
 
 <body style="padding-top:70px; background:#EDEDED; padding-left:20px; padding-right:20px">
@@ -33,6 +36,11 @@
                     </a>
             </div>
             <div>
+                    <!--ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Library</a></li>
+                            <li class="active">Data</li>
+                          </ol-->
                 <!--form class="navbar-form navbar-left">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="住院号">
@@ -41,7 +49,7 @@
                 </form-->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- /.dropdown -->
-                    <li><a href="#"><i class="fa fa-plus-circle fa-fw"></i>添加病人</a></li>
+                    <li><a href="{% url 'addpatient' %}"><i class="fa fa-plus-circle fa-fw"></i>添加病人</a></li>
                     <li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>统计信息</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -61,6 +69,7 @@
                 </ul>
         </div>
     </nav>
+    
     <!-- end nav -->
         {% block main %}
         <div id="page-wrapper">
@@ -97,7 +106,7 @@
 
     <script src="{% static 'js/jquery.chart.js' %}"></script>
 
-    <!-- Custom Js -->
+    
 
 </body>
 
