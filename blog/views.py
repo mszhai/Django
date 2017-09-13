@@ -15,14 +15,52 @@ from django.contrib.auth.decorators import login_required
 from django.utils.safestring import mark_safe
 import blog.models as models
 import datetime
+import time
 
 
 @login_required
 def evaluate(request):
-    return render(request, 'blog/evaluate.html')
+    if request.method == 'GET':
+        hosp_id = request.GET.get('hospid', '')
+        pat = models.HospitalizationInfo.objects.get(id=hosp_id)
+        a_pat = models.PatientInfo.objects.get(id=pat.patid_id)
+        pat_info = {}
+        pat_info['name'] = a_pat.name
+        pat_info['sex'] = a_pat.sex
+    return render(request, 'blog/evaluate.html', pat_info)
 
 @login_required
 def add_patient(request):
+    if request.method == 'POST':
+        hospitno = request.POST.get('hospitno', '')
+        patname = request.POST.get('patname', '')
+        sex_t = request.POST.get('sex', '')
+        sex = ''
+        if sex_t == '0':
+            sex = '男'
+        elif sex_t == '1':
+            sex = '女'
+        birthday = request.POST.get('birthday', '')
+        birthday = time.strptime(birthday, "%Y.%m")
+        birthday = datetime.datetime(* birthday[:3])
+        dignose = request.POST.get('dignose', '')
+        
+        patinfo = models.PatientInfo()
+        patinfo.name = patname
+        patinfo.sex = sex
+        patinfo.birthday = birthday
+        patinfo.save()
+
+        hospinfo = models.HospitalizationInfo()
+        hospinfo.hospitno_fk = hospitno
+        hospinfo.dignose = dignose
+        hospinfo.patid = patinfo
+        user = User.objects.get(username=request.user)
+        doc = models.Profile.objects.get(user_id=user.id)
+        hospinfo.doctor = doc
+        hospinfo.entdate = datetime.datetime.now()
+        hospinfo.save()
+        return render(request, 'blog/patpanel.html')
     return render(request, 'blog/addpatient.html')
 
 @login_required
@@ -323,6 +361,10 @@ def regist(request):
             user.set_password(password)
             user.email = email
             user.save()
+            profile = models.Profile()
+            profile.user = user
+            profile.phone = '12121212'
+            profile.save()
 
             #登录前需要先验证
             new_user = auth.authenticate(username=username, password=password)

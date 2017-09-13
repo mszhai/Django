@@ -15,9 +15,9 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label for="exampleInputName2" class="">姓&nbsp&nbsp&nbsp&nbsp名 </label>
-                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" class="" id="name" value="{{ name }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp性别 </label>
-                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
+                                <input type="text" class="" id="sex" value="{{ sex }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
                                     value="男">
                                 <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp年龄 </label>
                                 <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
@@ -62,103 +62,103 @@
                             <tbody>
                                 <tr>
                                     <td>1. 大便</td>
-                                    <td><button type="button" id="barthel10" onclick="barthel()" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
-                                        <button type="button" id="barthel11" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
-                                        <button type="button" id="barthel12" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
+                                    <td><button type="button" id="barthel10" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
+                                        <button type="button" id="barthel11" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
+                                        <button type="button" id="barthel12" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
                                     </td>
-                                    <td id="b10td"></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="b1tdc"></td>
+                                    <td id="b1tdz"></td>
+                                    <td id="b1tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>2. 小便</td>
-                                    <td><button type="button" id="barthel20" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷或需由他人导尿</button>
-                                        <button type="button" id="barthel21" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每24h<1次，每星期>1次)</button>
-                                        <button type="button" id="barthel22" class="btn btn-default btn-block" style="text-align:left">10=控制</button>
+                                    <td><button type="button" id="barthel20" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷或需由他人导尿</button>
+                                        <button type="button" id="barthel21" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每24h<1次，每星期>1次)</button>
+                                        <button type="button" id="barthel22" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=控制</button>
                                     </td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="b2tdc"></td>
+                                    <td id="b2tdz"></td>
+                                    <td id="b2tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>3. 修饰</td>
-                                    <td><button type="button" id="barthel10" class="btn btn-default btn-block" style="text-align:left">0=需帮助</button>
-                                        <button type="button" id="barthel10" class="btn btn-default btn-block" style="text-align:left">5=独立洗脸、梳头、刷牙、剃须</button>
+                                    <td><button type="button" id="barthel30" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=需帮助</button>
+                                        <button type="button" id="barthel31" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=独立洗脸、梳头、刷牙、剃须</button>
                                     </td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="b3tdc"></td>
+                                    <td id="b3tdz"></td>
+                                    <td id="b3tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>4. 用厕</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=依赖别人</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需部分帮助</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=自理</button>
+                                    <td><button type="button" id="barthel40" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=依赖别人</button>
+                                        <button type="button" id="barthel41" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=需部分帮助</button>
+                                        <button type="button" id="barthel42" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=自理</button>
                                     </td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="b4tdc"></td>
+                                    <td id="b4tdz"></td>
+                                    <td id="b4tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>5. 吃饭</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=依赖</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需部分帮助(切面包、抹黄油、夹菜、盛饭)</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=全面自理</button>
+                                    <td><button type="button" id="barthel50" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=依赖</button>
+                                        <button type="button" id="barthel51" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=需部分帮助(切面包、抹黄油、夹菜、盛饭)</button>
+                                        <button type="button" id="barthel52" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=全面自理</button>
                                     </td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="b5tdc"></td>
+                                    <td id="b5tdz"></td>
+                                    <td id="b5tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>6. 转移(床-椅)</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=完全依赖别人，不能坐</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需大量帮助(2人)，能坐</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=需少量帮助(1人)或指导</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">15=自理</button>
+                                    <td><button type="button" id="barthel60" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=完全依赖别人，不能坐</button>
+                                        <button type="button" id="barthel61" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=需大量帮助(2人)，能坐</button>
+                                        <button type="button" id="barthel62" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=需少量帮助(1人)或指导</button>
+                                        <button type="button" id="barthel63" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">15=自理</button>
                                     </td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="b6tdc"></td>
+                                    <td id="b6tdz"></td>
+                                    <td id="b6tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>7. 活动(步行)<br/>(在病房及其周围，<br/>不包括走远路)</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=不能动</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=在轮椅上独立行动</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=需1人帮助步行(体力或言语指导)</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">15=独立步行(可用辅助器)</button>
+                                    <td><button type="button" id="barthel70" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=不能动</button>
+                                        <button type="button" id="barthel71" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=在轮椅上独立行动</button>
+                                        <button type="button" id="barthel72" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=需1人帮助步行(体力或言语指导)</button>
+                                        <button type="button" id="barthel73" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">15=独立步行(可用辅助器)</button>
                                     </td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="b7tdc"></td>
+                                    <td id="b7tdz"></td>
+                                    <td id="b7tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>8. 穿衣</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=依赖</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需一半帮助</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=自理(系开纽扣、关开拉锁和穿鞋等)</button>
+                                    <td><button type="button" id="barthel80" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=依赖</button>
+                                        <button type="button" id="barthel81" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=需一半帮助</button>
+                                        <button type="button" id="barthel82" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=自理(系开纽扣、关开拉锁和穿鞋等)</button>
                                     </td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="b8tdc"></td>
+                                    <td id="b8tdz"></td>
+                                    <td id="b8tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>9. 上楼梯(上下一段<br/>楼梯，用手杖也算独立)</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=不能</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=需帮助(体力或语言指导)</button>
-                                        <button type="button" id="db10" class="btn btn-default btn-block" style="text-align:left">10=自理</button>
+                                    <td><button type="button" id="barthel90" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=不能</button>
+                                        <button type="button" id="barthel91" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=需帮助(体力或语言指导)</button>
+                                        <button type="button" id="barthel92" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=自理</button>
                                     </td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="b9tdc"></td>
+                                    <td id="b9tdz"></td>
+                                    <td id="b9tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>10. 洗澡</td>
-                                    <td><button type="button" id="db0" class="btn btn-default btn-block" style="text-align:left">0=依赖</button>
-                                        <button type="button" id="db5" class="btn btn-default btn-block" style="text-align:left">5=自理</button>
+                                    <td><button type="button" id="barthel100" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=依赖</button>
+                                        <button type="button" id="barthel101" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=自理</button>
                                     </td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="b10tdc"></td>
+                                    <td id="b10tdz"></td>
+                                    <td id="b10tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>总分</td>
@@ -192,6 +192,26 @@
 
     function submit(){
         location.href = "modelresult.html";
+    }
+
+    function barthel(ob){
+        var id = $(ob).attr("id");
+        var obj = $("#"+id ); 
+        //obj.attr("class", "btn btn-primary btn-block");
+        var $td = $(ob).parents('td').children('button');
+        var $tr = $(ob).parents('tr').children('td');
+        //alert($tr.eq(3).attr("id"));
+        $td.each(function(index, data){
+            if($(data).attr("id") == id){
+                obj.attr("class", "btn btn-primary btn-block");
+                $("#" + $tr.eq(2).attr("id")).html(5*index);
+            }
+            else{
+                $("#"+$(data).attr("id")).attr("class", "btn btn-default btn-block");
+            }
+            //alert(index + $(data).attr("id"));
+        });
+        //$("#"+$td.eq(0).attr("id")).attr("class", "btn btn-primary btn-block");
     }
     
 </script>
