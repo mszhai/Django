@@ -59,7 +59,7 @@
                                     <th>后期</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody">
                                 <tr>
                                     <td>1. 大便</td>
                                     <td><button type="button" id="barthel10" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">0=失禁或昏迷</button>
@@ -163,9 +163,9 @@
                                 <tr>
                                     <td>总分</td>
                                     <td></td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>10</td>
+                                    <td id="totalc">10</td>
+                                    <td id="totalz">0</td>
+                                    <td id="totalh">10</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -191,7 +191,64 @@
     }
 
     function submit(){
-        location.href = "modelresult.html";
+        var $tbody = $("#tbody").children("tr");
+        result = true;
+        $tbody.each(function(index, data){
+            if(index < 11){
+                var score = $(data).children('td').eq(2).text();
+                //alert(score);
+                if(score == ''){
+                    result = false;
+                    return false;
+                    //total_score = total_score + parseInt(score);
+                }
+            }
+        });
+        if(!result){
+            //alert(dic["score1"]);
+            $(document).ready(function(){
+                $.ajaxSetup({
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+                });
+                var dic = new Array();
+                //dic["dabian"] = parseInt($("#tbody").children("tr").eq(0).children('td').eq(2).text());
+                $tbody.each(function(index, data){
+                    if(index < 11){
+                        var score = $(data).children('td').eq(2).text();
+                        //alert(score);
+                        if(score != ''){
+                            var name = "score" + index
+                            dic[name] = parseInt(score);
+                        }
+                    }
+                });
+                alert(dic);
+                $.ajax({
+                    url: '/evaluate_submit/',
+                    type: "POST",
+                    data: dic,
+                    dataType: 'json',
+                    cache: false,
+                    success: function(data){
+                        if(data == 1){
+                            alert("succes!!!!!!");
+                        }
+                        alert(data);
+                        /*
+                        data = JSON.parse(data);
+                        if (data["status"] == 1) {
+                            setSceneTd(data["result"], scece_name, td);
+                        } else {
+                            alert(data["result"]);
+                        }*/
+                    }
+                });
+            });
+            
+        }
+        else{
+            alert("有评分项目未完成！");
+        }
     }
 
     function barthel(ob){
@@ -200,6 +257,7 @@
         //obj.attr("class", "btn btn-primary btn-block");
         var $td = $(ob).parents('td').children('button');
         var $tr = $(ob).parents('tr').children('td');
+        var $tbody = $(ob).parents('tbody').children('tr');
         //alert($tr.eq(3).attr("id"));
         $td.each(function(index, data){
             if($(data).attr("id") == id){
@@ -211,6 +269,18 @@
             }
             //alert(index + $(data).attr("id"));
         });
+        var total_score = 0;
+        $tbody.each(function(index, data){
+            if(index < 10){
+                var score = $(data).children('td').eq(2).text();
+                //alert(score);
+                if(score != ''){
+                    //alert(parseInt(score));
+                    total_score = total_score + parseInt(score);
+                }
+            }
+        });
+        $("#totalc").html(total_score);
         //$("#"+$td.eq(0).attr("id")).attr("class", "btn btn-primary btn-block");
     }
     

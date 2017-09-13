@@ -17,6 +17,12 @@ import blog.models as models
 import datetime
 import time
 
+@login_required
+def evaluate_submit(request):
+    if request.method == 'POST':
+        dic = request.POST.get('dic', '')
+        return HttpResponse(dic)
+    return HttpResponse('-1')
 
 @login_required
 def evaluate(request):

@@ -35,6 +35,23 @@ class HospitalizationInfo(models.Model):
     dignose = models.CharField(max_length=50, null=True)
     update_time = models.DateTimeField(auto_now=True)
 
+class Barthel(models.Model):
+    hospid = models.ForeignKey(HospitalizationInfo)
+    profile = models.ForeignKey(Profile)
+    evaluate_time = models.DateTimeField(auto_now=True)
+    dabian = models.IntegerField()
+    xiaobian = models.IntegerField()
+    xiushi = models.IntegerField()
+    yongce = models.IntegerField()
+    chifan = models.IntegerField()
+    zhuanyi = models.IntegerField()
+    huodong = models.IntegerField()
+    chuanyi = models.IntegerField()
+    louti = models.IntegerField()
+    xizao = models.IntegerField()
+    total_score = models.IntegerField()
+    times = models.IntegerField()
+
 """
 class Tag(models.Model):
     tag_name = models.CharField(max_length=20)
