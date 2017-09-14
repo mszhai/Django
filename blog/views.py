@@ -18,10 +18,46 @@ import datetime
 import time
 
 @login_required
+def predictdoc(request):
+    return render(request, 'blog/predictdoc.html')
+
+@login_required
+def add_model_para(request):
+    return render(request, 'blog/addmodelpara.html')
+
+@login_required
 def evaluate_submit(request):
     if request.method == 'POST':
         dic = request.POST.get('dic', '')
-        return HttpResponse(dic)
+        dic = json.loads(dic)
+
+        #获取关联医生，barthel评分者
+        user = User.objects.get(username=request.user)
+        doc = models.Profile.objects.get(user_id=user.id)
+        #获取住院号
+        hospinfo = models.HospitalizationInfo.objects.get(id=dic['hospid'])
+        #获取barthel的评分次数
+        barthel_num = hospinfo.barthel_set.count()
+        if barthel_num + 1 == dic['barthel_num']:
+            barthel = models.Barthel()
+            barthel.profile = doc
+            barthel.hospid = hospinfo
+            barthel.dabian = dic['score0']
+            barthel.xiaobian = dic['score1']
+            barthel.xiushi = dic['score2']
+            barthel.yongce = dic['score3']
+            barthel.chifan = dic['score4']
+            barthel.zhuanyi = dic['score5']
+            barthel.huodong = dic['score6']
+            barthel.chuanyi = dic['score7']
+            barthel.louti = dic['score8']
+            barthel.xizao = dic['score9']
+            barthel.total_score = dic['score10']
+            barthel.times = dic['barthel_num']
+            barthel.save()
+            return HttpResponse('1')
+        else:
+            return HttpResponse('2')
     return HttpResponse('-1')
 
 @login_required
@@ -30,9 +66,29 @@ def evaluate(request):
         hosp_id = request.GET.get('hospid', '')
         pat = models.HospitalizationInfo.objects.get(id=hosp_id)
         a_pat = models.PatientInfo.objects.get(id=pat.patid_id)
+        barthel_num = pat.barthel_set.count()
+        barthel_data = pat.barthel_set.all()
+        barthel_data_dic = {}
+        num_i = 1
+        for item in barthel_data:
+            barthel_data_dic['score'+str(num_i)+'0'] = item.dabian
+            barthel_data_dic['score'+str(num_i)+'1'] = item.xiaobian
+            barthel_data_dic['score'+str(num_i)+'2'] = item.xiushi
+            barthel_data_dic['score'+str(num_i)+'3'] = item.yongce
+            barthel_data_dic['score'+str(num_i)+'4'] = item.chifan
+            barthel_data_dic['score'+str(num_i)+'5'] = item.zhuanyi
+            barthel_data_dic['score'+str(num_i)+'6'] = item.huodong
+            barthel_data_dic['score'+str(num_i)+'7'] = item.chuanyi
+            barthel_data_dic['score'+str(num_i)+'8'] = item.louti
+            barthel_data_dic['score'+str(num_i)+'9'] = item.xizao
+            barthel_data_dic['score'+str(num_i)+'10'] = item.total_score
+            num_i += 1
         pat_info = {}
         pat_info['name'] = a_pat.name
         pat_info['sex'] = a_pat.sex
+        pat_info['hospid'] = pat.id
+        pat_info['barthel_num'] = barthel_num
+        pat_info['barthel_data'] = json.dumps(barthel_data_dic)
     return render(request, 'blog/evaluate.html', pat_info)
 
 @login_required

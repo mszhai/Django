@@ -1,0 +1,64 @@
+{% extends 'blog/base1.html' %} 
+{% block main %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <center>患者康复预测报告</center>
+            </div>
+
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4>康复预测模型</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>该患者出院Barthel评分预期为
+                                <font color="#FF8000">55</font>分，缺陷程度预期是
+                                <font color="#FF8000">中度缺陷</font>
+                            </p>
+                            <p>该患者最有可能提高的康复目标包括：</p>
+                            <div class="col-md-8 col-md-offset-1">
+                                <p>&#8226
+                                    <font color="green">转移（68%）</font>
+                                </p>
+                            </div>
+                            <div class="col-md-8 col-md-offset-1">
+                                <p>&#8226
+                                    <font color="green">活动（58%）</font>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <a href="{% url 'barthel' %}"><i class="fa fa-link"></i> 详情</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4>相似患者分群</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>根据该患者的入院特征，找到
+                                <font color="red">156名</font>相似的卒中患者</p>
+                            <p>这些患者的共性是：首次康复治疗，入院Barthel评分
+                                <=70</p>
+                        </div>
+                        <div class="panel-footer">
+                            <a href="{% url 'similarity' %}"><i class="fa fa-link"></i> 详情</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+</div>
+<!-- /.row -->
+{% endblock%}

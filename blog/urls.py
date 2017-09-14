@@ -30,6 +30,8 @@ urlpatterns += [
     url(r'^modelresult.html', views.model_result, name='modelresult'),
     url(r'^addpatient.html', views.add_patient, name='addpatient'),
     url(r'^evaluate_submit/$', views.evaluate_submit),
+    url(r'^addmodelpara.html', views.add_model_para, name='addmodelpara'),
+    url(r'^predictdoc.html', views.predictdoc, name='predictdoc'),
 ]
 urlpatterns += [
     url(r'^hello$', views.hello, name='hello'),

@@ -1,0 +1,61 @@
+{% extends 'blog/base1.html' %} 
+{% block main %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="well panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">病人信息补全</h3>
+                <p style="font-size:9px;">缺少部分模型所需的病人信息。</p>
+            </div>
+            <div class="panel-body">
+                <!--form role="form" method="post" action="{% url 'login' %}"-->
+                <form role="form" action="" method="post" id="addpatform" class="form-horizontal">
+                    {% csrf_token %}
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="exampleInputName2" class="col-md-1 control-label" >高血压 </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="hospitno" id="hospitno" placeholder="" style="">
+                            </div>
+                            <label for="exampleInputName2" class="col-md-1 control-label" >心脏病 </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="patname" id="patname" placeholder="" style="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName2" class="col-md-1 control-label">首次康复治疗 </label>
+                            <div class="col-md-5">
+                                <select class="form-control" name="sex" id="sex">
+                                    <option value="-1">请选择</option>
+                                    <option value="0">男</option>
+                                    <option value="1">女</option>
+                                </select>
+                            </div>
+                            <label for="exampleInputName2" class="col-md-1 control-label">手术过 </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="birthday" id="birthday" placeholder="1970.1" style="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName2" class="col-md-1 control-label">吸烟 </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="dignose" id="dignose" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-actions pull-right">
+                            <input type="submit" id="submit" onclick="javascript: history.back(-1)" tabindex="5" class="btn btn-success" value="返回">
+                            <input type="submit" id="submit" onclick="pre()" tabindex="5" class="btn btn-success" value="提交">
+                        </div>
+                        <!-- Change this to a button or input when using this as a form -->
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function pre(){
+        location.href = "predictdoc.html";
+    }
+</script>
+{% endblock %}

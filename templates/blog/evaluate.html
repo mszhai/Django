@@ -36,7 +36,7 @@
                                 <label for="exampleInputName2" class="">出院时间 </label>
                                 <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" class="">随访时间 </label>
-                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" class="" id="inhospno" value="{{ barthel_num }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                             </div>
                         </div>
                     </form>
@@ -54,9 +54,9 @@
                                     <th>后期</th>
                                 </tr>
                                 <tr>
-                                    <th>初期</th>
-                                    <th>中期</th>
-                                    <th>后期</th>
+                                    <th id="date1">初期</th>
+                                    <th id="date2">中期</th>
+                                    <th id="date3">后期</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody">
@@ -163,9 +163,23 @@
                                 <tr>
                                     <td>总分</td>
                                     <td></td>
-                                    <td id="totalc">10</td>
-                                    <td id="totalz">0</td>
-                                    <td id="totalh">10</td>
+                                    <td id="total2"></td>
+                                    <td id="total3"></td>
+                                    <td id="total4"></td>
+                                </tr>
+                                <tr>
+                                    <td>ADL缺陷程度*</td>
+                                    <td></td>
+                                    <td id="adl2"></td>
+                                    <td id="adl3"></td>
+                                    <td id="adl4"></td>
+                                </tr>
+                                <tr>
+                                    <td>评定者</td>
+                                    <td></td>
+                                    <td id="eva2"></td>
+                                    <td id="eva3"></td>
+                                    <td id="eva4"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -176,7 +190,7 @@
                 <!-- /.panel-body -->
                 <p class="text-center">
                     <button type="button" class="btn btn-outline btn-default" onclick="submit()">提交</button>
-                    <button type="button" class="btn btn-outline btn-default" onclick="check1(111)">预测结果</button>
+                    <button type="button" class="btn btn-outline btn-default" onclick="predict()">预测结果</button>
                 </p>
             </div>
             <!-- /.panel -->
@@ -185,17 +199,20 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
+    var barthel_num = {{ barthel_num }};
+    var barthel_button = barthel_num + 2;
     
-    function check1(hospid){
-        location.href = "evaluate.html?hospid=" + hospid;
+    function predict(){
+        location.href = "addmodelpara.html?hospid=" + {{ hospid }};
     }
 
+    // 提交按钮
     function submit(){
         var $tbody = $("#tbody").children("tr");
         result = true;
         $tbody.each(function(index, data){
             if(index < 11){
-                var score = $(data).children('td').eq(2).text();
+                var score = $(data).children('td').eq(barthel_button).text();
                 //alert(score);
                 if(score == ''){
                     result = false;
@@ -204,36 +221,44 @@
                 }
             }
         });
-        if(!result){
+        if(result){
             //alert(dic["score1"]);
+            var dic = {};
+            //dic["dabian"] = parseInt($("#tbody").children("tr").eq(0).children('td').eq(2).text());
+            $tbody.each(function(index, data){
+                if(index < 11){
+                    var score = $(data).children('td').eq(barthel_button).text();
+                    //alert(score);
+                    if(score != ''){
+                        var name = "score" + index;
+                        dic[name] = parseInt(score);
+                        //alert(dic[name]);
+                    }
+                }
+            });
+            dic['hospid'] = {{ hospid }};
+            dic['barthel_num'] = barthel_num + 1;
+            //alert(dic);
             $(document).ready(function(){
                 $.ajaxSetup({
                     data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
                 });
-                var dic = new Array();
-                //dic["dabian"] = parseInt($("#tbody").children("tr").eq(0).children('td').eq(2).text());
-                $tbody.each(function(index, data){
-                    if(index < 11){
-                        var score = $(data).children('td').eq(2).text();
-                        //alert(score);
-                        if(score != ''){
-                            var name = "score" + index
-                            dic[name] = parseInt(score);
-                        }
-                    }
-                });
-                alert(dic);
                 $.ajax({
                     url: '/evaluate_submit/',
                     type: "POST",
-                    data: dic,
+                    traditional: true,
+                    data: {'dic': JSON.stringify(dic)},
                     dataType: 'json',
                     cache: false,
                     success: function(data){
                         if(data == 1){
-                            alert("succes!!!!!!");
+                            alert("评定成功!");
+                            location.href = "evaluate.html?hospid=" + dic['hospid'];
+                        }else if(data == 2){
+                            alert("已经提交过！");
                         }
-                        alert(data);
+                        //alert('ss');
+                        //alert(data);
                         /*
                         data = JSON.parse(data);
                         if (data["status"] == 1) {
@@ -244,13 +269,13 @@
                     }
                 });
             });
-            
         }
         else{
             alert("有评分项目未完成！");
         }
     }
 
+    //barthel评分评定控制
     function barthel(ob){
         var id = $(ob).attr("id");
         var obj = $("#"+id ); 
@@ -262,7 +287,7 @@
         $td.each(function(index, data){
             if($(data).attr("id") == id){
                 obj.attr("class", "btn btn-primary btn-block");
-                $("#" + $tr.eq(2).attr("id")).html(5*index);
+                $("#" + $tr.eq(barthel_button).attr("id")).html(5*index);
             }
             else{
                 $("#"+$(data).attr("id")).attr("class", "btn btn-default btn-block");
@@ -272,7 +297,7 @@
         var total_score = 0;
         $tbody.each(function(index, data){
             if(index < 10){
-                var score = $(data).children('td').eq(2).text();
+                var score = $(data).children('td').eq(barthel_button).text();
                 //alert(score);
                 if(score != ''){
                     //alert(parseInt(score));
@@ -280,9 +305,24 @@
                 }
             }
         });
-        $("#totalc").html(total_score);
+        $("#total" + barthel_button).html(total_score);
         //$("#"+$td.eq(0).attr("id")).attr("class", "btn btn-primary btn-block");
     }
-    
+
+    var score = {{ barthel_data|safe }};
+    // 展示历史barthel评分
+    function barthel_show(){
+        var $tbody = $("#tbody").children("tr");
+        $tbody.each(function(index, data){
+            if(index < 11){
+                $(data).children('td').eq(2).html(score['score1'+index]);
+                $(data).children('td').eq(3).html(score['score2'+index]);
+                $(data).children('td').eq(4).html(score['score3'+index]);
+            }
+                
+        });
+    }
+
+    window.onload=function(){barthel_show();}
 </script>
 {% endblock %}
