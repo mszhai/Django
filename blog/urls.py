@@ -32,6 +32,7 @@ urlpatterns += [
     url(r'^evaluate_submit/$', views.evaluate_submit),
     url(r'^addmodelpara.html', views.add_model_para, name='addmodelpara'),
     url(r'^predictdoc.html', views.predictdoc, name='predictdoc'),
+    url(r'^predictbar.html', views.predictbar, name='predictbar'),
 ]
 urlpatterns += [
     url(r'^hello$', views.hello, name='hello'),

@@ -1,0 +1,241 @@
+{% extends 'blog/base1.html' %} 
+{% block main %}
+<div>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <center>Barthel指数评分量表预测</center>
+                    <div class="col-lg-1 pull-right"><input type="button" class="btn btn-default" value="打印" /></div>
+                </div>
+
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="exampleInputName2">姓&nbsp&nbsp&nbsp&nbsp名 </label>
+                                <input type="text" readonly="true"  id="name" value="{{ name }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <label for="exampleInputName2" >&nbsp&nbsp&nbsp&nbsp性别 </label>
+                                <input type="text" readonly="true"  id="sex" value="{{ sex }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
+                                    value="男">
+                                <label for="exampleInputName2" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp年龄 </label>
+                                <input type="text" readonly="true"  id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
+                                    value="58岁">
+                                <label for="exampleInputName2" >&nbsp&nbsp&nbsp&nbsp疾病 </label>
+                                <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <label for="exampleInputName2" >病程 </label>
+                                <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="exampleInputName2" readonly="true">住院号 </label>
+                                <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;"
+                                    value="B000000">
+                                <label for="exampleInputName2" readonly="true">入院时间 </label>
+                                <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <label for="exampleInputName2" readonly="true">出院时间 </label>
+                                <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <label for="exampleInputName2" readonly="true">随访时间 </label>
+                                <input type="text" readonly="true" id="inhospno" value="{{ barthel_num }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="barthel_table">
+                            <thead style="vertical-align:middle">
+                                <tr>
+                                    <th rowspan="3" style="vertical-align:middle; text-align:center">项目</th>
+                                    <th rowspan="3" style="vertical-align:middle; text-align:center">评分标准</th>
+                                    <th colspan="3" style="vertical-align:middle; text-align:center">评定日期（年/月/日）</th>
+                                    <th rowspan="3" style="vertical-align:middle; text-align:center">后期项目提升概率</th>
+                                </tr>
+                                <tr>
+                                    <th>初期</th>
+                                    <th>中期</th>
+                                    <th>后期</th>
+                                </tr>
+                                <tr>
+                                    <th id="date1"></th>
+                                    <th id="date2"></th>
+                                    <th id="date3"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <tr>
+                                    <td>1. 大便</td>
+                                    <td>0=失禁或昏迷</br>
+                                        5=偶尔失禁(每星期<1次)</br>
+                                        10=能控制
+                                    </td>
+                                    <td id="b1tdc"></td>
+                                    <td id="b1tdz"></td>
+                                    <td id="b1tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2. 小便</td>
+                                    <td>0=失禁或昏迷或需由他人导尿</br>
+                                        5=偶尔失禁(每24h<1次，每星期>1次)</br>
+                                        10=控制
+                                    </td>
+                                    <td id="b2tdc"></td>
+                                    <td id="b2tdz"></td>
+                                    <td id="b2tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3. 修饰</td>
+                                    <td>0=需帮助</br>
+                                        5=独立洗脸、梳头、刷牙、剃须
+                                    </td>
+                                    <td id="b3tdc"></td>
+                                    <td id="b3tdz"></td>
+                                    <td id="b3tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4. 用厕</td>
+                                    <td>0=依赖别人</br>
+                                        5=需部分帮助</br>
+                                        10=自理
+                                    </td>
+                                    <td id="b4tdc"></td>
+                                    <td id="b4tdz"></td>
+                                    <td id="b4tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>5. 吃饭</td>
+                                    <td>0=依赖</br>
+                                        5=需部分帮助(切面包、抹黄油、夹菜、盛饭)</br>
+                                        10=全面自理
+                                    </td>
+                                    <td id="b5tdc"></td>
+                                    <td id="b5tdz"></td>
+                                    <td id="b5tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>6. 转移(床-椅)</td>
+                                    <td>0=完全依赖别人，不能坐</br>
+                                        5=需大量帮助(2人)，能坐</br>
+                                        10=需少量帮助(1人)或指导</br>
+                                        15=自理
+                                    </td>
+                                    <td id="b6tdc"></td>
+                                    <td id="b6tdz"></td>
+                                    <td id="b6tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>7. 活动(步行)<br/>(在病房及其周围，<br/>不包括走远路)</td>
+                                    <td>0=不能动</br>
+                                        5=在轮椅上独立行动</br>
+                                        10=需1人帮助步行(体力或言语指导)</br>
+                                        15=独立步行(可用辅助器)
+                                    </td>
+                                    <td id="b7tdc"></td>
+                                    <td id="b7tdz"></td>
+                                    <td id="b7tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>8. 穿衣</td>
+                                    <td>0=依赖</br>
+                                        5=需一半帮助</br>
+                                        10=自理(系开纽扣、关开拉锁和穿鞋等)
+                                    </td>
+                                    <td id="b8tdc"></td>
+                                    <td id="b8tdz"></td>
+                                    <td id="b8tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>9. 上楼梯(上下一段<br/>楼梯，用手杖也算独立)</td>
+                                    <td>0=不能</br>
+                                        5=需帮助(体力或语言指导)</br>
+                                        10=自理
+                                    </td>
+                                    <td id="b9tdc"></td>
+                                    <td id="b9tdz"></td>
+                                    <td id="b9tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>10. 洗澡</td>
+                                    <td>0=依赖</br>
+                                        5=自理
+                                    </td>
+                                    <td id="b10tdc"></td>
+                                    <td id="b10tdz"></td>
+                                    <td id="b10tdh"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>总分</td>
+                                    <td></td>
+                                    <td id="total2"></td>
+                                    <td id="total3"></td>
+                                    <td id="total4"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>ADL缺陷程度*</td>
+                                    <td></td>
+                                    <td id="adl2"></td>
+                                    <td id="adl3"></td>
+                                    <td id="adl4"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>评定者</td>
+                                    <td></td>
+                                    <td id="eva2"></td>
+                                    <td id="eva3"></td>
+                                    <td id="eva4"></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>*ADL 能力缺陷程度：0~20=极严重功能缺陷；25~45=严重功能缺陷；50~70=中度功能缺陷；</br>75~95=轻度功能缺陷；100=ADL 自理</p>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+                <p class="text-center">
+                    <button type="button" class="btn btn-outline btn-default" onclick="report()">分析报告</button>
+                </p>
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<script type="text/javascript">
+    var barthel_num = {{ barthel_num }};
+    var barthel_button = barthel_num + 2;
+
+    //分析报告
+    function report(){
+        location.href = "modelresult.html?a=1";
+    }
+
+    var score = {{ barthel_data|safe }};
+    // 展示历史barthel评分
+    function barthel_show(){
+        var $tbody = $("#tbody").children("tr");
+        $tbody.each(function(index, data){
+            if(index < 14){
+                $(data).children('td').eq(2).html(score['score1'+index]);
+                $(data).children('td').eq(3).html(score['score2'+index]);
+                $(data).children('td').eq(4).html(score['score3'+index]);
+            }
+        });
+        $("#date1").html(score['score1date']);
+        $("#date2").html(score['score2date']);
+        $("#date3").html(score['score3date']);
+    }
+
+    window.onload=function(){barthel_show();}
+</script>
+{% endblock %}

@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-actions pull-right">
                             <input type="submit" id="submit" onclick="javascript: history.back(-1)" tabindex="5" class="btn btn-success" value="返回">
-                            <input type="submit" id="submit" onclick="pre()" tabindex="5" class="btn btn-success" value="提交">
+                            <input type="button" onclick="pre()" tabindex="5" class="btn btn-success" value="提交">
                         </div>
                         <!-- Change this to a button or input when using this as a form -->
                     </fieldset>
@@ -55,7 +55,7 @@
 </div>
 <script>
     function pre(){
-        location.href = "predictdoc.html";
+        location.href = "modelresult.html?a=1";
     }
 </script>
 {% endblock %}

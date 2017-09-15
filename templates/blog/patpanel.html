@@ -37,8 +37,12 @@
 </div>
 <script type="text/javascript">
 
-    function check1(hospid){
-        location.href = "evaluate.html?hospid=" + hospid;
+    function check1(hospid, evaluate_status){
+        if(evaluate_status == 3){
+            location.href = "predictbar.html?hospid=" + hospid;
+        }else if(evaluate_status == 2){
+            location.href = "modelresult.html?hospid=" + hospid;
+        }
     }
 
     function evaluate1(hospid){

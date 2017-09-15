@@ -18,6 +18,51 @@ import datetime
 import time
 
 @login_required
+def predictbar(request):
+    if request.method == 'GET':
+        hosp_id = request.GET.get('hospid', '')
+        pat = models.HospitalizationInfo.objects.get(id=hosp_id)
+        a_pat = models.PatientInfo.objects.get(id=pat.patid_id)
+        pat_info = {}
+        barthel_num = pat.barthel_set.count()
+        barthel_data = pat.barthel_set.all()
+        barthel_data_dic = {}
+        num_i = 1
+        for item in barthel_data:
+            barthel_data_dic['score'+str(num_i)+'0'] = item.dabian
+            barthel_data_dic['score'+str(num_i)+'1'] = item.xiaobian
+            barthel_data_dic['score'+str(num_i)+'2'] = item.xiushi
+            barthel_data_dic['score'+str(num_i)+'3'] = item.yongce
+            barthel_data_dic['score'+str(num_i)+'4'] = item.chifan
+            barthel_data_dic['score'+str(num_i)+'5'] = item.zhuanyi
+            barthel_data_dic['score'+str(num_i)+'6'] = item.huodong
+            barthel_data_dic['score'+str(num_i)+'7'] = item.chuanyi
+            barthel_data_dic['score'+str(num_i)+'8'] = item.louti
+            barthel_data_dic['score'+str(num_i)+'9'] = item.xizao
+            barthel_data_dic['score'+str(num_i)+'10'] = item.total_score
+            adl = ''
+            if 0 <= item.total_score <= 20:
+                adl = '极严重功能缺陷'
+            elif 25 <= item.total_score <= 45:
+                adl = '严重功能缺陷'
+            elif 50 <= item.total_score <= 70:
+                adl = '中度功能缺陷'
+            elif 75 <= item.total_score <= 95:
+                adl = '轻度功能缺陷'
+            elif item.total_score == 100:
+                adl = 'ADL自理'
+            barthel_data_dic['score'+str(num_i)+'11'] = adl
+            barthel_data_dic['score'+str(num_i)+'12'] = 'bob'
+            barthel_data_dic['score'+str(num_i)+'date'] = item.evaluate_time.strftime("%Y-%m-%d")
+            num_i += 1
+        pat_info['name'] = a_pat.name
+        pat_info['sex'] = a_pat.sex
+        pat_info['hospid'] = pat.id
+        pat_info['barthel_num'] = barthel_num
+        pat_info['barthel_data'] = json.dumps(barthel_data_dic)
+    return render(request, 'blog/predictbar.html', pat_info)
+
+@login_required
 def predictdoc(request):
     return render(request, 'blog/predictdoc.html')
 
@@ -82,6 +127,20 @@ def evaluate(request):
             barthel_data_dic['score'+str(num_i)+'8'] = item.louti
             barthel_data_dic['score'+str(num_i)+'9'] = item.xizao
             barthel_data_dic['score'+str(num_i)+'10'] = item.total_score
+            adl = ''
+            if 0 <= item.total_score <= 20:
+                adl = '极严重功能缺陷'
+            elif 25 <= item.total_score <= 45:
+                adl = '严重功能缺陷'
+            elif 50 <= item.total_score <= 70:
+                adl = '中度功能缺陷'
+            elif 75 <= item.total_score <= 95:
+                adl = '轻度功能缺陷'
+            elif item.total_score == 100:
+                adl = 'ADL自理'
+            barthel_data_dic['score'+str(num_i)+'11'] = adl
+            barthel_data_dic['score'+str(num_i)+'12'] = 'bob'
+            barthel_data_dic['score'+str(num_i)+'date'] = item.evaluate_time.strftime("%Y-%m-%d")
             num_i += 1
         pat_info = {}
         pat_info['name'] = a_pat.name
@@ -89,6 +148,9 @@ def evaluate(request):
         pat_info['hospid'] = pat.id
         pat_info['barthel_num'] = barthel_num
         pat_info['barthel_data'] = json.dumps(barthel_data_dic)
+        now = {}
+        now['current_time'] = datetime.datetime.now().strftime("%Y-%m-%d")
+        pat_info['current_time'] = json.dumps(now)
     return render(request, 'blog/evaluate.html', pat_info)
 
 @login_required
@@ -136,7 +198,7 @@ def pat_panel(request):
     page_html = ''
     pat_panel = '''
     <div class="col-lg-3 col-sm-3">
-        <div class="panel panel-info">
+        <div class="panel panel-{evaluate_status_style}">
             <div class="panel-heading">
                 <i class="fa fa-male"></i> {name}
             </div>
@@ -161,19 +223,29 @@ def pat_panel(request):
                 </table>
             </div>
             <div class="panel-footer">
-                <a onclick="evaluate1('{patid1}')"><i class="fa fa-link"></i> 评定</a>
-                <a onclick="check1({patid2})"><i class="fa fa-link"></i> 查看</a>
+                <a style="cursor:pointer" onclick="evaluate1('{patid1}')"><i class="fa fa-link"></i> 评定</a>
+                {check1}
             </div>
         </div>
     </div>
     <!-- /.col-lg-3 -->
     '''
+    
     if role.group == 'doctor':#in=[role.id]
-        patients = models.HospitalizationInfo.objects.filter(doctor__in=[role.id, 999999])
+        patients = models.HospitalizationInfo.objects.filter(doctor__in=[role.id, 999999]).order_by('evaluate_status')
         for pat in patients:
             a_patient = models.PatientInfo.objects.get(id=pat.patid_id)
             age = int((pat.entdate - a_patient.birthday).days / 365 + 1)
-            page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, patid1=pat.id, patid2=pat.id)
+            evaluate_status = pat.evaluate_status
+            check1 = '<a style="cursor:pointer" onclick="check1({patid2}, {e_status})"><i class="fa fa-link"></i> 查看</a>'
+            if evaluate_status == 2:
+                check1 = check1.format(patid2=pat.id, e_status=2)
+                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, patid1=pat.id, check1=check1, evaluate_status_style='danger')
+            elif evaluate_status == 3:
+                check1 = check1.format(patid2=pat.id, e_status=3)
+                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, patid1=pat.id, check1=check1, evaluate_status_style='warning')
+            else:
+                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, patid1=pat.id, check1='', evaluate_status_style='info')
     page_html = mark_safe(page_html)
     ret = {"page_html": page_html}
     return render(request, 'blog/patpanel.html', ret)
