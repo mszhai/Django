@@ -13,31 +13,52 @@
                     {% csrf_token %}
                     <fieldset>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-1 control-label" >高血压 </label>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" name="hospitno" id="hospitno" placeholder="" style="">
+                            <label for="exampleInputName2" class="col-md-2 control-label" >发病日期 </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="dignose" id="dignose" placeholder="">
                             </div>
-                            <label for="exampleInputName2" class="col-md-1 control-label" >心脏病 </label>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" name="patname" id="patname" placeholder="" style="">
+                            <label for="exampleInputName2" class="col-md-2 control-label" >首次康复治疗 </label>
+                            <div class="col-md-4">
+                                <label><input name="Fruit" type="radio" value="" />是 </label> 
+                                <label><input name="Fruit" type="radio" value="" />否 </label> 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-1 control-label">首次康复治疗 </label>
-                            <div class="col-md-5">
-                                <select class="form-control" name="sex" id="sex">
-                                    <option value="-1">请选择</option>
-                                    <option value="0">男</option>
-                                    <option value="1">女</option>
-                                </select>
+                            <label for="exampleInputName2" class="col-md-2 control-label" >高血压 </label>
+                            <div class="col-md-4">
+                                <label><input name="Fruit" type="radio" value="" />是 </label>
+                                <label><input name="Fruit" type="radio" value="" />否 </label>
                             </div>
-                            <label for="exampleInputName2" class="col-md-1 control-label">手术过 </label>
+                            <label for="exampleInputName2" class="col-md-2 control-label" >糖尿病 </label>
+                            <div class="col-md-4">
+                                <label><input name="Fruit" type="radio" value="" />是 </label> 
+                                <label><input name="Fruit" type="radio" value="" />否 </label> 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName2" class="col-md-2 control-label" >保守治疗 </label>
+                            <div class="col-md-4">
+                                <label><input name="Fruit" type="radio" value="" />是 </label>
+                                <label><input name="Fruit" type="radio" value="" />否 </label>
+                            </div>
+                            <label for="exampleInputName2" class="col-md-2 control-label" >诊断类型 </label>
+                            <div class="col-md-4">
+                                <label><input name="Fruit" type="radio" value="" />脑梗 </label> 
+                                <label><input name="Fruit" type="radio" value="" />脑出血 </label> 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName2" class="col-md-1 control-label">GLU </label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" name="dignose" id="dignose" placeholder=""> 
+                            </div>
+                            <label for="exampleInputName2" class="col-md-1 control-label">TG </label>
                             <div class="col-md-5">
                                 <input type="text" class="form-control" name="birthday" id="birthday" placeholder="1970.1" style="">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-1 control-label">吸烟 </label>
+                            <label for="exampleInputName2" class="col-md-1 control-label">LDL-C </label>
                             <div class="col-md-5">
                                 <input type="text" class="form-control" name="dignose" id="dignose" placeholder="">
                             </div>
@@ -54,8 +75,10 @@
     </div>
 </div>
 <script>
+    var hospid = {{ hospid }};
+
     function pre(){
-        location.href = "modelresult.html?a=1";
+        location.href = "modelresult.html?hospid=" + hospid;
     }
 </script>
 {% endblock %}

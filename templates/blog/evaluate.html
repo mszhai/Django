@@ -201,9 +201,33 @@
 <script type="text/javascript">
     var barthel_num = {{ barthel_num }};
     var barthel_button = barthel_num + 2;
+    var hospid = {{ hospid }};
     
     function predict(){
-        location.href = "addmodelpara.html?hospid=" + {{ hospid }};
+        //location.href = "addmodelpara.html?hospid=" + {{ hospid }};
+        $(document).ready(function(){
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+            $.ajax({
+                url: '/predict_model/',
+                type: "POST",
+                traditional: true,
+                data: {'hospid': hospid},
+                success: function(data){
+                    //alert(data);
+                    if(data == -2){
+                        alert("Barthel指数未评测完成！");
+                    }else if(data == -1){
+                        alert("出错了！");
+                    }else if(data == 1){
+                        location.href = "addmodelpara.html?hospid=" + hospid;
+                    }else if(data == 2){
+                        location.href = "modelresult.html?hospid=" + hospid;
+                    }
+                }
+            });
+        });
     }
 
     // 提交按钮

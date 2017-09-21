@@ -52,6 +52,17 @@ class Barthel(models.Model):
     total_score = models.IntegerField()
     times = models.IntegerField()
 
+class MedHistory(models.Model):
+    hospid = models.ForeignKey(HospitalizationInfo)
+    stroke_time = models.DateTimeField(null=True)
+    conservative_treatment = models.NullBooleanField(null=True)
+    first_recover_care = models.NullBooleanField(null=True)
+    diabetes = models.NullBooleanField(null=True)
+    hypertension = models.NullBooleanField(null=True)
+    smoke = models.NullBooleanField(null=True)
+    drink = models.NullBooleanField(null=True)
+
+
 """
 class Tag(models.Model):
     tag_name = models.CharField(max_length=20)

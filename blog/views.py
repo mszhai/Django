@@ -18,6 +18,25 @@ import datetime
 import time
 
 @login_required
+def predict_model(request):
+    if request.method == 'POST':
+        hosp_id = request.POST.get('hospid', '')
+        barthel = models.Barthel.objects.filter(hospid=hosp_id, times=1)
+        if len(barthel) == 0:
+            return HttpResponse('-2')
+        med_history = models.MedHistory.objects.filter(hospid=hosp_id)
+        if med_history:
+            return HttpResponse('2')
+        return HttpResponse('1')
+    return HttpResponse('-1')
+
+def get_model_result(model_input):
+    api = 'aa'
+    result = 1
+    return result
+
+
+@login_required
 def predictbar(request):
     if request.method == 'GET':
         hosp_id = request.GET.get('hospid', '')
@@ -68,7 +87,11 @@ def predictdoc(request):
 
 @login_required
 def add_model_para(request):
-    return render(request, 'blog/addmodelpara.html')
+    if request.method == 'GET':
+        hosp_id = request.GET.get('hospid', '')
+        para = dict()
+        para['hospid'] = hosp_id
+    return render(request, 'blog/addmodelpara.html', para)
 
 @login_required
 def evaluate_submit(request):
@@ -184,11 +207,14 @@ def add_patient(request):
         hospinfo.doctor = doc
         hospinfo.entdate = datetime.datetime.now()
         hospinfo.save()
-        return render(request, 'blog/patpanel.html')
+        return HttpResponseRedirect('/patpanel.html')
+        #return render(request, 'blog/patpanel.html')
     return render(request, 'blog/addpatient.html')
 
 @login_required
 def model_result(request):
+    #result = get_model_result(1)
+
     return render(request, 'blog/modelresult.html')
 
 @login_required
