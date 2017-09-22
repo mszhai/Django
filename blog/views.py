@@ -18,6 +18,62 @@ import datetime
 import time
 
 @login_required
+def model_result(request):
+    if request.method == 'GET':
+        hosp_id = request.GET.get('hospid', '')
+        data = api_data(hosp_id)
+    return render(request, 'blog/modelresult.html', data)
+
+def api_data(hospid):
+    data = 1
+    return data
+
+@login_required
+def modelpara(request):
+    if request.method == 'POST':
+        medhistory = models.MedHistory()
+        hosp_id = request.POST.get('hospid', '')
+        stroke_time = request.POST.get('stroke_time', '')
+        if stroke_time:
+            stroke_time = time.strptime(stroke_time, "%Y.%m")
+            stroke_time = datetime.datetime(* stroke_time[:3])
+        else:
+            return HttpResponse('-1')
+        radio1 = request.POST.get('radio1', '')
+        radio2 = request.POST.get('radio2', '')
+        radio3 = request.POST.get('radio3', '')
+        radio4 = request.POST.get('radio4', '')
+        radio5 = request.POST.get('radio5', '')
+
+        if not (radio1 or radio2 or radio3 or radio4 or radio5):
+            return HttpResponse('-1')
+
+        glu = request.POST.get('glu', '')
+        tg = request.POST.get('tg', '')
+        ldl_c = request.POST.get('ldl_c', '')
+
+        #获取住院号
+        hospinfo = models.HospitalizationInfo.objects.get(id=hosp_id)
+        medhistory.hospid = hospinfo
+        medhistory.stroke_time = stroke_time
+        medhistory.conservative_treatment = radio4
+        medhistory.first_recover_care = radio1
+        medhistory.diabetes = radio3
+        medhistory.hypertension = radio2
+        #medhistory.smoke = 
+        #medhistory.drink = 
+        medhistory.dignose = radio5
+        if glu:
+            medhistory.glu = glu
+        if tg:
+            medhistory.tg = tg
+        if ldl_c:
+            medhistory.ldl_c = ldl_c
+        medhistory.save()
+        return HttpResponse('1')
+
+
+@login_required
 def predict_model(request):
     if request.method == 'POST':
         hosp_id = request.POST.get('hospid', '')
@@ -210,12 +266,6 @@ def add_patient(request):
         return HttpResponseRedirect('/patpanel.html')
         #return render(request, 'blog/patpanel.html')
     return render(request, 'blog/addpatient.html')
-
-@login_required
-def model_result(request):
-    #result = get_model_result(1)
-
-    return render(request, 'blog/modelresult.html')
 
 @login_required
 def pat_panel(request):

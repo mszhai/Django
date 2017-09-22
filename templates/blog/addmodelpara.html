@@ -9,63 +9,70 @@
             </div>
             <div class="panel-body">
                 <!--form role="form" method="post" action="{% url 'login' %}"-->
-                <form role="form" action="" method="post" id="addpatform" class="form-horizontal">
+                <form role="form" action="" method="post" id="addmodelparaform" class="form-horizontal">
                     {% csrf_token %}
                     <fieldset>
+                        <input type="hidden" name="hospid" value="{{ hospid }}" ></input>
+                        <legend style="font-size:15px;">既往病史<span style="color:red">*</span> </legend>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-2 control-label" >发病日期 </label>
+                            <label class="col-md-2 control-label" >发病日期 </label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="dignose" id="dignose" placeholder="">
+                                <input type="text" class="form-control" name="stroke_time" id="stroke_time" placeholder="2015.6">
                             </div>
-                            <label for="exampleInputName2" class="col-md-2 control-label" >首次康复治疗 </label>
+                            <label class="col-md-2 control-label" >首次康复治疗 </label>
                             <div class="col-md-4">
-                                <label><input name="Fruit" type="radio" value="" />是 </label> 
-                                <label><input name="Fruit" type="radio" value="" />否 </label> 
+                                <label class="radio-inline"><input name="radio1" type="radio" value="1" />是 </label> 
+                                <label class="radio-inline"><input name="radio1" type="radio" value="0" />否 </label> 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-2 control-label" >高血压 </label>
+                            <label class="col-md-2 control-label">高血压 </label>
                             <div class="col-md-4">
-                                <label><input name="Fruit" type="radio" value="" />是 </label>
-                                <label><input name="Fruit" type="radio" value="" />否 </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="radio2" value="1">是
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="radio2" value="0">否
+                                </label>
                             </div>
-                            <label for="exampleInputName2" class="col-md-2 control-label" >糖尿病 </label>
+                            <label class="col-md-2 control-label" >糖尿病 </label>
                             <div class="col-md-4">
-                                <label><input name="Fruit" type="radio" value="" />是 </label> 
-                                <label><input name="Fruit" type="radio" value="" />否 </label> 
+                                <label class="radio-inline"><input name="radio3" type="radio" value="1" />是 </label> 
+                                <label class="radio-inline"><input name="radio3" type="radio" value="0" />否 </label> 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-2 control-label" >保守治疗 </label>
+                            <label class="col-md-2 control-label" >保守治疗 </label>
                             <div class="col-md-4">
-                                <label><input name="Fruit" type="radio" value="" />是 </label>
-                                <label><input name="Fruit" type="radio" value="" />否 </label>
+                                <label class="radio-inline"><input name="radio4" type="radio" value="1" />是 </label>
+                                <label class="radio-inline"><input name="radio4" type="radio" value="0" />否 </label>
                             </div>
-                            <label for="exampleInputName2" class="col-md-2 control-label" >诊断类型 </label>
+                            <label class="col-md-2 control-label" >诊断类型 </label>
                             <div class="col-md-4">
-                                <label><input name="Fruit" type="radio" value="" />脑梗 </label> 
-                                <label><input name="Fruit" type="radio" value="" />脑出血 </label> 
+                                <label class="radio-inline"><input name="radio5" type="radio" value="脑梗" />脑梗 </label> 
+                                <label class="radio-inline"><input name="radio5" type="radio" value="脑出血" />脑出血 </label> 
+                            </div>
+                        </div>
+                        <legend style="font-size:15px;">检验信息 </legend>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">GLU </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="glu" id="glu" placeholder=""> 
+                            </div>
+                            <label class="col-md-2 control-label">TG </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="tg" id="tg" placeholder="" style="">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-1 control-label">GLU </label>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" name="dignose" id="dignose" placeholder=""> 
-                            </div>
-                            <label for="exampleInputName2" class="col-md-1 control-label">TG </label>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" name="birthday" id="birthday" placeholder="1970.1" style="">
+                            <label class="col-md-2 control-label">LDL-C </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="ldl_c" id="ldl_c" placeholder="">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-1 control-label">LDL-C </label>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" name="dignose" id="dignose" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-actions pull-right">
+                        <div class="form-actions text-center">
                             <input type="submit" id="submit" onclick="javascript: history.back(-1)" tabindex="5" class="btn btn-success" value="返回">
-                            <input type="button" onclick="pre()" tabindex="5" class="btn btn-success" value="提交">
+                            <input type="button" onclick="predict()" tabindex="5" class="btn btn-success" value="提交">
                         </div>
                         <!-- Change this to a button or input when using this as a form -->
                     </fieldset>
@@ -77,8 +84,27 @@
 <script>
     var hospid = {{ hospid }};
 
-    function pre(){
-        location.href = "modelresult.html?hospid=" + hospid;
+    function predict(){
+        //location.href = "addmodelpara.html?hospid=" + {{ hospid }};
+        $(document).ready(function(){
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+            $.ajax({
+                url: '/modelpara/',
+                type: "POST",
+                traditional: true,
+                data: $('#addmodelparaform').serialize(),
+                success: function(data){
+                    alert(data);
+                    if(data == -1){
+                        alert("*为必填项！");
+                    }else if(data == 1){
+                        location.href = "modelresult.html?hospid=" + hospid;
+                    }
+                }
+            });
+        });
     }
 </script>
 {% endblock %}

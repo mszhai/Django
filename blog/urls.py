@@ -34,6 +34,7 @@ urlpatterns += [
     url(r'^predictdoc.html', views.predictdoc, name='predictdoc'),
     url(r'^predictbar.html', views.predictbar, name='predictbar'),
     url(r'^predict_model/$', views.predict_model, name='predict_model'),
+    url(r'^modelpara/$', views.modelpara, name='modelpara'),
 ]
 urlpatterns += [
     url(r'^hello$', views.hello, name='hello'),

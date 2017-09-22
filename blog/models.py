@@ -61,6 +61,11 @@ class MedHistory(models.Model):
     hypertension = models.NullBooleanField(null=True)
     smoke = models.NullBooleanField(null=True)
     drink = models.NullBooleanField(null=True)
+    dignose = models.CharField(max_length=50, null=True)
+    glu = models.IntegerField(null=True)
+    tg = models.IntegerField(null=True)
+    ldl_c = models.IntegerField(null=True)
+    createtime = models.DateTimeField(auto_now=True)
 
 
 """
