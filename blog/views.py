@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
-import json
-import os
+
 from django.contrib import auth
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -14,19 +13,94 @@ from django.contrib.auth import login as login0
 from django.contrib.auth.decorators import login_required
 from django.utils.safestring import mark_safe
 import blog.models as models
+
 import datetime
 import time
+import json
+import os
+import requests
 
 @login_required
 def model_result(request):
     if request.method == 'GET':
         hosp_id = request.GET.get('hospid', '')
-        data = api_data(hosp_id)
-    return render(request, 'blog/modelresult.html', data)
+        user = User.objects.get(username=request.user)
+        userid = user.id
+        #页面需要展示的内容
+        data = api_data(hosp_id, userid)
+    return render(request, 'blog/modelresult.html', {'data': data})
 
-def api_data(hospid):
-    data = 1
-    return data
+def api_data(hospid, userid):
+    med_history = models.MedHistory.objects.get(hospid=hospid)
+    barthel_info = models.Barthel.objects.filter(hospid=hospid, times=1)
+    hosp_info = models.HospitalizationInfo.objects.get(id=hospid)
+    pat_info = models.PatientInfo.objects.get(id=hosp_info.patid_id)
+    stroke_days = (barthel_info[0].evaluate_time - med_history.stroke_time).days
+    first_recover_care = 0.0
+    if med_history.first_recover_care:
+        first_recover_care = 1.0
+    glu = 5.63
+    age = int((hosp_info.entdate - pat_info.birthday).days / 365 + 1)
+
+    barthel_dic = dict()
+    barthel_dic['n1'] = barthel_info[0].dabian
+    barthel_dic['n2'] = barthel_info[0].xiaobian
+    barthel_dic['n3'] = barthel_info[0].xiushi
+    barthel_dic['n4'] = barthel_info[0].yongce
+    barthel_dic['n5'] = barthel_info[0].chifan
+    barthel_dic['n6'] = barthel_info[0].zhuanyi
+    barthel_dic['n7'] = barthel_info[0].huodong
+    barthel_dic['n8'] = barthel_info[0].chuanyi
+    barthel_dic['n9'] = barthel_info[0].louti
+    barthel_dic['n10'] = barthel_info[0].total_score
+    barthel_dic['n11'] = barthel_info[0].total_score
+
+    url_pat = 'http://10.111.25.203:80/api/v1/{userid}/risk/{modelid}/{patientid}'
+    modelid_list = ['_risk_model_n{}'.format(item) for item in range(1, 10)]
+    modelid_list.append('_risk_model_total_level')
+    modelid_list.append('_risk_model_total_score')
+    barthel_part = list()
+    barthel_part.append('入院Barthel_大便')
+    barthel_part.append('入院Barthel_小便')
+    barthel_part.append('入院Barthel_修饰')
+    barthel_part.append('入院Barthel_用厕')
+    barthel_part.append('入院Barthel_吃饭')
+    barthel_part.append('入院Barthel_转移')
+    barthel_part.append('入院Barthel_活动')
+    barthel_part.append('入院Barthel_穿衣')
+    barthel_part.append('入院Barthel_上楼梯')
+    barthel_part.append('入院Barthel总分')
+    barthel_part.append('入院Barthel总分')
+
+    result_data = dict()
+    result_data2 = list()
+    n_i = 0
+    for modelid, barthel_item in zip(modelid_list, barthel_part):
+        n_i += 1
+        dict_data2 = {'prob': 0, 'bscore': 0, 'stroke': 0, 'cure': 0, 'age': 0, 'glu': 0}
+        url = url_pat.format(userid=userid, modelid=modelid, patientid=hospid)
+        data = []
+        dic0 = {'key': barthel_item, 'value': barthel_dic['n'+str(n_i)] + 0.0}
+        dic1 = {'key': '距脑卒中发病天数', 'value': stroke_days + 0.0}
+        dic2 = {'key': '首次治疗', 'value': first_recover_care}
+        dic3 = {'key': '年龄', 'value': age + 0.0}
+        dic4 = {'key': 'GLU', 'value': glu}
+        data = [dic0, dic1, dic2, dic3, dic4]
+        data_json = json.dumps(data, ensure_ascii=False)#, ensure_ascii=False
+        data_json = data_json.encode('utf8')
+        result = requests.post(url, data_json)
+        result_text = result.text
+        result_json = json.loads(result_text)
+        if 'error_message' in result_json.keys():
+            #result_data['n'+str(n_i)] = result_json['error_message']
+            dict_data2['prob'] = -1
+        elif 'probability_of_improvement' in result_json.keys():
+            #result_data['n'+str(n_i)] = result_json['probability_of_improvement']
+            dict_data2['prob']
+        result_data2.append(dict_data2)
+        
+        
+    return result_data
 
 @login_required
 def modelpara(request):

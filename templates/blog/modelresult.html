@@ -66,6 +66,7 @@
 <script type="text/javascript">
     //var batthel_json = {{ batthel_json|safe }};
     //var batthel_json = {{ batthel_json|safe }};
+    var data = {{ data|safe }}
     var dom = document.getElementById("pic1");
 
     var myChart = echarts.init(dom);
@@ -98,7 +99,7 @@
         grid: {
             left: '15%',
             right: '4%',
-            bottom: '3%',
+            bottom: '10%',
             //containLabel: true
         },
         xAxis: {
