@@ -109,7 +109,7 @@ def modelpara(request):
         hosp_id = request.POST.get('hospid', '')
         stroke_time = request.POST.get('stroke_time', '')
         if stroke_time:
-            stroke_time = time.strptime(stroke_time, "%Y.%m")
+            stroke_time = time.strptime(stroke_time, "%Y-%m-%d")
             stroke_time = datetime.datetime(* stroke_time[:3])
         else:
             return HttpResponse('-1')
@@ -293,7 +293,7 @@ def evaluate(request):
                 adl = 'ADL自理'
             barthel_data_dic['score'+str(num_i)+'11'] = adl
             barthel_data_dic['score'+str(num_i)+'12'] = 'bob'
-            barthel_data_dic['score'+str(num_i)+'date'] = item.evaluate_time.strftime("%Y-%m-%d")
+            barthel_data_dic['score'+str(num_i)+'date'] = item.evaluate_time.strftime("%Y/%m/%d")
             num_i += 1
         pat_info = {}
         pat_info['name'] = a_pat.name
@@ -302,7 +302,7 @@ def evaluate(request):
         pat_info['barthel_num'] = barthel_num
         pat_info['barthel_data'] = json.dumps(barthel_data_dic)
         now = {}
-        now['current_time'] = datetime.datetime.now().strftime("%Y-%m-%d")
+        now['current_time'] = datetime.datetime.now().strftime("%Y/%m/%d")
         pat_info['current_time'] = json.dumps(now)
     return render(request, 'blog/evaluate.html', pat_info)
 
@@ -318,7 +318,7 @@ def add_patient(request):
         elif sex_t == '1':
             sex = '女'
         birthday = request.POST.get('birthday', '')
-        birthday = time.strptime(birthday, "%Y.%m")
+        birthday = time.strptime(birthday, "%Y-%m-%d")
         birthday = datetime.datetime(* birthday[:3])
         dignose = request.POST.get('dignose', '')
         
@@ -661,13 +661,15 @@ def regist(request):
 
 def login_verify(request): #登陆信息提交验证
     if request.method == 'POST':
-        username = request.POST['name']
+        username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(username=username, password=password)
         if user and user.is_active:
             auth.login(request, user)
-            return HttpResponseRedirect('/patpanel.html')
-    return HttpResponse('some error.')
+            #return HttpResponseRedirect('/patpanel.html')
+            return HttpResponse('1')
+        return HttpResponse('-1')
+    return HttpResponse('-1')
 
 def logout(request):
     auth.logout(request)

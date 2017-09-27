@@ -12,7 +12,7 @@ class API_UserInfo(models.Model):
         #permissions = 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
 
     group = models.CharField(max_length=200, default='doctor')
     phone = models.CharField(max_length=200, blank=True)
@@ -27,16 +27,16 @@ class PatientInfo(models.Model):
 class HospitalizationInfo(models.Model):
     hospitno_fk = models.CharField(max_length=50, null=True)
     evaluate_status = models.IntegerField(default=1)
-    patid = models.ForeignKey(PatientInfo, null=True)
+    patid = models.ForeignKey(PatientInfo, null=True, on_delete=None)
     patid_fk = models.CharField(max_length=50, null=True)
-    doctor = models.ForeignKey(Profile, default=999999)
+    doctor = models.ForeignKey(Profile, default=999999, on_delete=None)
     entdate = models.DateTimeField(null=True)
     outdate = models.DateTimeField(null=True)
     dignose = models.CharField(max_length=50, null=True)
     update_time = models.DateTimeField(auto_now=True)
 
 class Barthel(models.Model):
-    hospid = models.ForeignKey(HospitalizationInfo)
+    hospid = models.ForeignKey(HospitalizationInfo, on_delete=None)
     profile = models.ForeignKey(Profile)
     evaluate_time = models.DateTimeField(auto_now=True)
     dabian = models.IntegerField()
@@ -53,7 +53,7 @@ class Barthel(models.Model):
     times = models.IntegerField()
 
 class MedHistory(models.Model):
-    hospid = models.ForeignKey(HospitalizationInfo)
+    hospid = models.ForeignKey(HospitalizationInfo, on_delete=None)
     stroke_time = models.DateTimeField(null=True)
     conservative_treatment = models.NullBooleanField(null=True)
     first_recover_care = models.NullBooleanField(null=True)

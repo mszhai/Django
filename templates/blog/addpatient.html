@@ -12,17 +12,17 @@
                     {% csrf_token %}
                     <fieldset>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-1 control-label" >住院号 </label>
+                            <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">住院号 </label>
                             <div class="col-md-5">
                                 <input type="text" class="form-control" name="hospitno" id="hospitno" placeholder="" style="">
                             </div>
-                            <label for="exampleInputName2" class="col-md-1 control-label" >姓名 </label>
+                            <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">姓名 </label>
                             <div class="col-md-5">
                                 <input type="text" class="form-control" name="patname" id="patname" placeholder="" style="">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-1 control-label">性别 </label>
+                            <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">性别 </label>
                             <div class="col-md-5">
                                 <select class="form-control" name="sex" id="sex">
                                     <option value="-1">请选择</option>
@@ -30,13 +30,14 @@
                                     <option value="1">女</option>
                                 </select>
                             </div>
-                            <label for="exampleInputName2" class="col-md-1 control-label">出生日期 </label>
+                            <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">出生日期 </label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" name="birthday" id="birthday" placeholder="1970.1" style="">
+                                <input class="form-control" name="birthday" id="birthday" type="date" value=""/>
+                                <!--input type="text" class="form-control" name="birthday" id="birthday" placeholder="1970.1" style=""-->
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName2" class="col-md-1 control-label">卒中类型 </label>
+                            <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">卒中类型 </label>
                             <div class="col-md-5">
                                 <input type="text" class="form-control" name="dignose" id="dignose" placeholder="">
                             </div>

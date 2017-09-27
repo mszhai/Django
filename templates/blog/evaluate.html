@@ -44,14 +44,14 @@
                         <table class="table table-striped table-bordered table-hover" id="barthel_table">
                             <thead style="vertical-align:middle">
                                 <tr>
-                                    <th rowspan="3" style="vertical-align:middle; text-align:center">项目</th>
-                                    <th rowspan="3" style="vertical-align:middle; text-align:center">评分标准</th>
+                                    <th rowspan="3" style="vertical-align:middle; text-align:center" width="21%">项目</th>
+                                    <th rowspan="3" style="vertical-align:middle; text-align:center" width="40%">评分标准</th>
                                     <th colspan="3" style="vertical-align:middle; text-align:center">评定日期（年/月/日）</th>
                                 </tr>
-                                <tr>
-                                    <th>初期</th>
-                                    <th>中期</th>
-                                    <th>后期</th>
+                                <tr >
+                                    <th width="13%">初期</th>
+                                    <th width="13%">中期</th>
+                                    <th width="13%">后期</th>
                                 </tr>
                                 <tr>
                                     <th id="date1"></th>
@@ -66,9 +66,9 @@
                                         <button type="button" id="barthel11" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
                                         <button type="button" id="barthel12" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
                                     </td>
-                                    <td id="b1tdc"></td>
-                                    <td id="b1tdz"></td>
-                                    <td id="b1tdh"></td>
+                                    <td id="b1tdc" style="vertical-align:middle; text-align:center"></td>
+                                    <td id="b1tdz" style="vertical-align:middle; text-align:center;font-size:25px"></td>
+                                    <td id="b1tdh" ></td>
                                 </tr>
                                 <tr>
                                     <td>2. 小便</td>
@@ -346,6 +346,13 @@
         $tbody.each(function(index, data){
             if(index < 13){
                 $(data).children('td').eq(2).html(score['score1'+index]);
+                $(data).children('td').eq(3).html(score['score2'+index]);
+                $(data).children('td').eq(4).html(score['score3'+index]);
+            }
+        });
+        $tbody.each(function(index, data){
+            if(index < 11){
+                $(data).children('td').eq(2).addClass('med-td');
                 $(data).children('td').eq(3).html(score['score2'+index]);
                 $(data).children('td').eq(4).html(score['score3'+index]);
             }
