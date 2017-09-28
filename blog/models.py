@@ -67,6 +67,20 @@ class MedHistory(models.Model):
     ldl_c = models.IntegerField(null=True)
     createtime = models.DateTimeField(auto_now=True)
 
+class ModelResult(models.Model):
+    hospid = models.ForeignKey(HospitalizationInfo, on_delete=None)
+    m_id = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200, null=True)
+    prob_improve = models.FloatField(null=True, max_length=20)
+
+class ModelResultFactor(models.Model):
+    model_result_id = models.ForeignKey(ModelResult, on_delete=None)
+    ci_high = models.FloatField(null=True, max_length=20)
+    ci_low = models.FloatField(null=True, max_length=20)
+    factor_name = models.CharField(max_length=200, null=True)
+    is_positive = models.NullBooleanField(null=True)
+    odds_ratio = models.FloatField(null=True, max_length=20)
+    p_value = models.FloatField(null=True, max_length=20)
 
 """
 class Tag(models.Model):

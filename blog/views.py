@@ -26,9 +26,22 @@ def model_result(request):
         hosp_id = request.GET.get('hospid', '')
         user = User.objects.get(username=request.user)
         userid = user.id
-        #页面需要展示的内容
-        data = api_data(hosp_id, userid)
+        #从数据库获取数据
+        model_rt = get_model_result(hosp_id)
+        result_data = '1'
+        if len(model_rt) == 0:
+            #保存api接口数据到数据库
+            result_data = api_data(hosp_id, userid)
+            hosp_info = models.HospitalizationInfo.objects.get(id=hosp_id)
+            hosp_info.evaluate_status = 2
+            hosp_info.save()
+            model_rt = get_model_result(hosp_id)
+        data = result_data
     return render(request, 'blog/modelresult.html', {'data': data})
+
+def get_model_result(hospid):
+    model_rt = models.ModelResult.objects.filter(hospid=hospid)#.order_by('evaluate_status')
+    return model_rt
 
 def api_data(hospid, userid):
     med_history = models.MedHistory.objects.get(hospid=hospid)
@@ -73,11 +86,10 @@ def api_data(hospid, userid):
     barthel_part.append('入院Barthel总分')
 
     result_data = dict()
-    result_data2 = list()
     n_i = 0
     for modelid, barthel_item in zip(modelid_list, barthel_part):
         n_i += 1
-        dict_data2 = {'prob': 0, 'bscore': 0, 'stroke': 0, 'cure': 0, 'age': 0, 'glu': 0}
+        #dict_data2 = {'prob': 0, 'bscore': 0, 'stroke': 0, 'cure': 0, 'age': 0, 'glu': 0}
         url = url_pat.format(userid=userid, modelid=modelid, patientid=hospid)
         data = []
         dic0 = {'key': barthel_item, 'value': barthel_dic['n'+str(n_i)] + 0.0}
@@ -92,14 +104,33 @@ def api_data(hospid, userid):
         result_text = result.text
         result_json = json.loads(result_text)
         if 'error_message' in result_json.keys():
-            #result_data['n'+str(n_i)] = result_json['error_message']
-            dict_data2['prob'] = -1
-        elif 'probability_of_improvement' in result_json.keys():
-            #result_data['n'+str(n_i)] = result_json['probability_of_improvement']
-            dict_data2['prob']
-        result_data2.append(dict_data2)
-        
-        
+            result_data['n'+str(n_i)] = result_json['error_message']
+            #return {'error_message': result_json['error_message']}
+        elif 'model_id' in result_json.keys():
+            m_result = models.ModelResult()
+            m_result.hospid = hosp_info
+            m_result.m_id = result_json['model_id']
+            m_result.name = result_json['model_name']
+            if 'predicted_score' in result_json.keys():
+                m_result.prob_improve = result_json['predicted_score']
+                result_data['n'+str(n_i)] = result_json['predicted_score']
+            else:
+                m_result.prob_improve = result_json['probability_of_improvement']
+                result_data['n'+str(n_i)] = result_json['probability_of_improvement']
+            m_result.save()
+            for item in result_json['influencing_factors']:
+                m_r_factor = models.ModelResultFactor()
+                m_r_factor.model_result_id = m_result
+                m_r_factor.ci_high = item['ci_high']
+                m_r_factor.ci_low = item['ci_low']
+                m_r_factor.factor_name = item['factor_name']
+                m_r_factor.is_positive = item['is_positive']
+                if 'predicted_score' in result_json.keys():
+                    m_r_factor.odds_ratio = item['coefficient']
+                else:
+                    m_r_factor.odds_ratio = item['odds_ratio']
+                m_r_factor.p_value = item['p_value']
+                m_r_factor.save()
     return result_data
 
 @login_required
@@ -117,9 +148,12 @@ def modelpara(request):
         radio2 = request.POST.get('radio2', '')
         radio3 = request.POST.get('radio3', '')
         radio4 = request.POST.get('radio4', '')
-        radio5 = request.POST.get('radio5', '')
+        radio6 = request.POST.get('radio6', '')
+        radio7 = request.POST.get('radio7', '')
+        #radio5 = request.POST.get('radio5', '')
+        radio5 = '失效'
 
-        if not (radio1 or radio2 or radio3 or radio4 or radio5):
+        if not (radio1 or radio2 or radio3 or radio4 or radio5 or radio6 or radio7):
             return HttpResponse('-1')
 
         glu = request.POST.get('glu', '')
@@ -134,8 +168,8 @@ def modelpara(request):
         medhistory.first_recover_care = radio1
         medhistory.diabetes = radio3
         medhistory.hypertension = radio2
-        #medhistory.smoke = 
-        #medhistory.drink = 
+        medhistory.smoke = radio6
+        medhistory.drink = radio7
         medhistory.dignose = radio5
         if glu:
             medhistory.glu = glu
@@ -159,12 +193,6 @@ def predict_model(request):
             return HttpResponse('2')
         return HttpResponse('1')
     return HttpResponse('-1')
-
-def get_model_result(model_input):
-    api = 'aa'
-    result = 1
-    return result
-
 
 @login_required
 def predictbar(request):
@@ -304,6 +332,11 @@ def evaluate(request):
         now = {}
         now['current_time'] = datetime.datetime.now().strftime("%Y/%m/%d")
         pat_info['current_time'] = json.dumps(now)
+        #已经调用接口康复预测过
+        have_data = get_model_result(hosp_id)
+        pat_info['have_data'] = False
+        if have_data:
+            pat_info['have_data'] = True
     return render(request, 'blog/evaluate.html', pat_info)
 
 @login_required

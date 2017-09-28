@@ -66,9 +66,9 @@
                                         <button type="button" id="barthel11" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">5=偶尔失禁(每星期<1次)</button>
                                         <button type="button" id="barthel12" onclick="barthel(this)" class="btn btn-default btn-block" style="text-align:left">10=能控制</button>
                                     </td>
-                                    <td id="b1tdc" style="vertical-align:middle; text-align:center"></td>
-                                    <td id="b1tdz" style="vertical-align:middle; text-align:center;font-size:25px"></td>
-                                    <td id="b1tdh" ></td>
+                                    <td id="b1tdc"></td>
+                                    <td id="b1tdz"></td>
+                                    <td id="b1tdh"></td>
                                 </tr>
                                 <tr>
                                     <td>2. 小便</td>
@@ -190,7 +190,11 @@
                 <!-- /.panel-body -->
                 <p class="text-center">
                     <button type="button" class="btn btn-outline btn-default" onclick="submit()">提交</button>
-                    <button type="button" class="btn btn-outline btn-default" onclick="predict()">预测结果</button>
+                    {% if have_data %}  
+                    <button type="button" class="btn btn-outline btn-default" onclick="predict()">分析结果</button>
+                    {% else %}
+                    <button type="button" class="btn btn-outline btn-default" onclick="predict()">康复预测</button>
+                    {% endif %}
                 </p>
             </div>
             <!-- /.panel -->
@@ -353,8 +357,11 @@
         $tbody.each(function(index, data){
             if(index < 11){
                 $(data).children('td').eq(2).addClass('med-td');
-                $(data).children('td').eq(3).html(score['score2'+index]);
-                $(data).children('td').eq(4).html(score['score3'+index]);
+                $(data).children('td').eq(3).addClass('med-td');
+                $(data).children('td').eq(4).addClass('med-td');
+                $(data).children('td').eq(2).attr("style", "vertical-align: middle");
+                $(data).children('td').eq(3).attr("style", "vertical-align: middle");
+                $(data).children('td').eq(4).attr("style", "vertical-align: middle");
             }
         });
         $("#date1").html(score['score1date']);

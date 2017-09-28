@@ -17,12 +17,12 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label" >发病日期 </label>
                             <div class="col-md-4">
-                                <input class="form-control" name="stroke_time" id="stroke_time" type="date" value=""/>
+                                <input class="form-control" name="stroke_time" id="stroke_time" type="date" value="2017-01-01"/>
                                 <!--input type="text" class="form-control" name="stroke_time" id="stroke_time" placeholder="2015.6"-->
                             </div>
                             <label class="col-md-2 control-label" >首次康复治疗 </label>
                             <div class="col-md-4">
-                                <label class="radio-inline"><input name="radio1" type="radio" value="1" />是 </label> 
+                                <label class="radio-inline"><input name="radio1" type="radio" value="1" checked="true"/>是 </label> 
                                 <label class="radio-inline"><input name="radio1" type="radio" value="0" />否 </label> 
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                             <label class="col-md-2 control-label">高血压 </label>
                             <div class="col-md-4">
                                 <label class="radio-inline">
-                                    <input type="radio" name="radio2" value="1">是
+                                    <input type="radio" name="radio2" value="1" checked="true">是
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" name="radio2" value="0">否
@@ -38,31 +38,50 @@
                             </div>
                             <label class="col-md-2 control-label" >糖尿病 </label>
                             <div class="col-md-4">
-                                <label class="radio-inline"><input name="radio3" type="radio" value="1" />是 </label> 
+                                <label class="radio-inline"><input name="radio3" type="radio" value="1" checked="true"/>是 </label> 
                                 <label class="radio-inline"><input name="radio3" type="radio" value="0" />否 </label> 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">有吸烟 </label>
+                            <div class="col-md-4">
+                                <label class="radio-inline">
+                                    <input type="radio" name="radio6" value="1" checked="true">是
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="radio6" value="0">否
+                                </label>
+                            </div>
+                            <label class="col-md-2 control-label" >有喝酒 </label>
+                            <div class="col-md-4">
+                                <label class="radio-inline"><input name="radio7" type="radio" value="1" checked="true"/>是 </label> 
+                                <label class="radio-inline"><input name="radio7" type="radio" value="0" />否 </label> 
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label" >保守治疗 </label>
                             <div class="col-md-4">
-                                <label class="radio-inline"><input name="radio4" type="radio" value="1" />是 </label>
+                                <label class="radio-inline"><input name="radio4" type="radio" value="1" checked="true"/>是 </label>
                                 <label class="radio-inline"><input name="radio4" type="radio" value="0" />否 </label>
                             </div>
-                            <label class="col-md-2 control-label" >诊断类型 </label>
+                            <!--label class="col-md-2 control-label" >诊断类型 </label>
                             <div class="col-md-4">
-                                <label class="radio-inline"><input name="radio5" type="radio" value="脑梗" />脑梗 </label> 
+                                <label class="radio-inline"><input name="radio5" type="radio" value="脑梗" checked="true"/>脑梗 </label> 
                                 <label class="radio-inline"><input name="radio5" type="radio" value="脑出血" />脑出血 </label> 
-                            </div>
+                            谷氨酸(14～192)甘油三酯(0.2～1.2)
+                            </div-->
                         </div>
                         <legend style="font-size:15px;">检验信息 </legend>
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                             <label class="col-md-2 control-label">GLU </label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" name="glu" id="glu" placeholder=""> 
+                            <div class="col-md-3 input-group">
+                                <input type="text" class="form-control" name="glu" id="glu" placeholder="">
+                                <span class="input-group-addon">μmol/L</span>
                             </div>
                             <label class="col-md-2 control-label">TG </label>
-                            <div class="col-md-4">
+                            <div class="col-md-3 input-group">
                                 <input type="text" class="form-control" name="tg" id="tg" placeholder="" style="">
+                                <span class="input-group-addon">mmol/L</span>
                             </div>
                         </div>
                         <div class="form-group">
