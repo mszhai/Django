@@ -7,10 +7,11 @@
                 <h3 class="panel-title">新住院病人</h3>
             </div>
             <div class="panel-body">
-                <!--form role="form" method="post" action="{% url 'login' %}"-->
-                <form role="form" action="{% url 'addpatient' %}" method="post" id="addpatform" class="form-horizontal">
+                <!--form role="form" method="post" action="{% url 'login' %}"{% url 'addpatient' %}-->
+                <form role="form" action="" method="post" id="addpatform" class="form-horizontal">
                     {% csrf_token %}
                     <fieldset>
+                        <legend style="font-size:15px;">病人基本信息<span style="color:red">*</span> </legend>
                         <div class="form-group">
                             <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">住院号 </label>
                             <div class="col-md-5">
@@ -24,26 +25,35 @@
                         <div class="form-group">
                             <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">性别 </label>
                             <div class="col-md-5">
-                                <select class="form-control" name="sex" id="sex">
-                                    <option value="-1">请选择</option>
-                                    <option value="0">男</option>
-                                    <option value="1">女</option>
-                                </select>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" value="0" checked="true">男 
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" value="1">女
+                                </label>
                             </div>
                             <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">出生日期 </label>
                             <div class="col-md-5">
-                                <input class="form-control" name="birthday" id="birthday" type="date" value=""/>
+                                <input class="form-control" name="birthday" id="birthday" type="date" value="2017-01-01"/>
                                 <!--input type="text" class="form-control" name="birthday" id="birthday" placeholder="1970.1" style=""-->
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">卒中类型 </label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" name="dignose" id="dignose" placeholder="">
+                                <label class="radio-inline">
+                                    <input type="radio" name="dignose" value="0" checked="true">脑梗死
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="dignose" value="1">脑出血
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="dignose" value="2">蛛网膜下腔出血
+                                </label>
                             </div>
                         </div>
                         <div class="form-actions pull-right">
-                            <input type="submit" id="submit" tabindex="5" class="btn btn-success" value="提交">
+                            <input type="button" id="submit" onclick="add_patient()" tabindex="5" class="btn btn-success" value="提交">
                         </div>
                         <!-- Change this to a button or input when using this as a form -->
                     </fieldset>
@@ -53,6 +63,26 @@
     </div>
 </div>
 <script>
-    
+    function add_patient(){
+        $(document).ready(function(){
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+            $.ajax({
+                url: '/addpatient.html',
+                type: "POST",
+                traditional: true,
+                data: $('#addpatform').serialize(),
+                success: function(data){
+                    //alert(data);
+                    if(data == -1){
+                        alert("*为必填项！");
+                    }else if(data == 1){
+                        location.href = "patpanel.html";
+                    }
+                }
+            });
+        });
+    }
 </script>
 {% endblock %}

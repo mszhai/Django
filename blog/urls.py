@@ -21,6 +21,7 @@ urlpatterns += [
     url(r'^login_verify/$',views.login_verify, name='login_verify'),
     url(r'^login_success/$', views.login_success, name='login_success'),
     url(r'login.html', views.login, name='login'),
+    url(r'^$', views.login, name='login'),
 ]
 
 urlpatterns += [

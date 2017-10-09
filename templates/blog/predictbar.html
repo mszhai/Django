@@ -214,10 +214,11 @@
 <script type="text/javascript">
     var barthel_num = {{ barthel_num }};
     var barthel_button = barthel_num + 2;
+    var hospid = {{ hospid|safe }};
 
     //分析报告
     function report(){
-        location.href = "modelresult.html?a=1";
+        location.href = "modelresult.html?hospid=" + hospid;
     }
 
     var score = {{ barthel_data|safe }};

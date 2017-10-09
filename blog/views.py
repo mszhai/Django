@@ -28,19 +28,136 @@ def model_result(request):
         userid = user.id
         #从数据库获取数据
         model_rt = get_model_result(hosp_id)
-        result_data = '1'
-        if len(model_rt) == 0:
+        hosp_info = models.HospitalizationInfo.objects.get(id=hosp_id)
+        if len(model_rt) == 0 and hosp_info.evaluate_status + 1 == 2:
             #保存api接口数据到数据库
             result_data = api_data(hosp_id, userid)
-            hosp_info = models.HospitalizationInfo.objects.get(id=hosp_id)
             hosp_info.evaluate_status = 2
             hosp_info.save()
-            model_rt = get_model_result(hosp_id)
-        data = result_data
-    return render(request, 'blog/modelresult.html', {'data': data})
+            #model_rt = get_model_result(hosp_id)
+        data = get_model_predic_html(hosp_id)
+    return render(request, 'blog/modelresult.html', data)
+
+def get_model_predic_html(hospid):
+    """
+    获取预测模型前端展示的html数据
+
+    hospid: 住院号
+    """
+    model_rt = get_model_result(hospid)
+    result = {'factor_html': '', 'adl': '', 'factor_p': '', 'factor_n': ''}
+    factor_html = ''
+    for item in model_rt:
+        p = ''
+        if item.name == '出院改善_大便':
+            p = get_factor_html(item, '大便')
+            factor_html += p
+        if item.name == '出院改善_小便':
+            p = get_factor_html(item, '小便')
+            factor_html += p
+        if item.name == '出院改善_修饰':
+            p = get_factor_html(item, '修饰')
+            factor_html += p
+        if item.name == '出院改善_用厕':
+            p = get_factor_html(item, '用厕')
+            factor_html += p
+        if item.name == '出院改善_吃饭':
+            p = get_factor_html(item, '吃饭')
+            factor_html += p
+        if item.name == '出院改善_转移':
+            p = get_factor_html(item, '转移')
+            factor_html += p
+        if item.name == '出院改善_活动':
+            p = get_factor_html(item, '活动')
+            factor_html += p
+        if item.name == '出院改善_穿衣':
+            p = get_factor_html(item, '穿衣')
+            factor_html += p
+        if item.name == '出院改善_上楼梯':
+            p = get_factor_html(item, '上楼梯')
+            factor_html += p
+        #adl缺陷程度
+        if item.name == '出院Barthel总分':
+            result['adl'] = adl(item.prob_improve)
+        if item.name == '出院缺陷程度改善':
+            factor_positive = list()
+            factor_negative = list()
+            factor = models.ModelResultFactor.objects.filter(model_result_id=item.id)
+            for factor_item in factor:
+                #将入院Barthel_xx 替换为'入院Barthel评分'
+                factor_name = ''
+                if '入院Barthel' in factor_item.factor_name:
+                    factor_name = '入院Barthel评分'
+                else:
+                    factor_name = factor_item.factor_name
+                # 正面影响和负面影响归类
+                if factor_item.is_positive:
+                    factor_positive.append(factor_name)
+                else:
+                    factor_negative.append(factor_name)
+            if len(factor_positive) != 0:
+                result['factor_p'] = '、'.join(factor_positive)
+            else:
+                result['factor_p'] = '无'
+            if len(factor_negative) != 0:
+                result['factor_n'] = '、'.join(factor_negative)
+            else:
+                result['factor_n'] = '无'
+    result['factor_html'] = mark_safe(factor_html)
+    return result
+
+def adl(total_score):
+    score = total_score - total_score % 5
+    if 0 <= score <= 20:
+        adl = '极严重功能缺陷'
+    elif 25 <= score <= 45:
+        adl = '严重功能缺陷'
+    elif 50 <= score <= 70:
+        adl = '中度功能缺陷'
+    elif 75 <= score <= 95:
+        adl = '轻度功能缺陷'
+    elif score == 100:
+        adl = 'ADL自理'
+    else:
+        adl = 'error: 分数{}有误'.format(total_score)
+    return adl
+
+def get_factor_html(model_rt, name):
+    p = '''
+        <p>&#8226<font color="green">{name}（{percent}）</font><br>
+            {p_factor}
+        </p>
+        '''
+    factor_positive = list()
+    factor_negative = list()
+    factor = models.ModelResultFactor.objects.filter(model_result_id=model_rt.id)
+    for factor_item in factor:
+        #将入院Barthel_xx 替换为'入院Barthel评分'
+        factor_name = ''
+        if '入院Barthel' in factor_item.factor_name:
+            factor_name = '入院Barthel评分'
+        else:
+            factor_name = factor_item.factor_name
+        # 正面影响和负面影响归类
+        if factor_item.is_positive:
+            factor_positive.append(factor_name)
+        else:
+            factor_negative.append(factor_name)
+    p_factor = ''
+    if len(factor_positive) != 0 and len(factor_negative) != 0:
+        p_factor = '''&nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的正面影响因素包括：{p}<br>
+                    &nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的<font color="red">负面</font>影响因素包括：{n}'''.format(p='、'.join(factor_positive), n='、'.join(factor_negative))
+    elif len(factor_positive) != 0:
+        p_factor = '&nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的正面影响因素包括：{p}'.format(p='、'.join(factor_positive))
+    elif len(factor_negative) != 0:
+        p_factor = '&nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的<font color="red">负面</font>影响因素包括：{n}'.format(n='、'.join(factor_negative))
+    percent = format(model_rt.prob_improve, '.1%')
+    result = p.format(name=name, percent=percent, p_factor=p_factor)
+    return result
+
 
 def get_model_result(hospid):
-    model_rt = models.ModelResult.objects.filter(hospid=hospid)#.order_by('evaluate_status')
+    model_rt = models.ModelResult.objects.filter(hospid=hospid).order_by('-prob_improve')
     return model_rt
 
 def api_data(hospid, userid):
@@ -265,6 +382,10 @@ def evaluate_submit(request):
         #获取barthel的评分次数
         barthel_num = hospinfo.barthel_set.count()
         if barthel_num + 1 == dic['barthel_num']:
+            # 将病人状态由2改为3，条件为：病人状态为2（保证有康复预测）且第3次提交barthel评分。
+            if barthel_num + 1 == 3:
+                hospinfo.evaluate_status = 3
+                hospinfo.save()
             barthel = models.Barthel()
             barthel.profile = doc
             barthel.hospid = hospinfo
@@ -351,10 +472,19 @@ def add_patient(request):
         elif sex_t == '1':
             sex = '女'
         birthday = request.POST.get('birthday', '')
+        dignose_t = request.POST.get('dignose', '')
+        dignose = ''
+        if dignose_t == '0':
+            dignose = '脑梗死'
+        elif dignose_t == '1':
+            dignose = '脑出血'
+        elif dignose_t == '2':
+            dignose = '蛛网膜下腔出血'
+        if (hospitno is '') or (patname is '') or (sex is '') or (birthday is '') or (dignose is ''):
+            return HttpResponse('-1')
         birthday = time.strptime(birthday, "%Y-%m-%d")
         birthday = datetime.datetime(* birthday[:3])
-        dignose = request.POST.get('dignose', '')
-        
+
         patinfo = models.PatientInfo()
         patinfo.name = patname
         patinfo.sex = sex
@@ -370,7 +500,8 @@ def add_patient(request):
         hospinfo.doctor = doc
         hospinfo.entdate = datetime.datetime.now()
         hospinfo.save()
-        return HttpResponseRedirect('/patpanel.html')
+        return HttpResponse('1')
+        #return HttpResponseRedirect('/patpanel.html')
         #return render(request, 'blog/patpanel.html')
     return render(request, 'blog/addpatient.html')
 
@@ -406,7 +537,8 @@ def pat_panel(request):
                 </table>
             </div>
             <div class="panel-footer">
-                <a style="cursor:pointer" onclick="evaluate1('{patid1}')"><i class="fa fa-link"></i> 评定</a>
+                {evaluate1}
+                {barthel_bar}
                 {check1}
             </div>
         </div>
@@ -415,20 +547,25 @@ def pat_panel(request):
     '''
     
     if role.group == 'doctor':#in=[role.id]
-        patients = models.HospitalizationInfo.objects.filter(doctor__in=[role.id, 999999]).order_by('evaluate_status')
+        #去掉999999，需要确保病人都有对应的医生
+        patients = models.HospitalizationInfo.objects.filter(doctor__in=[role.id]).order_by('evaluate_status')
         for pat in patients:
             a_patient = models.PatientInfo.objects.get(id=pat.patid_id)
             age = int((pat.entdate - a_patient.birthday).days / 365 + 1)
             evaluate_status = pat.evaluate_status
-            check1 = '<a style="cursor:pointer" onclick="check1({patid2}, {e_status})"><i class="fa fa-link"></i> 查看</a>'
+            evaluate1 = '<a style="cursor:pointer" onclick="evaluate1({patid1})"><i class="fa fa-link"></i> 评定</a>'
+            check1 = '<a style="cursor:pointer" onclick="check1({patid2}, {e_status})"><i class="fa fa-link"></i> 分析结果</a>'
+            barthel_bar = '<a style="cursor:pointer" onclick="barthel_bar({patid1})"><i class="fa fa-link"></i> 量表</a>'
+            evaluate1 = evaluate1.format(patid1=pat.id)
+            barthel_bar = barthel_bar.format(patid1=pat.id)
             if evaluate_status == 2:
                 check1 = check1.format(patid2=pat.id, e_status=2)
-                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, patid1=pat.id, check1=check1, evaluate_status_style='danger')
+                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1=evaluate1, barthel_bar='', check1=check1, evaluate_status_style='danger')
             elif evaluate_status == 3:
                 check1 = check1.format(patid2=pat.id, e_status=3)
-                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, patid1=pat.id, check1=check1, evaluate_status_style='warning')
+                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1='', barthel_bar=barthel_bar, check1=check1, evaluate_status_style='warning')
             else:
-                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, patid1=pat.id, check1='', evaluate_status_style='info')
+                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1=evaluate1, barthel_bar='', check1='', evaluate_status_style='info')
     page_html = mark_safe(page_html)
     ret = {"page_html": page_html}
     return render(request, 'blog/patpanel.html', ret)

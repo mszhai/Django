@@ -13,23 +13,16 @@
                 <div class="col-lg-6">
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            康复预测模型
+                            <h5>康复预测模型</h5>
                         </div>
                         <div class="panel-body">
                             <p>该患者出院ADL能力缺陷程度预期是
-                                <font color="#FF8000">中度缺陷</font>
+                                <font color="#FF8000">{{ adl|safe }}</font><br>
+                                &nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的正面影响因素包括：{{ factor_p|safe }}<br>
+                                &nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的负面影响因素包括：{{ factor_n|safe }}
                             </p>
                             <p>该患者最有可能提高的康复目标包括：</p>
-                            <div class="col-md-8 col-md-offset-1">
-                                <p>&#8226
-                                    <font color="green">转移（68%）</font>
-                                </p>
-                            </div>
-                            <div class="col-md-8 col-md-offset-1">
-                                <p>&#8226
-                                    <font color="green">活动（58%）</font>
-                                </p>
-                            </div>
+                            {{ factor_html|safe }}
                         </div>
                     </div>
                 </div>
@@ -37,7 +30,7 @@
                 <div class="col-lg-6">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            相似患者分群
+                            <h5>相似患者分群</h5>
                         </div>
                         <div class="panel-body">
                             <p>根据该患者的入院特征，找到
@@ -66,7 +59,7 @@
 <script type="text/javascript">
     //var batthel_json = {{ batthel_json|safe }};
     //var batthel_json = {{ batthel_json|safe }};
-    var data = {{ data|safe }};
+    //var data = {{ data|safe }};
     var dom = document.getElementById("pic1");
 
     var myChart = echarts.init(dom);
