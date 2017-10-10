@@ -16,6 +16,7 @@ class Profile(models.Model):
 
     group = models.CharField(max_length=200, default='doctor')
     phone = models.CharField(max_length=200, blank=True)
+    docname = models.CharField(max_length=200, blank=True)
 
 class PatientInfo(models.Model):
     patid_fk = models.CharField(max_length=50, null=True)
@@ -34,6 +35,8 @@ class HospitalizationInfo(models.Model):
     outdate = models.DateTimeField(null=True)
     dignose = models.CharField(max_length=50, null=True)
     update_time = models.DateTimeField(auto_now=True)
+    fallowupdate = models.DateTimeField(null=True)
+    bingcheng = models.CharField(max_length=200, blank=True)
 
 class Barthel(models.Model):
     hospid = models.ForeignKey(HospitalizationInfo, on_delete=None)

@@ -384,7 +384,7 @@ def predictbar(request):
         pat_info['dignose'] = pat.dignose
         pat_info['entdate'] = pat.entdate.strftime("%Y/%m/%d")
         pat_info['hospitno'] = pat.hospitno_fk
-        
+
         pat_info['hospid'] = pat.id
         pat_info['barthel_num'] = barthel_num
         pat_info['barthel_data'] = json.dumps(barthel_data_dic)
