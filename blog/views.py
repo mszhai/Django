@@ -349,8 +349,42 @@ def predictbar(request):
             barthel_data_dic['score'+str(num_i)+'12'] = 'bob'
             barthel_data_dic['score'+str(num_i)+'date'] = item.evaluate_time.strftime("%Y-%m-%d")
             num_i += 1
+        item_probability = pat.modelresult_set.all()
+        for item in item_probability:
+            prob = format(item.prob_improve, '.1%')
+            if item.name == '出院改善_大便':
+                barthel_data_dic['score50'] = prob
+            if item.name == '出院改善_小便':
+                barthel_data_dic['score51'] = prob
+            if item.name == '出院改善_修饰':
+                barthel_data_dic['score52'] = prob
+            if item.name == '出院改善_用厕':
+                barthel_data_dic['score53'] = prob
+            if item.name == '出院改善_吃饭':
+                barthel_data_dic['score54'] = prob
+            if item.name == '出院改善_转移':
+                barthel_data_dic['score55'] = prob
+            if item.name == '出院改善_活动':
+                barthel_data_dic['score56'] = prob
+            if item.name == '出院改善_穿衣':
+                barthel_data_dic['score57'] = prob
+            if item.name == '出院改善_上楼梯':
+                barthel_data_dic['score58'] = prob
+                barthel_data_dic['score59'] = ''
+            #adl缺陷程度
+            if item.name == '出院Barthel总分':
+                barthel_data_dic['score510'] = round(item.prob_improve, 1)
+            if item.name == '出院缺陷程度改善':
+                barthel_data_dic['score511'] = prob
+        #年龄
+        age = int((pat.entdate - a_pat.birthday).days / 365 + 1)
+        pat_info['age'] = age
         pat_info['name'] = a_pat.name
         pat_info['sex'] = a_pat.sex
+        pat_info['dignose'] = pat.dignose
+        pat_info['entdate'] = pat.entdate.strftime("%Y/%m/%d")
+        pat_info['hospitno'] = pat.hospitno_fk
+        
         pat_info['hospid'] = pat.id
         pat_info['barthel_num'] = barthel_num
         pat_info['barthel_data'] = json.dumps(barthel_data_dic)
@@ -445,8 +479,15 @@ def evaluate(request):
             barthel_data_dic['score'+str(num_i)+'date'] = item.evaluate_time.strftime("%Y/%m/%d")
             num_i += 1
         pat_info = {}
+        #年龄
+        age = int((pat.entdate - a_pat.birthday).days / 365 + 1)
+        pat_info['age'] = age
         pat_info['name'] = a_pat.name
         pat_info['sex'] = a_pat.sex
+        pat_info['dignose'] = pat.dignose
+        pat_info['entdate'] = pat.entdate.strftime("%Y/%m/%d")
+        pat_info['hospitno'] = pat.hospitno_fk
+
         pat_info['hospid'] = pat.id
         pat_info['barthel_num'] = barthel_num
         pat_info['barthel_data'] = json.dumps(barthel_data_dic)

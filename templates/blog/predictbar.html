@@ -17,22 +17,20 @@
                                 <label for="exampleInputName2">姓&nbsp&nbsp&nbsp&nbsp名 </label>
                                 <input type="text" readonly="true"  id="name" value="{{ name }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" >&nbsp&nbsp&nbsp&nbsp性别 </label>
-                                <input type="text" readonly="true"  id="sex" value="{{ sex }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
-                                    value="男">
+                                <input type="text" readonly="true"  id="sex" value="{{ sex }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;">
                                 <label for="exampleInputName2" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp年龄 </label>
-                                <input type="text" readonly="true"  id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
-                                    value="58岁">
+                                <input type="text" readonly="true"  id="inhospno" value="{{ age }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;">
                                 <label for="exampleInputName2" >&nbsp&nbsp&nbsp&nbsp疾病 </label>
-                                <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" readonly="true" id="inhospno" value="{{ dignose }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" >病程 </label>
                                 <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                             </div>
                             <div class="col-md-12">
                                 <label for="exampleInputName2" readonly="true">住院号 </label>
                                 <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;"
-                                    value="B000000">
+                                    value="{{ hospitno }}">
                                 <label for="exampleInputName2" readonly="true">入院时间 </label>
-                                <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" readonly="true" id="inhospno" value="{{ entdate }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" readonly="true">出院时间 </label>
                                 <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" readonly="true">随访时间 </label>
@@ -223,13 +221,39 @@
 
     var score = {{ barthel_data|safe }};
     // 展示历史barthel评分
-    function barthel_show(){
+    /*function barthel_show(){
         var $tbody = $("#tbody").children("tr");
         $tbody.each(function(index, data){
             if(index < 14){
                 $(data).children('td').eq(2).html(score['score1'+index]);
                 $(data).children('td').eq(3).html(score['score2'+index]);
                 $(data).children('td').eq(4).html(score['score3'+index]);
+            }
+        });
+        $("#date1").html(score['score1date']);
+        $("#date2").html(score['score2date']);
+        $("#date3").html(score['score3date']);
+    }*/
+    function barthel_show(){
+        var $tbody = $("#tbody").children("tr");
+        $tbody.each(function(index, data){
+            if(index < 13){
+                $(data).children('td').eq(2).html(score['score1'+index]);
+                $(data).children('td').eq(3).html(score['score2'+index]);
+                $(data).children('td').eq(4).html(score['score3'+index]);
+                $(data).children('td').eq(5).html(score['score5'+index]);
+            }
+        });
+        $tbody.each(function(index, data){
+            if(index < 13){
+                $(data).children('td').eq(2).addClass('med-td');
+                $(data).children('td').eq(3).addClass('med-td');
+                $(data).children('td').eq(4).addClass('med-td');
+                $(data).children('td').eq(5).addClass('med-td');
+                $(data).children('td').eq(2).attr("style", "vertical-align: middle");
+                $(data).children('td').eq(3).attr("style", "vertical-align: middle");
+                $(data).children('td').eq(4).attr("style", "vertical-align: middle");
+                $(data).children('td').eq(5).attr("style", "vertical-align: middle");
             }
         });
         $("#date1").html(score['score1date']);
