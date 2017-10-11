@@ -183,7 +183,7 @@
                                     <td id="adl2"></td>
                                     <td id="adl3"></td>
                                     <td id="adl4"></td>
-                                    <td></td>
+                                    <td class="med-td" style="vertical-align: middle"></td>
                                 </tr>
                                 <tr>
                                     <td>评定者</td>
@@ -245,7 +245,7 @@
             }
         });
         $tbody.each(function(index, data){
-            if(index < 13){
+            if(index < 11){
                 $(data).children('td').eq(2).addClass('med-td');
                 $(data).children('td').eq(3).addClass('med-td');
                 $(data).children('td').eq(4).addClass('med-td');

@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <center>Barthel指数评分量表</center>
-                    <div class="col-lg-1 pull-right"><input type="button" class="btn btn-default" value="打印" /></div>
+                    <div class="col-lg-1 pull-right"><input type="button" class="btn btn-default" onclick="print()" value="打印" /></div>
                 </div>
 
                 <!-- /.panel-heading -->
@@ -207,6 +207,11 @@
     var barthel_button = barthel_num + 2;
     var hospid = {{ hospid }};
     
+    // 打印barthel
+    function print(){
+        location.href = "print_assessment?hospid=" + hospid;
+    }
+
     function predict(){
         //location.href = "addmodelpara.html?hospid=" + {{ hospid }};
         $(document).ready(function(){

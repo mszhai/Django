@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^index.html', views.index, name='index'),
     url(r'^doctor.html', views.doctor, name='doctor'),
     url(r'^model.html', views.model, name='model'),
+    url(r'^print_assessment', views.print_assessment, name='print_assessment'),
 ]
 
 urlpatterns += [

@@ -13,12 +13,74 @@ from django.contrib.auth import login as login0
 from django.contrib.auth.decorators import login_required
 from django.utils.safestring import mark_safe
 import blog.models as models
+import blog.pdf_create as PDFCreate
 
 import datetime
 import time
 import json
 import os
 import requests
+
+@login_required
+def print_assessment(request):
+    if request.method == 'GET':
+        hosp_id = request.GET.get('hospid', '')
+        # 展示的数据
+        pat = models.HospitalizationInfo.objects.get(id=hosp_id)
+        a_pat = models.PatientInfo.objects.get(id=pat.patid_id)
+        #barthel_num = pat.barthel_set.count()
+        barthel_data = pat.barthel_set.all()
+        barthel_data_dic = {}
+        num_i = 1
+        for item in barthel_data:
+            barthel_data_dic['score'+str(num_i)+'0'] = item.dabian
+            barthel_data_dic['score'+str(num_i)+'1'] = item.xiaobian
+            barthel_data_dic['score'+str(num_i)+'2'] = item.xiushi
+            barthel_data_dic['score'+str(num_i)+'3'] = item.yongce
+            barthel_data_dic['score'+str(num_i)+'4'] = item.chifan
+            barthel_data_dic['score'+str(num_i)+'5'] = item.zhuanyi
+            barthel_data_dic['score'+str(num_i)+'6'] = item.huodong
+            barthel_data_dic['score'+str(num_i)+'7'] = item.chuanyi
+            barthel_data_dic['score'+str(num_i)+'8'] = item.louti
+            barthel_data_dic['score'+str(num_i)+'9'] = item.xizao
+            barthel_data_dic['score'+str(num_i)+'10'] = item.total_score
+            adl = ''
+            if 0 <= item.total_score <= 20:
+                adl = '极严重功能缺陷'
+            elif 25 <= item.total_score <= 45:
+                adl = '严重功能缺陷'
+            elif 50 <= item.total_score <= 70:
+                adl = '中度功能缺陷'
+            elif 75 <= item.total_score <= 95:
+                adl = '轻度功能缺陷'
+            elif item.total_score == 100:
+                adl = 'ADL自理'
+            barthel_data_dic['score'+str(num_i)+'11'] = adl
+            profile = models.Profile.objects.get(id=item.profile_id)
+            barthel_data_dic['score'+str(num_i)+'12'] = profile.docname
+            barthel_data_dic['score'+str(num_i)+'date'] = item.evaluate_time.strftime("%Y/%m/%d")
+            num_i += 1
+        pat_info = {}
+        #年龄
+        age = int((pat.entdate - a_pat.birthday).days / 365 + 1)
+        pat_info['age'] = age
+        pat_info['name'] = a_pat.name
+        pat_info['sex'] = a_pat.sex
+        pat_info['dignose'] = pat.dignose
+        pat_info['entdate'] = pat.entdate.strftime("%Y-%m-%d")
+        pat_info['hospitno'] = pat.hospitno_fk
+
+        pat_info['barthel_data'] = json.dumps(barthel_data_dic)
+
+        # response
+        now = datetime.datetime.now().strftime("-%Y%m%d")
+        filename = pat.hospitno_fk + now
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename={filename}.pdf'.format(filename=filename)
+        #生成pdf
+        PDFCreate.barthel_temp(response, pat_info)
+        return response
+    return HttpResponse('出现错误，请返回重新打印！')
 
 @login_required
 def model_result(request):
@@ -346,7 +408,8 @@ def predictbar(request):
             elif item.total_score == 100:
                 adl = 'ADL自理'
             barthel_data_dic['score'+str(num_i)+'11'] = adl
-            barthel_data_dic['score'+str(num_i)+'12'] = 'bob'
+            profile = models.Profile.objects.get(id=item.profile_id)
+            barthel_data_dic['score'+str(num_i)+'12'] = profile.docname
             barthel_data_dic['score'+str(num_i)+'date'] = item.evaluate_time.strftime("%Y-%m-%d")
             num_i += 1
         item_probability = pat.modelresult_set.all()
@@ -475,7 +538,8 @@ def evaluate(request):
             elif item.total_score == 100:
                 adl = 'ADL自理'
             barthel_data_dic['score'+str(num_i)+'11'] = adl
-            barthel_data_dic['score'+str(num_i)+'12'] = 'bob'
+            profile = models.Profile.objects.get(id=item.profile_id)
+            barthel_data_dic['score'+str(num_i)+'12'] = profile.docname
             barthel_data_dic['score'+str(num_i)+'date'] = item.evaluate_time.strftime("%Y/%m/%d")
             num_i += 1
         pat_info = {}
@@ -849,6 +913,7 @@ def regist(request):
             username = request.POST.get('name', '')
             password = request.POST.get('password', '')
             email = request.POST.get('email', '')
+            docname = request.POST.get('docname', '')
             errors = []
 
             user = User()
@@ -859,6 +924,7 @@ def regist(request):
             profile = models.Profile()
             profile.user = user
             profile.phone = '12121212'
+            profile.docname = docname
             profile.save()
 
             #登录前需要先验证

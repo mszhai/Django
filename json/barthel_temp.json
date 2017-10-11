@@ -1,0 +1,101 @@
+{
+    "describe": "barthel指数量表模板",
+    "content": {
+        "title": [
+            "<para autoLeading='off' align='center'><b><font face='hei' size=10> 项目</font></b></para>",
+            "<para autoLeading='off' align='center'><b><font face='hei' size=10> 评分标准</font></b></para>",
+            "<para autoLeading='off' align='center'><b><font face='hei' size=10> 评定时期（年/月/日）<br/> 初期 &nbsp 中期 &nbsp 后期 <br/>{} {} {}</font></b></para>"
+        ],
+        "row1": [
+            "<font face='hei' size=10> 1. 大便</font>",
+            "<font face='hei' size=10>0=失禁或昏迷 <br/> 5=偶尔失禁（每星期<1次）<br/> 10=能控制</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row2": [
+            "<font face='hei' size=10> 2. 小便</font>",
+            "<font face='hei' size=10>0=失禁或昏迷或需由他人导尿 <br/> 5=偶尔失禁(每24h<1次，每星期>1次) <br/> 10=控制</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row3": [
+            "<font face='hei' size=10> 3. 修饰</font>",
+            "<font face='hei' size=10>0=需帮助<br/>5=独立洗脸、梳头、刷牙、剃须</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row4": [
+            "<font face='hei' size=10> 4. 用厕</font>",
+            "<font face='hei' size=10>0=依赖别人<br/> 5=需部分帮助 <br/> 10=自理</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row5": [
+            "<font face='hei' size=10> 5. 吃饭</font>",
+            "<font face='hei' size=10>0=依赖 <br/> 5=需部分帮助(切面包、抹黄油、夹菜、盛饭) <br/> 10=全面自理</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row6": [
+            "<font face='hei' size=10> 6. 转移(床-椅)</font>",
+            "<font face='hei' size=10>0=完全依赖别人，不能坐 <br/> 5=需大量帮助(2人)，能坐 <br/> 10=需少量帮助(1人)或指导 <br/> 15=自理</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row7": [
+            "<font face='hei' size=10> 7. 活动(步行) <br/> (在病房及其周围，<br/> 不包括走远路)</font>",
+            "<font face='hei' size=10>0=不能动 <br/> 5=在轮椅上独立行动 <br/> 10=需1人帮助步行(体力或言语指导) <br/> 15=独立步行(可用辅助器)</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row8": [
+            "<font face='hei' size=10> 8. 穿衣</font>",
+            "<font face='hei' size=10>0=依赖 <br/> 5=需一半帮助 <br/> 10=自理(系开纽扣、关开拉锁和穿鞋等)</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row9": [
+            "<font face='hei' size=10> 9. 上楼梯(上下一段 <br/> 楼梯，用手杖也算独立)</font>",
+            "<font face='hei' size=10>0=不能 <br/> 5=需帮助(体力或语言指导) <br/> 10=自理</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row10": [
+            "<font face='hei' size=10> 10. 洗澡</font>",
+            "<font face='hei' size=10>0=依赖 <br/> 5=自理</font>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row11": [
+            "<font face='hei' size=10> 总分</font>",
+            "",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row12": [
+            "<font face='hei' size=10> ADL缺陷程度*</font>",
+            "",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ],
+        "row13": [
+            "<font face='hei' size=10> 评定者</font>",
+            "",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>",
+            "<para autoLeading='off' align='center'><font face='hei' size=10> {}</font></para>"
+        ]
+    }
+}
