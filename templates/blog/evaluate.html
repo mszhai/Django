@@ -46,7 +46,7 @@
                                 <tr>
                                     <th rowspan="3" style="vertical-align:middle; text-align:center" width="21%">项目</th>
                                     <th rowspan="3" style="vertical-align:middle; text-align:center" width="40%">评分标准</th>
-                                    <th colspan="3" style="vertical-align:middle; text-align:center">评定日期（年/月/日）</th>
+                                    <th colspan="3" style="vertical-align:middle; text-align:center">评定时期（年/月/日）</th>
                                 </tr>
                                 <tr >
                                     <th width="13%">初期</th>
@@ -193,7 +193,7 @@
                     {% if have_data %}  
                     <button type="button" class="btn btn-outline btn-default" onclick="predict()">分析结果</button>
                     {% else %}
-                    <button type="button" class="btn btn-outline btn-default" onclick="predict()">康复预测</button>
+                    <button type="button" class="btn btn-outline btn-default" onclick="predict()">康复分析</button>
                     {% endif %}
                 </p>
             </div>
@@ -205,7 +205,8 @@
 <script type="text/javascript">
     var barthel_num = {{ barthel_num }};
     var barthel_button = barthel_num + 2;
-    var hospid = {{ hospid }};
+    var hospid = '{{ hospid }}';
+    var docname = '{{ docname }}';
     
     // 打印barthel
     function print(){
@@ -226,7 +227,7 @@
                 success: function(data){
                     //alert(data);
                     if(data == -2){
-                        alert("Barthel指数未评测完成！");
+                        alert("请先评定并提交后再做康复预测！");
                     }else if(data == -1){
                         alert("出错了！");
                     }else if(data == 1){
@@ -270,7 +271,7 @@
                         }
                     }
                 });
-                dic['hospid'] = {{ hospid }};
+                dic['hospid'] = hospid;
                 dic['barthel_num'] = barthel_num + 1;
                 //alert(dic);
                 $(document).ready(function(){
@@ -287,7 +288,11 @@
                         success: function(data){
                             if(data == 1){
                                 alert("评定成功!");
-                                location.href = "evaluate.html?hospid=" + dic['hospid'];
+                                if(barthel_num + 1 == 3){
+                                    location.href = "predictbar.html?hospid=" + dic['hospid'];
+                                }else{
+                                    location.href = "evaluate.html?hospid=" + dic['hospid'];
+                                }
                             }else if(data == 2){
                                 alert("已经提交过！");
                             }
@@ -344,6 +349,24 @@
             }
         });
         $("#total" + barthel_button).html(total_score);
+        var adl = '';
+        if(total_score <= 20){
+            adl = '极严重功能缺陷';
+        }
+        else if(total_score <= 45){
+            adl = '严重功能缺陷';
+        }
+        else if(total_score <= 70){
+            adl = '中度功能缺陷';
+        }
+        else if(total_score <= 95){
+            adl = '轻度功能缺陷';
+        }
+        else if(total_score == 100){
+            adl = 'ADL自理';
+        }
+        $("#adl" + barthel_button).html(adl);
+        $("#eva" + barthel_button).html(docname);
         //$("#"+$td.eq(0).attr("id")).attr("class", "btn btn-primary btn-block");
     }
 

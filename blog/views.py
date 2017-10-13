@@ -186,7 +186,7 @@ def adl(total_score):
 
 def get_factor_html(model_rt, name):
     p = '''
-        <p>&#8226<font color="green">{name}（{percent}）</font><br>
+        <p>&#8226<font color="green">{name}（预期提升概率{percent}）</font><br>
             {p_factor}
         </p>
         '''
@@ -207,10 +207,10 @@ def get_factor_html(model_rt, name):
             factor_negative.append(factor_name)
     p_factor = ''
     if len(factor_positive) != 0 and len(factor_negative) != 0:
-        p_factor = '''&nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的正面影响因素包括：{p}<br>
+        p_factor = '''&nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的<font color="blue">正面</font>影响因素包括：{p}<br>
                     &nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的<font color="red">负面</font>影响因素包括：{n}'''.format(p='、'.join(factor_positive), n='、'.join(factor_negative))
     elif len(factor_positive) != 0:
-        p_factor = '&nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的正面影响因素包括：{p}'.format(p='、'.join(factor_positive))
+        p_factor = '&nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的<font color="blue">正面</font>影响因素包括：{p}'.format(p='、'.join(factor_positive))
     elif len(factor_negative) != 0:
         p_factor = '&nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的<font color="red">负面</font>影响因素包括：{n}'.format(n='、'.join(factor_negative))
     percent = format(model_rt.prob_improve, '.1%')
@@ -510,6 +510,10 @@ def evaluate(request):
         hosp_id = request.GET.get('hospid', '')
         pat = models.HospitalizationInfo.objects.get(id=hosp_id)
         a_pat = models.PatientInfo.objects.get(id=pat.patid_id)
+        #role.docname
+        user = User.objects.get(username=request.user)
+        role = models.Profile.objects.get(user_id=user.id)
+
         barthel_num = pat.barthel_set.count()
         barthel_data = pat.barthel_set.all()
         barthel_data_dic = {}
@@ -558,6 +562,7 @@ def evaluate(request):
         now = {}
         now['current_time'] = datetime.datetime.now().strftime("%Y/%m/%d")
         pat_info['current_time'] = json.dumps(now)
+        pat_info['docname'] = role.docname
         #已经调用接口康复预测过
         have_data = get_model_result(hosp_id)
         pat_info['have_data'] = False

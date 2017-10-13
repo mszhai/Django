@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <center>Barthel指数评分量表预测</center>
-                    <div class="col-lg-1 pull-right"><input type="button" class="btn btn-default" value="打印" /></div>
+                    <div class="col-lg-1 pull-right"><input type="button" onclick="print()" class="btn btn-default" value="打印" /></div>
                 </div>
 
                 <!-- /.panel-heading -->
@@ -44,7 +44,7 @@
                                 <tr>
                                     <th rowspan="3" style="vertical-align:middle; text-align:center">项目</th>
                                     <th rowspan="3" style="vertical-align:middle; text-align:center">评分标准</th>
-                                    <th colspan="3" style="vertical-align:middle; text-align:center">评定日期（年/月/日）</th>
+                                    <th colspan="3" style="vertical-align:middle; text-align:center">评定时期（年/月/日）</th>
                                     <th rowspan="3" style="vertical-align:middle; text-align:center">后期项目提升概率</th>
                                 </tr>
                                 <tr>
@@ -201,7 +201,7 @@
                 </div>
                 <!-- /.panel-body -->
                 <p class="text-center">
-                    <button type="button" class="btn btn-outline btn-default" onclick="report()">分析报告</button>
+                    <button type="button" class="btn btn-outline btn-default" onclick="report()">分析结果</button>
                 </p>
             </div>
             <!-- /.panel -->
@@ -213,6 +213,11 @@
     var barthel_num = {{ barthel_num }};
     var barthel_button = barthel_num + 2;
     var hospid = {{ hospid|safe }};
+
+    // 打印barthel
+    function print(){
+        location.href = "print_assessment?hospid=" + hospid;
+    }
 
     //分析报告
     function report(){

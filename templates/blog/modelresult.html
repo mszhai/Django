@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <center>患者康复预测分析报告</center>
+                <center>患者康复预测分析结果</center>
             </div>
 
             <!-- /.panel-heading -->
@@ -13,15 +13,15 @@
                 <div class="col-lg-6">
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h5>康复预测模型</h5>
+                            <h5>康复预测结果</h5>
                         </div>
                         <div class="panel-body">
-                            <p>该患者出院ADL能力缺陷程度预期是
-                                <font color="#FF8000">{{ adl|safe }}</font><br>
+                            <p><b>该患者出院ADL能力缺陷程度预期是：
+                                <font color="#FF8000">{{ adl|safe }}</font></b><br>
                                 &nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的正面影响因素包括：{{ factor_p|safe }}<br>
                                 &nbsp&nbsp&nbsp&nbsp&#8226 对康复提升的负面影响因素包括：{{ factor_n|safe }}
                             </p>
-                            <p>该患者最有可能提高的康复目标包括：</p>
+                            <p><b>该患者最有可能提高的康复目标包括：</b></p>
                             {{ factor_html|safe }}
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="col-lg-6">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h5>相似患者分群</h5>
+                            <h5>患者相似性分析结果</h5>
                         </div>
                         <div class="panel-body">
                             <p>根据该患者的入院特征，找到

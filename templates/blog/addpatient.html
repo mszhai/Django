@@ -4,14 +4,14 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="well panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">新住院病人</h3>
+                <h3 class="panel-title"><b>新住院病人</b></h3>
             </div>
             <div class="panel-body">
                 <!--form role="form" method="post" action="{% url 'login' %}"{% url 'addpatient' %}-->
                 <form role="form" action="" method="post" id="addpatform" class="form-horizontal">
                     {% csrf_token %}
                     <fieldset>
-                        <legend style="font-size:15px;">病人基本信息<span style="color:red">*</span> </legend>
+                        <legend style="font-size:15px;"><b>病人基本信息<span style="color:red">*</span> </b></legend>
                         <div class="form-group">
                             <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">住院号 </label>
                             <div class="col-md-5">
