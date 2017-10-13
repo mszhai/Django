@@ -113,7 +113,7 @@
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
             });
             $.ajax({
-                url: '/login_verify/',
+                url: '/medcare/login_verify/',
                 type: "POST",
                 traditional: true,
                 data: {'username': username, 'password': password},

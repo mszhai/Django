@@ -25,12 +25,13 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('blog.urls')),
+    #url(r'', include('blog.urls')),
+    url(r'^medcare/', include('blog.urls')),
     #url(r'^static/(?P<path>.*)$', views.static.serve, {'document_root': 'static/'}),
 ]
 
 if settings.DEBUG is False:
     urlpatterns += [
-        url(r'^static/(?P<path>.*)$', views.static.serve, {'document_root': settings.STATIC_ROOT}, name="static"),
+        url(r'^static/(?P<path>.*)$', views.static.serve, {'document_root': settings.STATIC1_ROOT}, name="static"),
         #url(r'^media/(?P<path>.*)$', views.static.serve, {'document_root': settings.MEDIA_ROOT}, name="media")
     ]

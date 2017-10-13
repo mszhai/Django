@@ -40,7 +40,7 @@ class HospitalizationInfo(models.Model):
 
 class Barthel(models.Model):
     hospid = models.ForeignKey(HospitalizationInfo, on_delete=None)
-    profile = models.ForeignKey(Profile)
+    profile = models.ForeignKey(Profile, on_delete=None)
     evaluate_time = models.DateTimeField(auto_now=True)
     dabian = models.IntegerField()
     xiaobian = models.IntegerField()
