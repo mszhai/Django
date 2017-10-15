@@ -210,7 +210,7 @@
     
     // 打印barthel
     function print(){
-        location.href = "print_assessment?hospid=" + hospid;
+        location.href = "{% url 'print_assessment' %}?hospid=" + hospid;
     }
 
     function predict(){
@@ -220,7 +220,7 @@
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
             });
             $.ajax({
-                url: '/predict_model/',
+                url: "{% url 'predict_model' %}",
                 type: "POST",
                 traditional: true,
                 data: {'hospid': hospid},
@@ -231,9 +231,9 @@
                     }else if(data == -1){
                         alert("出错了！");
                     }else if(data == 1){
-                        location.href = "addmodelpara.html?hospid=" + hospid;
+                        location.href = "{% url 'addmodelpara' %}?hospid=" + hospid;
                     }else if(data == 2){
-                        location.href = "modelresult.html?hospid=" + hospid;
+                        location.href = "{% url 'modelresult' %}?hospid=" + hospid;
                     }
                 }
             });
@@ -279,7 +279,7 @@
                         data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
                     });
                     $.ajax({
-                        url: '/evaluate_submit/',
+                        url: "{% url 'evaluate_submit' %}",
                         type: "POST",
                         traditional: true,
                         data: {'dic': JSON.stringify(dic)},
@@ -289,9 +289,9 @@
                             if(data == 1){
                                 alert("评定成功!");
                                 if(barthel_num + 1 == 3){
-                                    location.href = "predictbar.html?hospid=" + dic['hospid'];
+                                    location.href = "{% url 'predictbar' %}?hospid=" + dic['hospid'];
                                 }else{
-                                    location.href = "evaluate.html?hospid=" + dic['hospid'];
+                                    location.href = "{% url 'evaluate' %}?hospid=" + dic['hospid'];
                                 }
                             }else if(data == 2){
                                 alert("已经提交过！");

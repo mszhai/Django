@@ -113,7 +113,7 @@
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
             });
             $.ajax({
-                url: '/medcare/login_verify/',
+                url: "{% url 'login_verify' %}",
                 type: "POST",
                 traditional: true,
                 data: {'username': username, 'password': password},
@@ -121,7 +121,7 @@
                 //cache: false,
                 success: function(data){
                     if(data == 1){
-                        location.href = "patpanel.html";
+                        location.href = "{% url 'patpanel' %}";
                     }else{
                         $('.loginError').html('账号或密码错误，请重新输入.').show();
                     }

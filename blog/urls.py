@@ -12,7 +12,6 @@ urlpatterns = [
     url(r'^index.html', views.index, name='index'),
     url(r'^doctor.html', views.doctor, name='doctor'),
     url(r'^model.html', views.model, name='model'),
-    url(r'^print_assessment', views.print_assessment, name='print_assessment'),
 ]
 
 urlpatterns += [
@@ -21,8 +20,6 @@ urlpatterns += [
     url(r'^regist/$', views.regist, name='regist'),
     url(r'^login_verify/$',views.login_verify, name='login_verify'),
     url(r'^login_success/$', views.login_success, name='login_success'),
-    url(r'login.html', views.login, name='login'),
-    url(r'^$', views.login, name='login'),
 ]
 
 urlpatterns += [
@@ -31,12 +28,13 @@ urlpatterns += [
     url(r'^evaluate.html', views.evaluate, name='evaluate'),
     url(r'^modelresult.html', views.model_result, name='modelresult'),
     url(r'^addpatient.html', views.add_patient, name='addpatient'),
-    url(r'^evaluate_submit/$', views.evaluate_submit),
+    url(r'^evaluate_submit/$', views.evaluate_submit, name='evaluate_submit'),
     url(r'^addmodelpara.html', views.add_model_para, name='addmodelpara'),
     url(r'^predictdoc.html', views.predictdoc, name='predictdoc'),
     url(r'^predictbar.html', views.predictbar, name='predictbar'),
     url(r'^predict_model/$', views.predict_model, name='predict_model'),
     url(r'^modelpara/$', views.modelpara, name='modelpara'),
+    url(r'^print_assessment', views.print_assessment, name='print_assessment'),
 ]
 urlpatterns += [
     url(r'^hello$', views.hello, name='hello'),

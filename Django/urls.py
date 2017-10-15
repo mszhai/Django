@@ -21,12 +21,13 @@ from django.contrib.staticfiles import views
 from django.conf import settings
 
 #from . import view
-#from blog import views
+from blog import views as view_blog
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    #url(r'', include('blog.urls')),
     url(r'^medcare/', include('blog.urls')),
+    url(r'login.html', view_blog.login, name='login'),
+    url(r'^$', view_blog.login, name='login'),
     #url(r'^static/(?P<path>.*)$', views.static.serve, {'document_root': 'static/'}),
 ]
 

@@ -69,7 +69,7 @@
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
             });
             $.ajax({
-                url: '/addpatient.html',
+                url: "{% url 'addpatient' %}",
                 type: "POST",
                 traditional: true,
                 data: $('#addpatform').serialize(),
@@ -78,7 +78,7 @@
                     if(data == -1){
                         alert("*为必填项！");
                     }else if(data == 1){
-                        location.href = "patpanel.html";
+                        location.href = "{% url 'patpanel' %}";
                     }
                 }
             });

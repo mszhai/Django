@@ -114,7 +114,7 @@
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
             });
             $.ajax({
-                url: '/modelpara/',
+                url: "{% url 'modelpara' %}",
                 type: "POST",
                 traditional: true,
                 data: $('#addmodelparaform').serialize(),
@@ -123,7 +123,7 @@
                     if(data == -1){
                         alert("*为必填项！");
                     }else if(data == 1){
-                        location.href = "modelresult.html?hospid=" + hospid;
+                        location.href = "{% url 'modelresult' %}?hospid=" + hospid;
                     }
                 }
             });

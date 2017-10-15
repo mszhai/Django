@@ -29,7 +29,7 @@
                     </div>
                     <div class="panel-body">
                         <!--form role="form" method="post" action="{% url 'login' %}"-->
-                        <form  role="form" action="/regist/" method="post" id="regform">
+                        <form  role="form" action="{% url 'regist' %}" method="post" id="regform">
                             {% csrf_token %}
                             <fieldset>
                                 <p class="error loginError" align="center"></p>
