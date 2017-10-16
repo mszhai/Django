@@ -100,6 +100,32 @@ def model_result(request):
         data = get_model_predic_html(hosp_id)
     return render(request, 'blog/modelresult.html', data)
 
+def api_similarity_group(hospid):
+    """
+    """
+    med_history = models.MedHistory.objects.get(hospid=hospid)
+    barthel_info = models.Barthel.objects.filter(hospid=hospid, times=1)
+    stroke_days = (barthel_info[0].evaluate_time - med_history.stroke_time).days
+
+    url_pat = 'http://10.111.25.203:80/api/v1/{userid}/sim/{modelid}/{patientid}'
+    userid = '11'
+    modelid = '_cluster_model'
+    patientid = '11'
+    url = url_pat.format(userid=userid, modelid=modelid, patientid=patientid)
+    data_01 = {'key': '入院Barthel总分分级', 'value': ''}
+    data_02 = {'key': '距脑卒中发病天数分级', 'value': ''}
+    data = [data_01, data_02]
+    data_json = json.dumps(data, ensure_ascii=False)#, ensure_ascii=False
+    data_json = data_json.encode('utf8')
+    result = requests.post(url, data_json)
+
+def get_similarity_group(hospid):
+    """
+    获取相似分群模型数据
+
+    hospid: 住院号
+    """
+
 def get_model_predic_html(hospid):
     """
     获取预测模型前端展示的html数据

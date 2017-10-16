@@ -37,6 +37,7 @@ class HospitalizationInfo(models.Model):
     update_time = models.DateTimeField(auto_now=True)
     fallowupdate = models.DateTimeField(null=True)
     bingcheng = models.CharField(max_length=200, blank=True)
+    similarity = models.CharField(max_length=50, null=True)
 
 class Barthel(models.Model):
     hospid = models.ForeignKey(HospitalizationInfo, on_delete=None)
@@ -84,6 +85,42 @@ class ModelResultFactor(models.Model):
     is_positive = models.NullBooleanField(null=True)
     odds_ratio = models.FloatField(null=True, max_length=20)
     p_value = models.FloatField(null=True, max_length=20)
+
+class SimilarityGroup(models.Model):
+    model_id = models.CharField(max_length=50, null=True)
+    character = models.CharField(max_length=200, null=True)
+    group_id = models.CharField(max_length=50, null=True)
+    patient_num = models.FloatField(null=True, max_length=20)
+    sex_man = models.FloatField(null=True, max_length=20)
+    first_recover_care = models.FloatField(null=True, max_length=20)
+    hypertension = models.FloatField(null=True, max_length=20)
+    diabetes = models.FloatField(null=True, max_length=20)
+    conservative_treatment = models.FloatField(null=True, max_length=20)
+    stroke_2 = models.FloatField(null=True, max_length=20)
+    age = models.FloatField(null=True, max_length=20)
+    enter_barthel = models.FloatField(null=True, max_length=20)
+    stroke_time = models.FloatField(null=True, max_length=20)
+    glu = models.FloatField(null=True, max_length=20)
+    tg = models.FloatField(null=True, max_length=20)
+    ldl_c = models.FloatField(null=True, max_length=20)
+    qiya = models.FloatField(null=True, max_length=20)
+    dianzi = models.FloatField(null=True, max_length=20)
+    yanyu = models.FloatField(null=True, max_length=20)
+    xiazhi = models.FloatField(null=True, max_length=20)
+    tunyan = models.FloatField(null=True, max_length=20)
+    zuoye = models.FloatField(null=True, max_length=20)
+    liliao = models.FloatField(null=True, max_length=20)
+    other_treatment = models.FloatField(null=True, max_length=20)
+    imporve = models.FloatField(null=True, max_length=20)
+    qiya_effect = models.NullBooleanField(null=True)
+    dianzi_effect = models.NullBooleanField(null=True)
+    yanyu_effect = models.NullBooleanField(null=True)
+    xiazhi_effect = models.NullBooleanField(null=True)
+    tunyan_effect = models.NullBooleanField(null=True)
+    zuoye_effect = models.NullBooleanField(null=True)
+    liliao_effect = models.NullBooleanField(null=True)
+    other_treatment_effect = models.NullBooleanField(null=True)
+
 
 """
 class Tag(models.Model):
