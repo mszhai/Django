@@ -97,27 +97,53 @@ def model_result(request):
             hosp_info.evaluate_status = 2
             hosp_info.save()
             #model_rt = get_model_result(hosp_id)
-        data = get_model_predic_html(hosp_id)
+        if (hosp_info.similarity is None or hosp_info.similarity is '') and hosp_info.evaluate_status + 1 > 1:
+            similarity_group = api_similarity_group(hosp_id)
+            hosp_info.similarity = similarity_group
+            hosp_info.save()
+            #return HttpResponse('出现错误，请返回重新打印！')
+        data_1 = get_similarity_group(hosp_id)
+        data_2 = get_model_predic_html(hosp_id)
+        data = dict(data_1, **data_2)
     return render(request, 'blog/modelresult.html', data)
 
 def api_similarity_group(hospid):
     """
+    相似分群模型
     """
     med_history = models.MedHistory.objects.get(hospid=hospid)
     barthel_info = models.Barthel.objects.filter(hospid=hospid, times=1)
     stroke_days = (barthel_info[0].evaluate_time - med_history.stroke_time).days
-
+    stroke_days_class = 4
+    if stroke_days < 30:
+        stroke_days_class = 1
+    elif stroke_days < 90:
+        stroke_days_class = 2
+    elif stroke_days < 180:
+        stroke_days_class = 3
+    barthel_score = barthel_info[0].total_score
+    barthel_score_class = 3
+    if barthel_score < 50:
+        barthel_score_class = 1
+    elif barthel_score < 75:
+        barthel_score_class = 2
     url_pat = 'http://10.111.25.203:80/api/v1/{userid}/sim/{modelid}/{patientid}'
     userid = '11'
     modelid = '_cluster_model'
     patientid = '11'
     url = url_pat.format(userid=userid, modelid=modelid, patientid=patientid)
-    data_01 = {'key': '入院Barthel总分分级', 'value': ''}
-    data_02 = {'key': '距脑卒中发病天数分级', 'value': ''}
+    data_01 = {'key': '入院Barthel总分分级', 'value': barthel_score_class}
+    data_02 = {'key': '距脑卒中发病天数分级', 'value': stroke_days_class}
     data = [data_01, data_02]
     data_json = json.dumps(data, ensure_ascii=False)#, ensure_ascii=False
     data_json = data_json.encode('utf8')
     result = requests.post(url, data_json)
+    result_text = result.text
+    result_json = json.loads(result_text)
+    result_data = ''
+    if 'similar_group' in result_json.keys():
+        result_data = result_json['similar_group']['group_id']
+    return result_data
 
 def get_similarity_group(hospid):
     """
@@ -125,6 +151,26 @@ def get_similarity_group(hospid):
 
     hospid: 住院号
     """
+    hosp_info = models.HospitalizationInfo.objects.get(id=hospid)
+    group_1_query = models.SimilarityGroup.objects.filter(group_id=hosp_info.similarity)
+    group_all_query = models.SimilarityGroup.objects.filter(group_id='全人群')
+    group_1 = group_1_query[0]
+    group_all = group_all_query[0]
+    result_data = dict()
+    result_data['patient_num'] = int(group_1.patient_num)
+    result_data['group_character'] = group_1.group_character
+    result_data['y_axis'] = ['平均Barthel', '糖尿病%', '高血压%', '首次康复%', '脑出血%', '男性%', '平均年龄']
+    result_data['group_1'] = [60, format_data(group_1.diabetes), format_data(group_1.hypertension), format_data(group_1.first_recover_care), format_data(group_1.stroke_2), format_data(group_1.sex_man), 30]
+    result_data['group_all'] = [60, format_data(group_all.diabetes), format_data(group_all.hypertension), format_data(group_all.first_recover_care), format_data(group_all.stroke_2), format_data(group_all.sex_man), 30]
+    #round(item.prob_improve, 1)
+    #format(group_1.diabetes, '.1%')
+    return result_data
+
+def format_data(value):
+    """
+    返回百分数据的值
+    """
+    return round(value*100, 1)
 
 def get_model_predic_html(hospid):
     """

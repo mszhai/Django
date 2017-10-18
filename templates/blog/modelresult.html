@@ -34,9 +34,8 @@
                         </div>
                         <div class="panel-body">
                             <p>根据该患者的入院特征，找到
-                                <font color="red">156名</font>相似的卒中患者</p>
-                            <p>这些患者的共性是：首次康复治疗，入院Barthel评分
-                                <=70</p>
+                                <font color="red">{{ patient_num|safe }}名</font>相似的卒中患者</p>
+                            <p>这些患者的共性是：{{ group_character|safe }}</p>
                             <div class="col-sm-12 col-xs-12">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
@@ -58,7 +57,9 @@
 <!--script src="{% static 'js/echarts-all-3.js' %}"></script-->
 <script type="text/javascript">
     //var batthel_json = {{ batthel_json|safe }};
-    //var batthel_json = {{ batthel_json|safe }};
+    var y_axis = {{ y_axis|safe }};
+    var group_1 = {{ group_1|safe }};
+    var group_all = {{ group_all|safe }};
     //var data = {{ data|safe }};
     var dom = document.getElementById("pic1");
 
@@ -101,13 +102,13 @@
         },
         yAxis: {
             type: 'category',
-            data: ['平均Barthel','糖尿病%','高血压%','首次康复%','脑梗死%', '男性%','平均年龄']
+            data: y_axis
         },
         series: [
             {
                 name: '全人群',
                 type: 'bar',
-                data: [70, 34, 78, 38, 65, 75, 61],
+                data: group_all,
                 itemStyle:{
                   normal:{color:'#66ccff'}
                 }
@@ -115,7 +116,7 @@
             {
                 name: '相似人群',
                 type: 'bar',
-                data: [47, 40, 82, 98, 70, 79, 63],
+                data: group_1,
                 itemStyle:{
                   normal:{color:'#ccff66'}
                 }

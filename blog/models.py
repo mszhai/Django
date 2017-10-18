@@ -88,7 +88,7 @@ class ModelResultFactor(models.Model):
 
 class SimilarityGroup(models.Model):
     model_id = models.CharField(max_length=50, null=True)
-    character = models.CharField(max_length=200, null=True)
+    group_character = models.CharField(max_length=200, null=True)
     group_id = models.CharField(max_length=50, null=True)
     patient_num = models.FloatField(null=True, max_length=20)
     sex_man = models.FloatField(null=True, max_length=20)

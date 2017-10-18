@@ -1,0 +1,195 @@
+{
+    "patient_id": "11",
+    "similar_group": {
+        "characteristic": "入院Barthel总分分级 > 1.5 and 入院Barthel总分分级 <= 2.5",
+        "description": [{
+                "features": [{
+                        "feature_name": "性别_男",
+                        "group_value": 0.736318407960199,
+                        "overall_value": 0.7277777777777777
+                    },
+                    {
+                        "feature_name": "首次治疗",
+                        "group_value": 0.3283582089552239,
+                        "overall_value": 0.3962962962962963
+                    },
+                    {
+                        "feature_name": "高血压",
+                        "group_value": 0.7910447761194029,
+                        "overall_value": 0.7648148148148148
+                    },
+                    {
+                        "feature_name": "糖尿病",
+                        "group_value": 0.3283582089552239,
+                        "overall_value": 0.3055555555555556
+                    },
+                    {
+                        "feature_name": "保守治疗",
+                        "group_value": 0.7512437810945274,
+                        "overall_value": 0.7462962962962963
+                    },
+                    {
+                        "feature_name": "脑出血",
+                        "group_value": 0.4129353233830846,
+                        "overall_value": 0.3888888888888889
+                    },
+                    {
+                        "feature_name": "年龄分级",
+                        "group_value": 0.6965174129353234,
+                        "overall_value": 0.6722222222222223
+                    },
+                    {
+                        "feature_name": "入院Barthel总分分级",
+                        "group_value": 0,
+                        "overall_value": 0.4
+                    },
+                    {
+                        "feature_name": "距脑卒中发病天数分级",
+                        "group_value": 0.14427860696517414,
+                        "overall_value": 0.2
+                    }
+                ],
+                "title": "percentage of binary variable"
+            },
+            {
+                "features": [{
+                        "feature_name": "GLU",
+                        "group_value": 5.903591771009939,
+                        "overall_value": 5.935711111253672
+                    },
+                    {
+                        "feature_name": "TG",
+                        "group_value": 2.8412139303482635,
+                        "overall_value": 2.8944499999999875
+                    },
+                    {
+                        "feature_name": "LDL-C",
+                        "group_value": 2.0162616645323417,
+                        "overall_value": 2.035181481364805
+                    }
+                ],
+                "title": "mean of continuous variable"
+            },
+            {
+                "features": [{
+                        "feature_name": "气压治疗",
+                        "group_value": 0.8606965174129353,
+                        "overall_value": 0.8240740740740741
+                    },
+                    {
+                        "feature_name": "电子生物反馈",
+                        "group_value": 0.7860696517412935,
+                        "overall_value": 0.7518518518518519
+                    },
+                    {
+                        "feature_name": "言语训练",
+                        "group_value": 0.31343283582089554,
+                        "overall_value": 0.34629629629629627
+                    },
+                    {
+                        "feature_name": "下肢运动训练",
+                        "group_value": 0.8059701492537313,
+                        "overall_value": 0.7685185185185185
+                    },
+                    {
+                        "feature_name": "吞咽训练",
+                        "group_value": 0.14925373134328357,
+                        "overall_value": 0.19814814814814816
+                    },
+                    {
+                        "feature_name": "作业疗法",
+                        "group_value": 0.7611940298507462,
+                        "overall_value": 0.6759259259259259
+                    },
+                    {
+                        "feature_name": "理疗",
+                        "group_value": 0.6417910447761194,
+                        "overall_value": 0.5907407407407408
+                    },
+                    {
+                        "feature_name": "其它运动训练",
+                        "group_value": 0.9154228855721394,
+                        "overall_value": 0.8796296296296297
+                    }
+                ],
+                "title": "percentage of treatment"
+            },
+            {
+                "outcome": [{
+                    "feature_name": "出院缺陷程度改善_结果",
+                    "group_value": 0.23383084577114427,
+                    "overall_value": 0.2759259259259259
+                }],
+                "title": "percentage of outcome"
+            }
+        ],
+        "group_id": "3",
+        "group_membership": 3,
+        "patient_no": 201,
+        "treatment_effectiveness": [{
+                "ci_high": 2.9992924492304067,
+                "ci_low": 0.43245796240093637,
+                "is_effetive": "True",
+                "odds_ratio": 1.1388888888907012,
+                "p_value": 0.7923671727916193,
+                "treatment_name": "气压治疗"
+            },
+            {
+                "ci_high": 3.3511241708393813,
+                "ci_low": 0.6134806735590714,
+                "is_effetive": "True",
+                "odds_ratio": 1.433823529415886,
+                "p_value": 0.4054520362997792,
+                "treatment_name": "电子生物反馈"
+            },
+            {
+                "ci_high": 1.4462947914094126,
+                "ci_low": 0.33151537770949263,
+                "is_effetive": "False",
+                "odds_ratio": 0.6924369747878599,
+                "p_value": 0.32805936758237164,
+                "treatment_name": "言语训练"
+            },
+            {
+                "ci_high": 1.3474799394443733,
+                "ci_low": 0.28534572778421324,
+                "is_effetive": "False",
+                "odds_ratio": 0.6200787401575564,
+                "p_value": 0.22749312925825094,
+                "treatment_name": "下肢运动训练"
+            },
+            {
+                "ci_high": 1.1094535448153573,
+                "ci_low": 0.09270602242172075,
+                "is_effetive": "False",
+                "odds_ratio": 0.32070707070707083,
+                "p_value": 0.0725050133351872,
+                "treatment_name": "吞咽训练"
+            },
+            {
+                "ci_high": 3.2261375756392234,
+                "ci_low": 0.6355252705170921,
+                "is_effetive": "True",
+                "odds_ratio": 1.4318840579751815,
+                "p_value": 0.38638041916358734,
+                "treatment_name": "作业疗法"
+            },
+            {
+                "ci_high": 1.193002595478443,
+                "ci_low": 0.31501600588305895,
+                "is_effetive": "False",
+                "odds_ratio": 0.6130374479880831,
+                "p_value": 0.1497348610291583,
+                "treatment_name": "理疗"
+            },
+            {
+                "ci_high": 3.198260521207809,
+                "ci_low": 0.307150743242468,
+                "is_effetive": "False",
+                "odds_ratio": 0.9911347517729471,
+                "p_value": 0.9881136500010543,
+                "treatment_name": "其它运动训练"
+            }
+        ]
+    }
+}
