@@ -414,7 +414,12 @@ def modelpara(request):
         #获取住院号
         hospinfo = models.HospitalizationInfo.objects.get(id=hosp_id)
         #重复提交时更新数据
-        #medhistory_has = models.MedHistory
+        """
+        medhistory_has = models.MedHistory.objects.filter(id=hosp_id)
+        return HttpResponse(medhistory_has[])
+        if medhistory_has:
+            medhistory = medhistory_has
+        """
         medhistory.hospid = hospinfo
         medhistory.stroke_time = stroke_time
         medhistory.conservative_treatment = radio4

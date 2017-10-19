@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label" >发病日期 </label>
                             <div class="col-md-4">
-                                <input class="form-control" name="stroke_time" id="stroke_time" type="text" value=""/>
+                                <input class="form-control" name="stroke_time" id="stroke_time" type="text" readonly/>
                                 <!--input type="text" class="form-control" name="stroke_time" id="stroke_time" placeholder="2015.6"-->
                             </div>
                             <label class="col-md-2 control-label" >首次康复治疗 </label>
@@ -130,6 +130,7 @@
         });
     }
 
+    //function time_stroke(){
     //日期控件
     $(function () {
         $('#stroke_time').datetimepicker({
@@ -145,5 +146,8 @@
             startView: 2,
         });
     });
+        //$("#stroke_time").val($("#stroke_time").val());
+
+
 </script>
 {% endblock %}
