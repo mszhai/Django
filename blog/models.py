@@ -66,9 +66,9 @@ class MedHistory(models.Model):
     smoke = models.NullBooleanField(null=True)
     drink = models.NullBooleanField(null=True)
     dignose = models.CharField(max_length=50, null=True)
-    glu = models.IntegerField(null=True)
-    tg = models.IntegerField(null=True)
-    ldl_c = models.IntegerField(null=True)
+    glu = models.FloatField(null=True)
+    tg = models.FloatField(null=True)
+    ldl_c = models.FloatField(null=True)
     createtime = models.DateTimeField(auto_now=True)
 
 class ModelResult(models.Model):

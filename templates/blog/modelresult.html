@@ -61,6 +61,10 @@
     var group_1 = {{ group_1|safe }};
     var group_all = {{ group_all|safe }};
     //var data = {{ data|safe }};
+    //pic1 echarts图标宽度
+    var width = $("#pic1").width();
+
+    $("#pic1").css("width", width);
     var dom = document.getElementById("pic1");
 
     var myChart = echarts.init(dom);

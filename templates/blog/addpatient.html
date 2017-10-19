@@ -34,13 +34,13 @@
                             </div>
                             <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">出生日期 </label>
                             <div class="col-md-5">
-                                <input class="form-control" name="birthday" id="birthday" type="date" value="2017-01-01"/>
+                                <input class="form-control" name="birthday" id="birthday" type="text" value=""/>
                                 <!--input type="text" class="form-control" name="birthday" id="birthday" placeholder="1970.1" style=""-->
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">卒中类型 </label>
-                            <div class="col-md-5">
+                            <div class="col-md-11">
                                 <label class="radio-inline">
                                     <input type="radio" name="dignose" value="0" checked="true">脑梗死
                                 </label>
@@ -84,5 +84,21 @@
             });
         });
     }
+
+    //日期控件
+    $(function () {
+        $('#birthday').datetimepicker({
+            format:'yyyy-mm-dd',
+            language: 'zh-CN',
+            todayHighlight: 0,
+            endDate: new Date(),
+            autoclose: 1,
+            minView: 2,
+            initialDate: new Date(),
+            weekStart: 1,
+            todayBtn:  1,
+            startView: 2,
+        });
+    });
 </script>
 {% endblock %}

@@ -75,7 +75,8 @@ def barthel_temp(response, pat_info):
 
     # 计算列宽
     pwidth = (doc.pagesize[0]-20)/1000
-    width = 84
+    # 评定日期3栏的宽度
+    width = 100
     colwidths = (None, None, pwidth*width, pwidth*width, pwidth*width)
     t = Table(data, colWidths=colwidths)
     t.setStyle(TableStyle([
