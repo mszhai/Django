@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <center>Barthel指数评分量表</center>
-                    <div class="col-lg-1 pull-right"><input type="button" class="btn btn-default" onclick="print()" value="打印" /></div>
+                    <div class="col-lg-2 pull-right"><input type="button" class="btn btn-default" onclick="print()" value="打印预览" /></div>
                 </div>
 
                 <!-- /.panel-heading -->
@@ -15,28 +15,28 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label for="exampleInputName2" class="">姓&nbsp&nbsp&nbsp&nbsp名 </label>
-                                <input type="text" class="" id="name" value="{{ name }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" class="" readonly="true" id="name" value="{{ name }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp性别 </label>
-                                <input type="text" class="" id="sex" value="{{ sex }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
+                                <input type="text" class="" readonly="true" id="sex" value="{{ sex }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
                                     value="男">
                                 <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp年龄 </label>
-                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
+                                <input type="text" class="" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 50px;"
                                     value="{{ age }}">
                                 <label for="exampleInputName2" class="">&nbsp&nbsp&nbsp&nbsp疾病 </label>
-                                <input type="text" class="" id="inhospno" value="{{ dignose }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" class="" readonly="true" id="inhospno" value="{{ dignose }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" class="">病程 </label>
                                 <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                             </div>
                             <div class="col-md-12">
                                 <label for="exampleInputName2" class="">住院号 </label>
-                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;"
+                                <input type="text" class="" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;"
                                     value="{{ hospitno }}">
                                 <label for="exampleInputName2" class="">入院时间 </label>
-                                <input type="text" class="" id="inhospno" value="{{ entdate }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" class="" readonly="true" id="inhospno" value="{{ entdate }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" class="">出院时间 </label>
-                                <input type="text" class="" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" class="" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" class="">随访时间 </label>
-                                <input type="text" class="" id="inhospno" value="" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" class="" readonly="true" id="inhospno" value="" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                             </div>
                         </div>
                     </form>

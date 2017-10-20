@@ -91,13 +91,19 @@ def model_result(request):
         #从数据库获取数据
         model_rt = get_model_result(hosp_id)
         hosp_info = models.HospitalizationInfo.objects.get(id=hosp_id)
-        if len(model_rt) == 0 and hosp_info.evaluate_status + 1 == 2:
+        #barthel评分有3次，则患者状态改为3，否则为2
+        barthel_num = hosp_info.barthel_set.count()
+        #if len(model_rt) == 0 and hosp_info.evaluate_status + 1 == 2:
+        if len(model_rt) == 0:
             #保存api接口数据到数据库
             result_data = api_data(hosp_id, userid)
-            hosp_info.evaluate_status = 2
+            if barthel_num == 3:
+                hosp_info.evaluate_status = 3
+            else:
+                hosp_info.evaluate_status = 2
             hosp_info.save()
             #model_rt = get_model_result(hosp_id)
-        if (hosp_info.similarity is None or hosp_info.similarity is '') and hosp_info.evaluate_status + 1 > 1:
+        if hosp_info.similarity is None or hosp_info.similarity is '':
             similarity_group = api_similarity_group(hosp_id)
             hosp_info.similarity = similarity_group
             hosp_info.save()
@@ -527,6 +533,11 @@ def predictbar(request):
         pat_info['entdate'] = pat.entdate.strftime("%Y/%m/%d")
         pat_info['hospitno'] = pat.hospitno_fk
 
+        have_data = get_model_result(hosp_id)
+        pat_info['have_data'] = False
+        if have_data:
+            pat_info['have_data'] = True
+
         pat_info['hospid'] = pat.id
         pat_info['barthel_num'] = barthel_num
         pat_info['barthel_data'] = json.dumps(barthel_data_dic)
@@ -559,7 +570,7 @@ def evaluate_submit(request):
         barthel_num = hospinfo.barthel_set.count()
         if barthel_num + 1 == dic['barthel_num']:
             # 将病人状态由2改为3，条件为：病人状态为2（保证有康复预测）且第3次提交barthel评分。
-            if barthel_num + 1 == 3:
+            if barthel_num + 1 == 3 and hospinfo.evaluate_status == 2:
                 hospinfo.evaluate_status = 3
                 hospinfo.save()
             barthel = models.Barthel()

@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <center>Barthel指数评分量表预测</center>
-                    <div class="col-lg-1 pull-right"><input type="button" onclick="print()" class="btn btn-default" value="打印" /></div>
+                    <div class="col-lg-2 pull-right"><input type="button" onclick="print()" class="btn btn-default" value="打印预览" /></div>
                 </div>
 
                 <!-- /.panel-heading -->
@@ -23,7 +23,7 @@
                                 <label for="exampleInputName2" >&nbsp&nbsp&nbsp&nbsp疾病 </label>
                                 <input type="text" readonly="true" id="inhospno" value="{{ dignose }}" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                                 <label for="exampleInputName2" >病程 </label>
-                                <input type="text" readonly="true" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
+                                <input type="text" id="inhospno" placeholder="" style="border:0px;border-bottom:#000000 1px solid;width: 120px;">
                             </div>
                             <div class="col-md-12">
                                 <label for="exampleInputName2" readonly="true">住院号 </label>
@@ -201,7 +201,9 @@
                 </div>
                 <!-- /.panel-body -->
                 <p class="text-center">
+                    {% if have_data %}  
                     <button type="button" class="btn btn-outline btn-default" onclick="report()">分析结果</button>
+                    {% endif %}
                 </p>
             </div>
             <!-- /.panel -->

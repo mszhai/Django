@@ -29,8 +29,8 @@
     <![endif]-->
     <!--[if lte IE 8]>
         <script src="{% static 'jquery/jquery-1.12.4.min.js' %}"></script>
-        <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
-        <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="{% static 'js/html5shiv.min.js' %}"></script>
+        <script src="{% static 'js/respond.min.js' %}"></script>
     <![endif]-->
     <!-- [if !IE] -->
         <script src="{% static 'jquery/jquery.min.js' %}"></script>
@@ -63,7 +63,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- /.dropdown -->
                     <li><a href="{% url 'patpanel' %}"><i class="fa fa-home fa-fw"></i>首页</a></li>
-                    <li><a href="{% url 'addpatient' %}"><i class="fa fa-plus-circle fa-fw"></i>添加病人</a></li>
+                    <li><a href="{% url 'addpatient' %}"><i class="fa fa-plus-circle fa-fw"></i>添加患者</a></li>
                     <!--li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>统计信息</a></li-->
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
