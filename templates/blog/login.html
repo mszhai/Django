@@ -1,21 +1,30 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, Chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>认知康复服务平台</title>
     <!-- Bootstrap Styles-->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
     <!-- Custom Fonts -->
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css">
-
+    <!-- jQuery Js -->
+    <!--[if gt IE 8]>
+        <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <![endif]-->
+    <!--[if lte IE 8]>
+        <script src="{% static 'jquery/jquery-1.12.4.min.js' %}"></script>
+        <script src="{% static 'js/html5shiv.min.js' %}"></script>
+        <script src="{% static 'js/respond.min.js' %}"></script>
+    <![endif]-->
+    <!-- [if !IE] -->
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <!-- [endif] -->
 </head>
 
 <body>
@@ -58,8 +67,7 @@
         </div>
     </div>
 
-    <!-- jQuery Js -->
-    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    
     <!-- Bootstrap Js -->
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script type="text/javascript">

@@ -1,9 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, Chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="" name="description" />
     <meta content="webthemez" name="author" />
@@ -20,10 +21,20 @@
     <!-- Custom Styles-->
     <link href="{% static 'css/djangomed.css' %}" rel="stylesheet" />
     <!-- Google Fonts-->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!--link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /-->
     <link rel="stylesheet" href="{% static 'css/cssCharts.css' %}">
     <!-- jQuery Js -->
-    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <!--[if gt IE 8]>
+        <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <![endif]-->
+    <!--[if lte IE 8]>
+        <script src="{% static 'jquery/jquery-1.12.4.min.js' %}"></script>
+        <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+        <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- [if !IE] -->
+        <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <!-- [endif] -->
     <!-- echarts Js -->
     <!--script src="{% static 'js/echarts/echartsall3.js' %}"></script-->
     <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
@@ -99,19 +110,16 @@
     <script src="{% static 'js/bootstrap-datetimepicker.zh-CN.js' %}"></script>
     
     <!-- Metis Menu Js -->
-    <script src="{% static 'js/jquery.metisMenu.js' %}"></script>
+    <!--script src="{% static 'js/jquery.metisMenu.js' %}"></script-->
     <!-- Morris Chart Js -->
-    <script src="{% static 'js/raphael-2.1.0.min.js' %}"></script>
+    <!--script src="{% static 'js/raphael-2.1.0.min.js' %}"></script>
     <script src="{% static 'js/morris.js' %}"></script>
 
 
     <script src="{% static 'js/easypiechart.js' %}"></script>
     <script src="{% static 'js/easypiechart-data.js' %}"></script>
 
-    <script src="{% static 'js/jquery.chart.js' %}"></script>
-
-    
+    <script src="{% static 'js/jquery.chart.js' %}"></script-->
 
 </body>
-
 </html>
