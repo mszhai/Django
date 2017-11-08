@@ -165,9 +165,18 @@ def get_similarity_group(hospid):
     result_data = dict()
     result_data['patient_num'] = int(group_1.patient_num)
     result_data['group_character'] = group_1.group_character
+    #推荐治疗方法
+    result_data['recommend_treat'] = group_1.recommend_treat
     result_data['y_axis'] = ['平均Barthel', '糖尿病%', '高血压%', '首次康复%', '脑出血%', '男性%', '平均年龄']
     result_data['group_1'] = [60, format_data(group_1.diabetes), format_data(group_1.hypertension), format_data(group_1.first_recover_care), format_data(group_1.stroke_2), format_data(group_1.sex_man), 30]
     result_data['group_all'] = [60, format_data(group_all.diabetes), format_data(group_all.hypertension), format_data(group_all.first_recover_care), format_data(group_all.stroke_2), format_data(group_all.sex_man), 30]
+    result_data['group_table'] = list()
+    for i, item in enumerate(result_data['y_axis']):
+        group_table = list()
+        group_table.append(item)
+        group_table.append(result_data['group_all'][i])
+        group_table.append(result_data['group_1'][i])
+        result_data['group_table'].append(group_table)
     #round(item.prob_improve, 1)
     #format(group_1.diabetes, '.1%')
     return result_data

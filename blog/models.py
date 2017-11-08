@@ -120,7 +120,7 @@ class SimilarityGroup(models.Model):
     zuoye_effect = models.NullBooleanField(null=True)
     liliao_effect = models.NullBooleanField(null=True)
     other_treatment_effect = models.NullBooleanField(null=True)
-
+    recommend_treat = models.CharField(max_length=200, null=True)
 
 """
 class Tag(models.Model):
