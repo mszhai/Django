@@ -36,6 +36,12 @@ urlpatterns += [
     url(r'^modelpara/$', views.modelpara, name='modelpara'),
     url(r'^print_assessment', views.print_assessment, name='print_assessment'),
 ]
+
+urlpatterns += [
+    # ajax
+    url(r'^patpanelRemove', views.patpanel_remove, name='patpanelRemove'),
+]
+
 urlpatterns += [
     url(r'^hello$', views.hello, name='hello'),
     url(r'^test01$', views.test),

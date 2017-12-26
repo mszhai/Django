@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">卒中类型 </label>
-                            <div class="col-md-11">
+                            <div class="col-md-5">
                                 <label class="radio-inline">
                                     <input type="radio" name="dignose" value="0" checked="true">脑梗死
                                 </label>
@@ -50,6 +50,10 @@
                                 <label class="radio-inline">
                                     <input type="radio" name="dignose" value="2">蛛网膜下腔出血
                                 </label>
+                            </div>
+                            <label for="exampleInputName2" class="col-md-1 control-label" style="white-space:nowrap;">入院日期 </label>
+                            <div class="col-md-5">
+                                <input class="form-control" name="entdate" id="entdate" type="text" readonly/>
                             </div>
                         </div>
                         <div class="form-actions pull-right">
@@ -88,6 +92,18 @@
     //日期控件
     $(function () {
         $('#birthday').datetimepicker({
+            format:'yyyy-mm-dd',
+            language: 'zh-CN',
+            todayHighlight: 0,
+            endDate: new Date(),
+            autoclose: 1,
+            minView: 2,
+            initialDate: new Date(),
+            weekStart: 1,
+            todayBtn:  1,
+            startView: 2,
+        });
+        $('#entdate').datetimepicker({
             format:'yyyy-mm-dd',
             language: 'zh-CN',
             todayHighlight: 0,

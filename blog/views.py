@@ -21,6 +21,20 @@ import json
 import os
 import requests
 
+
+@login_required
+def patpanel_remove(request):
+    """remove patpanel
+    """
+    if request.method == 'POST':
+        hosp_id = request.POST.get('hospid', '')
+        hosp_info = models.HospitalizationInfo.objects.get(id=hosp_id)
+        if hosp_info.evaluate_status < 10:
+            hosp_info.evaluate_status = hosp_info.evaluate_status + 10
+        hosp_info.save()
+        return HttpResponse('1')
+    return HttpResponse('-1')
+
 @login_required
 def print_assessment(request):
     if request.method == 'GET':
@@ -167,15 +181,25 @@ def get_similarity_group(hospid):
     result_data['group_character'] = group_1.group_character
     #推荐治疗方法
     result_data['recommend_treat'] = group_1.recommend_treat
-    result_data['y_axis'] = ['平均Barthel', '糖尿病%', '高血压%', '首次康复%', '脑出血%', '男性%', '平均年龄']
-    result_data['group_1'] = [60, format_data(group_1.diabetes), format_data(group_1.hypertension), format_data(group_1.first_recover_care), format_data(group_1.stroke_2), format_data(group_1.sex_man), 30]
-    result_data['group_all'] = [60, format_data(group_all.diabetes), format_data(group_all.hypertension), format_data(group_all.first_recover_care), format_data(group_all.stroke_2), format_data(group_all.sex_man), 30]
+    #病人基本信息
+    #format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1=evaluate1, barthel_bar='', check1=check1, evaluate_status_style='danger', entdate=entdate, remove=remove, pat_status=pat_status)
+    a_patient = models.PatientInfo.objects.get(id=hosp_info.patid_id)
+    age = int((hosp_info.entdate - a_patient.birthday).days / 365 + 1)
+    result_data['patinfo'] = {'name': a_patient.name, 'hospno': hosp_info.hospitno_fk, 'dignose': hosp_info.dignose, 'entdate': hosp_info.entdate.strftime('%Y-%m-%d')}
+    result_data['y_axis'] = ['入院Barthel', '糖尿病(%)', '高血压(%)', '首次康复(%)', '脑出血(%)', '男性(%)', '平均年龄']
+    result_data['group_1'] = [int(group_1.enter_barthel), format_data(group_1.diabetes), format_data(group_1.hypertension), format_data(group_1.first_recover_care), format_data(group_1.stroke_2), format_data(group_1.sex_man), int(group_1.age)]
+    result_data['group_all'] = [int(group_all.enter_barthel), format_data(group_all.diabetes), format_data(group_all.hypertension), format_data(group_all.first_recover_care), format_data(group_all.stroke_2), format_data(group_all.sex_man), int(group_all.age)]
+    #病人指标信息
+    barthel_patient = hosp_info.barthel_set.filter(times=1)[0]
+    medhistory_patient = hosp_info.medhistory_set.order_by('-createtime')[0]
+    result_data['group_patient'] = [barthel_patient.total_score, format_bool(medhistory_patient.diabetes), format_bool(medhistory_patient.hypertension), format_bool(medhistory_patient.first_recover_care), hosp_info.dignose, a_patient.sex, age]
     result_data['group_table'] = list()
     for i, item in enumerate(result_data['y_axis']):
         group_table = list()
         group_table.append(item)
-        group_table.append(result_data['group_all'][i])
+        group_table.append(result_data['group_patient'][i])
         group_table.append(result_data['group_1'][i])
+        group_table.append(result_data['group_all'][i])
         result_data['group_table'].append(group_table)
     #round(item.prob_improve, 1)
     #format(group_1.diabetes, '.1%')
@@ -186,6 +210,13 @@ def format_data(value):
     返回百分数据的值
     """
     return round(value*100, 1)
+
+def format_bool(value):
+    """返回是否
+    """
+    if value:
+        return '是'
+    return '否'
 
 def get_model_predic_html(hospid):
     """
@@ -693,6 +724,10 @@ def add_patient(request):
             return HttpResponse('-1')
         birthday = time.strptime(birthday, "%Y-%m-%d")
         birthday = datetime.datetime(* birthday[:3])
+        #入院日期
+        entdate = request.POST.get('entdate', '')
+        entdate = time.strptime(entdate, "%Y-%m-%d")
+        entdate = datetime.datetime(* entdate[:3])
 
         patinfo = models.PatientInfo()
         patinfo.name = patname
@@ -707,7 +742,7 @@ def add_patient(request):
         user = User.objects.get(username=request.user)
         doc = models.Profile.objects.get(user_id=user.id)
         hospinfo.doctor = doc
-        hospinfo.entdate = datetime.datetime.now()
+        hospinfo.entdate = entdate #datetime.datetime.now()
         hospinfo.save()
         return HttpResponse('1')
         #return HttpResponseRedirect('/patpanel.html')
@@ -724,6 +759,7 @@ def pat_panel(request):
         <div class="panel panel-{evaluate_status_style}">
             <div class="panel-heading">
                 <i class="fa fa-male"></i> {name}
+                <div class="pull-right">{pat_status}</div>
             </div>
             <div class="panel-body">
                 <table class="table table-condensed" frame="void">
@@ -743,12 +779,17 @@ def pat_panel(request):
                         <td>卒中类型 </td>
                         <td>{dignose} </td>
                     </tr>
+                    <tr>
+                        <td>入院时间 </td>
+                        <td>{entdate} </td>
+                    </tr>
                 </table>
             </div>
             <div class="panel-footer">
                 {evaluate1}
                 {barthel_bar}
                 {check1}
+                <div class="pull-right">{remove}</div>
             </div>
         </div>
     </div>
@@ -757,24 +798,41 @@ def pat_panel(request):
     
     if role.group == 'doctor':#in=[role.id]
         #去掉999999，需要确保病人都有对应的医生
-        patients = models.HospitalizationInfo.objects.filter(doctor__in=[role.id]).order_by('evaluate_status')
+        patients = models.HospitalizationInfo.objects.filter(doctor__in=[role.id], evaluate_status__in=[1,2,3]).order_by('evaluate_status', '-entdate')
         for pat in patients:
             a_patient = models.PatientInfo.objects.get(id=pat.patid_id)
             age = int((pat.entdate - a_patient.birthday).days / 365 + 1)
+            #入院时间
+            entdate = pat.entdate.strftime('%Y-%m-%d')
+            #患者状态和下次barthel评测时间
+            #(患者面板右上角文字) 1. 院内患者表示该患者刚入院。 
+            # 2. 日期表示该患者下次Barthel量表评定时间（间隔7日）。 
+            # 3. 评测完成表示该患者已完成3次Barthel量表评定。 
+            # 4. 出院患者表示该患者已出院。
+            pat_status = '院内患者'
+            barthel_num = pat.barthel_set.count()
+            if barthel_num == 1 or barthel_num == 2:
+                barthel_new = pat.barthel_set.order_by('-evaluate_time')[0]
+                pat_status = barthel_new.evaluate_time.strftime('%Y-%m-%d')
+            elif barthel_num == 3:
+                pat_status = '评测完成'
+
             evaluate_status = pat.evaluate_status
             evaluate1 = '<a style="cursor:pointer" onclick="evaluate1({patid1})"><i class="fa fa-link"></i> 评定</a>'
             check1 = '<a style="cursor:pointer" onclick="check1({patid2}, {e_status})"><i class="fa fa-link"></i> 分析结果</a>'
             barthel_bar = '<a style="cursor:pointer" onclick="barthel_bar({patid1})"><i class="fa fa-link"></i> 量表</a>'
+            remove = '<a style="cursor:pointer" onclick="remove({patid1})"><i class="fa fa-link"></i> 移除</a>'
             evaluate1 = evaluate1.format(patid1=pat.id)
             barthel_bar = barthel_bar.format(patid1=pat.id)
+            remove = remove.format(patid1=pat.id)
             if evaluate_status == 2:
                 check1 = check1.format(patid2=pat.id, e_status=2)
-                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1=evaluate1, barthel_bar='', check1=check1, evaluate_status_style='danger')
+                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1=evaluate1, barthel_bar='', check1=check1, evaluate_status_style='danger', entdate=entdate, remove=remove, pat_status=pat_status)
             elif evaluate_status == 3:
                 check1 = check1.format(patid2=pat.id, e_status=3)
-                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1='', barthel_bar=barthel_bar, check1=check1, evaluate_status_style='warning')
+                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1='', barthel_bar=barthel_bar, check1=check1, evaluate_status_style='warning', entdate=entdate, remove=remove, pat_status=pat_status)
             else:
-                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1=evaluate1, barthel_bar='', check1='', evaluate_status_style='info')
+                page_html += pat_panel.format(name=a_patient.name, hospno=pat.hospitno_fk, sex=a_patient.sex, age=age, dignose=pat.dignose, evaluate1=evaluate1, barthel_bar='', check1='', evaluate_status_style='info', entdate=entdate, remove=remove, pat_status=pat_status)
     page_html = mark_safe(page_html)
     ret = {"page_html": page_html}
     return render(request, 'blog/patpanel.html', ret)
